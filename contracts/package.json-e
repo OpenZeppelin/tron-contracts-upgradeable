@@ -1,0 +1,31 @@
+{
+  "name": "@openzeppelin/tron-contracts-upgradeable",
+  "description": "Secure Smart Contract library for Solidity for Tron",
+  "version": "0.0.1",
+  "files": [
+    "**/*.sol",
+    "/build/contracts/*.json",
+    "!/mocks/**/*"
+  ],
+  "scripts": {
+    "prepack": "bash ../scripts/prepack.sh",
+    "prepare-docs": "cd ..; npm run prepare-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenZeppelin/tron-contracts-upgradeable.git"
+  },
+  "keywords": [
+    "solidity",
+    "tron",
+    "smart",
+    "contracts",
+    "security",
+    "zeppelin"
+  ],
+  "author": "OpenZeppelin Community <maintainers@openzeppelin.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OpenZeppelin/tron-contracts/issues"
+  }
+}
