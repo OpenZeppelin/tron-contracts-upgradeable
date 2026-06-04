@@ -3,8 +3,8 @@
 pragma solidity ^0.8.20;
 
 import {AccessManagedUpgradeable} from "../access/manager/AccessManagedUpgradeable.sol";
-import {StorageSlotUpgradeable} from "../utils/StorageSlotUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {StorageSlot} from "@openzeppelin/tron-contracts/contracts/utils/StorageSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract AccessManagedTargetUpgradeable is Initializable, AccessManagedUpgradeable {
     event CalledRestricted(address caller);
@@ -28,9 +28,9 @@ abstract contract AccessManagedTargetUpgradeable is Initializable, AccessManaged
         // Memory layout is 0x....<_consumingSchedule (boolean)><authority (address)>
         bytes32 mask = bytes32(uint256(1 << 160));
         if (isConsuming) {
-            StorageSlotUpgradeable.getBytes32Slot(slot).value |= mask;
+            StorageSlot.getBytes32Slot(slot).value |= mask;
         } else {
-            StorageSlotUpgradeable.getBytes32Slot(slot).value &= ~mask;
+            StorageSlot.getBytes32Slot(slot).value &= ~mask;
         }
     }
 

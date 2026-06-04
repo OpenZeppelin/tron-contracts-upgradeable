@@ -3,10 +3,11 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "./GovernorCountingSimpleUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for fractional voting.
@@ -33,7 +34,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * _Available since v5.1._
  */
 abstract contract GovernorCountingFractionalUpgradeable is Initializable, GovernorUpgradeable {
-    using MathUpgradeable for *;
+    using Math for *;
 
     uint8 internal constant VOTE_TYPE_FRACTIONAL = 255;
 
@@ -71,13 +72,13 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
 
     function __GovernorCountingFractional_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo,fractional&quorum=for,abstain&params=fractional";
     }
 
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function hasVoted(uint256 proposalId, address account) public view virtual override returns (bool) {
         return usedVotes(proposalId, account) > 0;
     }

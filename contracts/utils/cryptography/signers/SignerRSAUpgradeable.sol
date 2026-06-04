@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
-import {RSAUpgradeable} from "../RSAUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {RSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/RSA.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using xref:api:utils/cryptography#RSA[RSA] signatures.
@@ -26,7 +26,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * IMPORTANT: Failing to call {_setSigner} either during construction (if used standalone)
  * or during initialization (if used as a clone) may leave the signer either front-runnable or unusable.
  */
-abstract contract SignerRSAUpgradeable is Initializable, AbstractSignerUpgradeable {
+abstract contract SignerRSAUpgradeable is Initializable, AbstractSigner {
     /// @custom:storage-location erc7201:openzeppelin.storage.SignerRSA
     struct SignerRSAStorage {
         bytes _e;
@@ -79,6 +79,6 @@ abstract contract SignerRSAUpgradeable is Initializable, AbstractSignerUpgradeab
         bytes calldata signature
     ) internal view virtual override returns (bool) {
         (bytes memory e, bytes memory n) = signer();
-        return RSAUpgradeable.pkcs1Sha256(abi.encodePacked(hash), signature, e, n);
+        return RSA.pkcs1Sha256(abi.encodePacked(hash), signature, e, n);
     }
 }

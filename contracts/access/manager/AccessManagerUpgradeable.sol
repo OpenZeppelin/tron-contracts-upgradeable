@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessManagerUpgradeable} from "./IAccessManagerUpgradeable.sol";
-import {IAccessManagedUpgradeable} from "./IAccessManagedUpgradeable.sol";
-import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
+import {IAccessManager} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManager.sol";
+import {IAccessManaged} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManaged.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
-import {HashesUpgradeable} from "../../utils/cryptography/HashesUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
+import {Hashes} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/Hashes.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev AccessManager is a central contract to store the permissions of a system.
@@ -60,13 +60,13 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * mindful of the danger associated with functions such as {Ownable-renounceOwnership} or
  * {AccessControl-renounceRole}.
  */
-contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManagerUpgradeable {
-    using TimeUpgradeable for *;
+contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, MulticallUpgradeable, IAccessManager {
+    using Time for *;
 
     // Structure that stores the details for a target contract.
     struct TargetConfig {
         mapping(bytes4 selector => uint64 roleId) allowedRoles;
-        TimeUpgradeable.Delay adminDelay;
+        Time.Delay adminDelay;
         bool closed;
     }
 
@@ -76,7 +76,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         // If this is either 0 or in the future, then the role permission is not available.
         uint48 since;
         // Delay for execution. Only applies to restricted() / execute() calls.
-        TimeUpgradeable.Delay delay;
+        Time.Delay delay;
     }
 
     // Structure that stores the details of a role.
@@ -88,7 +88,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         // Guardian who can cancel operations targeting functions that need this role.
         uint64 guardian;
         // Delay in which the role takes effect after being granted.
-        TimeUpgradeable.Delay grantDelay;
+        Time.Delay grantDelay;
     }
 
     // Structure that stores the details for a scheduled operation. This structure fits into a single slot.
@@ -156,7 +156,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     // =================================================== GETTERS ====================================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function canCall(
         address caller,
         address target,
@@ -175,53 +175,53 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         }
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function expiration() public view virtual returns (uint32) {
         return 1 weeks;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function minSetback() public view virtual returns (uint32) {
         return 5 days;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function isTargetClosed(address target) public view virtual returns (bool) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._targets[target].closed;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getTargetFunctionRole(address target, bytes4 selector) public view virtual returns (uint64) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._targets[target].allowedRoles[selector];
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getTargetAdminDelay(address target) public view virtual returns (uint32) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._targets[target].adminDelay.get();
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getRoleAdmin(uint64 roleId) public view virtual returns (uint64) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._roles[roleId].admin;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getRoleGuardian(uint64 roleId) public view virtual returns (uint64) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._roles[roleId].guardian;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getRoleGrantDelay(uint64 roleId) public view virtual returns (uint32) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._roles[roleId].grantDelay.get();
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getAccess(
         uint64 roleId,
         address account
@@ -235,7 +235,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         return (since, currentDelay, pendingDelay, effect);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function hasRole(
         uint64 roleId,
         address account
@@ -244,12 +244,12 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
             return (true, 0);
         } else {
             (uint48 hasRoleSince, uint32 currentDelay, , ) = getAccess(roleId, account);
-            return (hasRoleSince != 0 && hasRoleSince <= TimeUpgradeable.timestamp(), currentDelay);
+            return (hasRoleSince != 0 && hasRoleSince <= Time.timestamp(), currentDelay);
         }
     }
 
     // =============================================== ROLE MANAGEMENT ===============================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function labelRole(uint64 roleId, string calldata label) public virtual onlyAuthorized {
         if (roleId == ADMIN_ROLE || roleId == PUBLIC_ROLE) {
             revert AccessManagerLockedRole(roleId);
@@ -257,17 +257,17 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         emit RoleLabel(roleId, label);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function grantRole(uint64 roleId, address account, uint32 executionDelay) public virtual onlyAuthorized {
         _grantRole(roleId, account, getRoleGrantDelay(roleId), executionDelay);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function revokeRole(uint64 roleId, address account) public virtual onlyAuthorized {
         _revokeRole(roleId, account);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function renounceRole(uint64 roleId, address callerConfirmation) public virtual {
         if (callerConfirmation != _msgSender()) {
             revert AccessManagerBadConfirmation();
@@ -275,17 +275,17 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         _revokeRole(roleId, callerConfirmation);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setRoleAdmin(uint64 roleId, uint64 admin) public virtual onlyAuthorized {
         _setRoleAdmin(roleId, admin);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setRoleGuardian(uint64 roleId, uint64 guardian) public virtual onlyAuthorized {
         _setRoleGuardian(roleId, guardian);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setGrantDelay(uint64 roleId, uint32 newDelay) public virtual onlyAuthorized {
         _setGrantDelay(roleId, newDelay);
     }
@@ -310,7 +310,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         uint48 since;
 
         if (newMember) {
-            since = TimeUpgradeable.timestamp() + grantDelay;
+            since = Time.timestamp() + grantDelay;
             $._roles[roleId].members[account] = Access({since: since, delay: executionDelay.toDelay()});
         } else {
             // No setback here. Value can be reset by doing revoke + grant, effectively allowing the admin to perform
@@ -403,7 +403,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     // ============================================= FUNCTION MANAGEMENT ==============================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setTargetFunctionRole(
         address target,
         bytes4[] calldata selectors,
@@ -425,7 +425,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         emit TargetFunctionRoleUpdated(target, selector, roleId);
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setTargetAdminDelay(address target, uint32 newDelay) public virtual onlyAuthorized {
         _setTargetAdminDelay(target, newDelay);
     }
@@ -444,7 +444,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     // =============================================== MODE MANAGEMENT ================================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function setTargetClosed(address target, bool closed) public virtual onlyAuthorized {
         _setTargetClosed(target, closed);
     }
@@ -461,20 +461,20 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
     }
 
     // ============================================== DELAYED OPERATIONS ==============================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getSchedule(bytes32 id) public view virtual returns (uint48) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         uint48 timepoint = $._schedules[id].timepoint;
         return _isExpired(timepoint) ? 0 : timepoint;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function getNonce(bytes32 id) public view virtual returns (uint32) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         return $._schedules[id].nonce;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function schedule(
         address target,
         bytes calldata data,
@@ -486,7 +486,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         // Fetch restrictions that apply to the caller on the targeted function
         (, uint32 setback) = _canCallExtended(caller, target, data);
 
-        uint48 minWhen = TimeUpgradeable.timestamp() + setback;
+        uint48 minWhen = Time.timestamp() + setback;
 
         // If call with delay is not authorized, or if requested timing is too soon, revert
         if (setback == 0 || (when > 0 && when < minWhen)) {
@@ -494,7 +494,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         }
 
         // Reuse variable due to stack too deep
-        when = uint48(MathUpgradeable.max(when, minWhen)); // cast is safe: both inputs are uint48
+        when = uint48(Math.max(when, minWhen)); // cast is safe: both inputs are uint48
 
         // If caller is authorised, schedule operation
         operationId = hashOperation(caller, target, data);
@@ -525,7 +525,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         }
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     // Reentrancy is not an issue because permissions are checked on msg.sender. Additionally,
     // _consumeScheduledOp guarantees a scheduled operation is only executed once.
     // slither-disable-next-line reentrancy-no-eth
@@ -555,7 +555,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         $._executionId = _hashExecutionId(target, _checkSelector(data));
 
         // Perform call
-        AddressUpgradeable.functionCallWithValue(target, data, msg.value);
+        Address.functionCallWithValue(target, data, msg.value);
 
         // Reset execute identifier
         $._executionId = executionIdBefore;
@@ -563,7 +563,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         return nonce;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function cancel(address caller, address target, bytes calldata data) public virtual returns (uint32) {
         AccessManagerStorage storage $ = _getAccessManagerStorage();
         address msgsender = _msgSender();
@@ -588,10 +588,10 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         return nonce;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function consumeScheduledOp(address caller, bytes calldata data) public virtual {
         address target = _msgSender();
-        if (IAccessManagedUpgradeable(target).isConsumingScheduledOp() != IAccessManagedUpgradeable.isConsumingScheduledOp.selector) {
+        if (IAccessManaged(target).isConsumingScheduledOp() != IAccessManaged.isConsumingScheduledOp.selector) {
             revert AccessManagerUnauthorizedConsume(target);
         }
         _consumeScheduledOp(hashOperation(caller, target, data));
@@ -609,7 +609,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
 
         if (timepoint == 0) {
             revert AccessManagerNotScheduled(operationId);
-        } else if (timepoint > TimeUpgradeable.timestamp()) {
+        } else if (timepoint > Time.timestamp()) {
             revert AccessManagerNotReady(operationId);
         } else if (_isExpired(timepoint)) {
             revert AccessManagerExpired(operationId);
@@ -621,15 +621,15 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         return nonce;
     }
 
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function hashOperation(address caller, address target, bytes calldata data) public view virtual returns (bytes32) {
         return keccak256(abi.encode(caller, target, data));
     }
 
     // ==================================================== OTHERS ====================================================
-    /// @inheritdoc IAccessManagerUpgradeable
+    /// @inheritdoc IAccessManager
     function updateAuthority(address target, address newAuthority) public virtual onlyAuthorized {
-        IAccessManagedUpgradeable(target).setAuthority(newAuthority);
+        IAccessManaged(target).setAuthority(newAuthority);
     }
 
     // ================================================= ADMIN LOGIC ==================================================
@@ -749,7 +749,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         }
 
         // downcast is safe because both options are uint32
-        delay = uint32(MathUpgradeable.max(operationDelay, executionDelay));
+        delay = uint32(Math.max(operationDelay, executionDelay));
         return (delay == 0, delay);
     }
 
@@ -765,7 +765,7 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * @dev Returns true if a schedule timepoint is past its expiration deadline.
      */
     function _isExpired(uint48 timepoint) private view returns (bool) {
-        return timepoint + expiration() <= TimeUpgradeable.timestamp();
+        return timepoint + expiration() <= Time.timestamp();
     }
 
     /**
@@ -779,6 +779,6 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
      * @dev Hashing function for execute protection
      */
     function _hashExecutionId(address target, bytes4 selector) private pure returns (bytes32) {
-        return HashesUpgradeable.efficientKeccak256(bytes32(uint256(uint160(target))), selector);
+        return Hashes.efficientKeccak256(bytes32(uint256(uint160(target))), selector);
     }
 }

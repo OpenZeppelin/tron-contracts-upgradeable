@@ -1,16 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {ITRC20Upgradeable, TRC20Upgradeable} from "../../../token/TRC20/TRC20Upgradeable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {TRC20Upgradeable} from "../../../token/TRC20/TRC20Upgradeable.sol";
 import {TRC20PermitUpgradeable} from "../../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import {TRC20VotesUpgradeable} from "../../../token/TRC20/extensions/TRC20VotesUpgradeable.sol";
 import {TRC20WrapperUpgradeable} from "../../../token/TRC20/extensions/TRC20WrapperUpgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MyTokenWrappedUpgradeable is Initializable, TRC20Upgradeable, TRC20PermitUpgradeable, TRC20VotesUpgradeable, TRC20WrapperUpgradeable {
     function __MyTokenWrapped_init(
-        ITRC20Upgradeable wrappedToken
+        ITRC20 wrappedToken
     ) internal onlyInitializing {
         __TRC20_init_unchained("MyTokenWrapped", "MTK");
         __EIP712_init_unchained("MyTokenWrapped", "1");
@@ -19,7 +20,7 @@ contract MyTokenWrappedUpgradeable is Initializable, TRC20Upgradeable, TRC20Perm
     }
 
     function __MyTokenWrapped_init_unchained(
-        ITRC20Upgradeable
+        ITRC20
     ) internal onlyInitializing {}
 
     // The functions below are overrides required by Solidity.

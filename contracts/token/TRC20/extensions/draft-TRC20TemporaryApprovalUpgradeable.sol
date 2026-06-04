@@ -3,12 +3,13 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20Upgradeable, TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {IERC7674Upgradeable} from "../../../interfaces/draft-IERC7674Upgradeable.sol";
-import {MathUpgradeable} from "../../../utils/math/MathUpgradeable.sol";
-import {SlotDerivationUpgradeable} from "../../../utils/SlotDerivationUpgradeable.sol";
-import {TransientSlotUpgradeable} from "../../../utils/TransientSlotUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
+import {IERC7674} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7674.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {SlotDerivation} from "@openzeppelin/tron-contracts/contracts/utils/SlotDerivation.sol";
+import {TransientSlot} from "@openzeppelin/tron-contracts/contracts/utils/TransientSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {TRC20} that adds support for temporary allowances following ERC-7674.
@@ -17,10 +18,10 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  *
  * _Available since v5.1._
  */
-abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgradeable, IERC7674Upgradeable {
-    using SlotDerivationUpgradeable for bytes32;
-    using TransientSlotUpgradeable for bytes32;
-    using TransientSlotUpgradeable for TransientSlotUpgradeable.Uint256Slot;
+abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgradeable, IERC7674 {
+    using SlotDerivation for bytes32;
+    using TransientSlot for bytes32;
+    using TransientSlot for TransientSlot.Uint256Slot;
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC20_TEMPORARY_APPROVAL_STORAGE")) - 1)) & ~bytes32(uint256(0xff))
     bytes32 private constant TRC20_TEMPORARY_APPROVAL_STORAGE =
@@ -35,8 +36,8 @@ abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgra
      * @dev {allowance} override that includes the temporary allowance when looking up the current allowance. If
      * adding up the persistent and the temporary allowances result in an overflow, type(uint256).max is returned.
      */
-    function allowance(address owner, address spender) public view virtual override(ITRC20Upgradeable, TRC20Upgradeable) returns (uint256) {
-        (bool success, uint256 amount) = MathUpgradeable.tryAdd(
+    function allowance(address owner, address spender) public view virtual override(ITRC20, TRC20Upgradeable) returns (uint256) {
+        (bool success, uint256 amount) = Math.tryAdd(
             super.allowance(owner, spender),
             _temporaryAllowance(owner, spender)
         );
@@ -105,7 +106,7 @@ abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgra
                 return;
             }
             // check how much of the value is covered by the transient allowance
-            uint256 spendTemporaryAllowance = MathUpgradeable.min(currentTemporaryAllowance, value);
+            uint256 spendTemporaryAllowance = Math.min(currentTemporaryAllowance, value);
             unchecked {
                 // decrease transient allowance accordingly
                 _temporaryApprove(owner, spender, currentTemporaryAllowance - spendTemporaryAllowance);
@@ -119,7 +120,7 @@ abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgra
         }
     }
 
-    function _temporaryAllowanceSlot(address owner, address spender) private pure returns (TransientSlotUpgradeable.Uint256Slot) {
+    function _temporaryAllowanceSlot(address owner, address spender) private pure returns (TransientSlot.Uint256Slot) {
         return TRC20_TEMPORARY_APPROVAL_STORAGE.deriveMapping(owner).deriveMapping(spender).asUint256();
     }
 }

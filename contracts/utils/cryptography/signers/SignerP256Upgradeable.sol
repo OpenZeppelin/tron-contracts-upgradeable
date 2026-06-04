@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
-import {P256Upgradeable} from "../P256Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {P256} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/P256.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using xref:api:utils/cryptography#P256[P256] signatures.
@@ -26,7 +26,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * IMPORTANT: Failing to call {_setSigner} either during construction (if used standalone)
  * or during initialization (if used as a clone) may leave the signer either front-runnable or unusable.
  */
-abstract contract SignerP256Upgradeable is Initializable, AbstractSignerUpgradeable {
+abstract contract SignerP256Upgradeable is Initializable, AbstractSigner {
     /// @custom:storage-location erc7201:openzeppelin.storage.SignerP256
     struct SignerP256Storage {
         bytes32 _qx;
@@ -58,7 +58,7 @@ abstract contract SignerP256Upgradeable is Initializable, AbstractSignerUpgradea
      */
     function _setSigner(bytes32 qx, bytes32 qy) internal {
         SignerP256Storage storage $ = _getSignerP256Storage();
-        if (!P256Upgradeable.isValidPublicKey(qx, qy)) revert SignerP256InvalidPublicKey(qx, qy);
+        if (!P256.isValidPublicKey(qx, qy)) revert SignerP256InvalidPublicKey(qx, qy);
         $._qx = qx;
         $._qy = qy;
     }
@@ -69,7 +69,7 @@ abstract contract SignerP256Upgradeable is Initializable, AbstractSignerUpgradea
         return ($._qx, $._qy);
     }
 
-    /// @inheritdoc AbstractSignerUpgradeable
+    /// @inheritdoc AbstractSigner
     function _rawSignatureValidation(
         bytes32 hash,
         bytes calldata signature
@@ -78,6 +78,6 @@ abstract contract SignerP256Upgradeable is Initializable, AbstractSignerUpgradea
         bytes32 r = bytes32(signature[0x00:0x20]);
         bytes32 s = bytes32(signature[0x20:0x40]);
         (bytes32 qx, bytes32 qy) = signer();
-        return P256Upgradeable.verify(hash, r, s, qx, qy);
+        return P256.verify(hash, r, s, qx, qy);
     }
 }

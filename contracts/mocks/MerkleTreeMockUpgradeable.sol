@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.20;
 
-import {MerkleTreeUpgradeable} from "../utils/structs/MerkleTreeUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {MerkleTree} from "@openzeppelin/tron-contracts/contracts/utils/structs/MerkleTree.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MerkleTreeMockUpgradeable is Initializable {
-    using MerkleTreeUpgradeable for MerkleTreeUpgradeable.Bytes32PushTree;
+    using MerkleTree for MerkleTree.Bytes32PushTree;
 
-    MerkleTreeUpgradeable.Bytes32PushTree private _tree;
+    MerkleTree.Bytes32PushTree private _tree;
 
     // This mock only stored the latest root.
     // Production contract may want to store historical values.
@@ -34,7 +34,7 @@ contract MerkleTreeMockUpgradeable is Initializable {
 
     function update(uint256 index, bytes32 oldValue, bytes32 newValue, bytes32[] memory proof) public {
         (bytes32 oldRoot, bytes32 newRoot) = _tree.update(index, oldValue, newValue, proof);
-        if (oldRoot != root) revert MerkleTreeUpgradeable.MerkleTreeUpdateInvalidProof();
+        if (oldRoot != root) revert MerkleTree.MerkleTreeUpdateInvalidProof();
         emit LeafUpdated(oldValue, newValue, index, newRoot);
         root = newRoot;
     }

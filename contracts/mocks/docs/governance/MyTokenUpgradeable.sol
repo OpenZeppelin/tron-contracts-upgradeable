@@ -5,7 +5,7 @@ import {TRC20Upgradeable} from "../../../token/TRC20/TRC20Upgradeable.sol";
 import {TRC20PermitUpgradeable} from "../../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import {TRC20VotesUpgradeable} from "../../../token/TRC20/extensions/TRC20VotesUpgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MyTokenUpgradeable is Initializable, TRC20Upgradeable, TRC20PermitUpgradeable, TRC20VotesUpgradeable {
     function __MyToken_init() internal onlyInitializing {

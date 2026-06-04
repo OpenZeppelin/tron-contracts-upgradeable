@@ -3,14 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC1155Upgradeable} from "./ITRC1155Upgradeable.sol";
-import {ITRC1155MetadataURIUpgradeable} from "./extensions/ITRC1155MetadataURIUpgradeable.sol";
-import {TRC1155UtilsUpgradeable} from "./utils/TRC1155UtilsUpgradeable.sol";
+import {ITRC1155} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITRC1155.sol";
+import {ITRC1155MetadataURI} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
+import {TRC1155Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {ArraysUpgradeable} from "../../utils/ArraysUpgradeable.sol";
-import {ITRC1155ErrorsUpgradeable} from "../../interfaces/draft-IERC6093Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {Arrays} from "@openzeppelin/tron-contracts/contracts/utils/Arrays.sol";
+import {ITRC1155Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token defined in
@@ -19,9 +20,9 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  *
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
  */
-abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC1155Upgradeable, ITRC1155MetadataURIUpgradeable, ITRC1155ErrorsUpgradeable {
-    using ArraysUpgradeable for uint256[];
-    using ArraysUpgradeable for address[];
+abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC1155, ITRC1155MetadataURI, ITRC1155Errors {
+    using Arrays for uint256[];
+    using Arrays for address[];
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC1155
     struct TRC1155Storage {
@@ -53,11 +54,11 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         _setURI(uri_);
     }
 
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
         return
-            interfaceId == type(ITRC1155Upgradeable).interfaceId ||
-            interfaceId == type(ITRC1155MetadataURIUpgradeable).interfaceId ||
+            interfaceId == type(ITRC1155).interfaceId ||
+            interfaceId == type(ITRC1155MetadataURI).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
@@ -76,7 +77,7 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         return $._uri;
     }
 
-    /// @inheritdoc ITRC1155Upgradeable
+    /// @inheritdoc ITRC1155
     function balanceOf(address account, uint256 id) public view virtual returns (uint256) {
         TRC1155Storage storage $ = _getTRC1155Storage();
         return $._balances[id][account];
@@ -106,24 +107,24 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         return batchBalances;
     }
 
-    /// @inheritdoc ITRC1155Upgradeable
+    /// @inheritdoc ITRC1155
     function setApprovalForAll(address operator, bool approved) public virtual {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
 
-    /// @inheritdoc ITRC1155Upgradeable
+    /// @inheritdoc ITRC1155
     function isApprovedForAll(address account, address operator) public view virtual returns (bool) {
         TRC1155Storage storage $ = _getTRC1155Storage();
         return $._operatorApprovals[account][operator];
     }
 
-    /// @inheritdoc ITRC1155Upgradeable
+    /// @inheritdoc ITRC1155
     function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes memory data) public virtual {
         _checkAuthorized(_msgSender(), from);
         _safeTransferFrom(from, to, id, value, data);
     }
 
-    /// @inheritdoc ITRC1155Upgradeable
+    /// @inheritdoc ITRC1155
     function safeBatchTransferFrom(
         address from,
         address to,
@@ -236,11 +237,11 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         if (to != address(0)) {
             address operator = _msgSender();
             if (batch) {
-                TRC1155UtilsUpgradeable.checkOnTRC1155BatchReceived(operator, from, to, ids, values, data);
+                TRC1155Utils.checkOnTRC1155BatchReceived(operator, from, to, ids, values, data);
             } else {
                 uint256 id = ids.unsafeMemoryAccess(0);
                 uint256 value = values.unsafeMemoryAccess(0);
-                TRC1155UtilsUpgradeable.checkOnTRC1155Received(operator, from, to, id, value, data);
+                TRC1155Utils.checkOnTRC1155Received(operator, from, to, id, value, data);
             }
         }
     }

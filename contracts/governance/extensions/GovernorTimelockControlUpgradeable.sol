@@ -3,10 +3,11 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../TimelockControllerUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a
@@ -85,7 +86,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorU
         return address($._timelock);
     }
 
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function proposalNeedsQueuing(uint256) public view virtual override returns (bool) {
         return true;
     }
@@ -107,7 +108,7 @@ abstract contract GovernorTimelockControlUpgradeable is Initializable, GovernorU
         $._timelockIds[proposalId] = $._timelock.hashOperationBatch(targets, values, calldatas, 0, salt);
         $._timelock.scheduleBatch(targets, values, calldatas, 0, salt, delay);
 
-        return SafeCastUpgradeable.toUint48(block.timestamp + delay);
+        return SafeCast.toUint48(block.timestamp + delay);
     }
 
     /**

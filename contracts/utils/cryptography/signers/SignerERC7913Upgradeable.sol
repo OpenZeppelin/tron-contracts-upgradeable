@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
-import {SignatureCheckerUpgradeable} from "../SignatureCheckerUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using
@@ -34,7 +34,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * or during initialization (if used as a clone) may leave the signer either front-runnable or unusable.
  */
 
-abstract contract SignerERC7913Upgradeable is Initializable, AbstractSignerUpgradeable {
+abstract contract SignerERC7913Upgradeable is Initializable, AbstractSigner {
     /// @custom:storage-location erc7201:openzeppelin.storage.SignerERC7913
     struct SignerERC7913Storage {
         bytes _signer;
@@ -77,6 +77,6 @@ abstract contract SignerERC7913Upgradeable is Initializable, AbstractSignerUpgra
         bytes32 hash,
         bytes calldata signature
     ) internal view virtual override returns (bool) {
-        return SignatureCheckerUpgradeable.isValidSignatureNow(signer(), hash, signature);
+        return SignatureChecker.isValidSignatureNow(signer(), hash, signature);
     }
 }

@@ -4,15 +4,16 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {ERC165Upgradeable, IERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
-import {IERC7802Upgradeable} from "../../../interfaces/draft-IERC7802Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {IERC7802} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7802.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC20 extension that implements the standard token interface according to
  * https://eips.ethereum.org/EIPS/eip-7802[ERC-7802].
  */
-abstract contract TRC20BridgeableUpgradeable is Initializable, TRC20Upgradeable, ERC165Upgradeable, IERC7802Upgradeable {
+abstract contract TRC20BridgeableUpgradeable is Initializable, TRC20Upgradeable, ERC165Upgradeable, IERC7802 {
     /// @dev Modifier to restrict access to the token bridge.
     modifier onlyTokenBridge() {
         // Token bridge should never be impersonated using a relayer/forwarder. Using msg.sender is preferable to
@@ -27,8 +28,8 @@ abstract contract TRC20BridgeableUpgradeable is Initializable, TRC20Upgradeable,
     function __TRC20Bridgeable_init_unchained() internal onlyInitializing {
     }
     /// @inheritdoc ERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC7802Upgradeable).interfaceId || super.supportsInterface(interfaceId);
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC7802).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

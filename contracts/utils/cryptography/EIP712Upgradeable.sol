@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {MessageHashUtilsUpgradeable} from "./MessageHashUtilsUpgradeable.sol";
-import {IERC5267Upgradeable} from "../../interfaces/IERC5267Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {MessageHashUtils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
+import {IERC5267} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5267.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev https://eips.ethereum.org/EIPS/eip-712[EIP-712] is a standard for hashing and signing of typed structured data.
@@ -28,7 +28,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * NOTE: The upgradeable version of this contract does not use an immutable cache and recomputes the domain separator
  * each time {_domainSeparatorV4} is called. This is cheaper than accessing a cached version in cold storage.
  */
-abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
+abstract contract EIP712Upgradeable is Initializable, IERC5267 {
     bytes32 private constant TYPE_HASH =
         keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
 
@@ -99,10 +99,10 @@ abstract contract EIP712Upgradeable is Initializable, IERC5267Upgradeable {
      * ```
      */
     function _hashTypedDataV4(bytes32 structHash) internal view virtual returns (bytes32) {
-        return MessageHashUtilsUpgradeable.toTypedDataHash(_domainSeparatorV4(), structHash);
+        return MessageHashUtils.toTypedDataHash(_domainSeparatorV4(), structHash);
     }
 
-    /// @inheritdoc IERC5267Upgradeable
+    /// @inheritdoc IERC5267
     function eip712Domain()
         public
         view

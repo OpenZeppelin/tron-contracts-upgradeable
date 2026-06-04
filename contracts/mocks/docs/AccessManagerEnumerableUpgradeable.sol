@@ -3,8 +3,8 @@
 pragma solidity ^0.8.24;
 
 import {AccessManagerUpgradeable} from "../../access/manager/AccessManagerUpgradeable.sol";
-import {EnumerableSetUpgradeable} from "../../utils/structs/EnumerableSetUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessManager} that allows enumerating the members of each role
@@ -15,11 +15,11 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * and 0 respectively.
  */
 abstract contract AccessManagerEnumerableUpgradeable is Initializable, AccessManagerUpgradeable {
-    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
-    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.Bytes4Set;
+    using EnumerableSet for EnumerableSet.AddressSet;
+    using EnumerableSet for EnumerableSet.Bytes4Set;
 
-    mapping(uint64 roleId => EnumerableSetUpgradeable.AddressSet) private _roleMembers;
-    mapping(uint64 roleId => mapping(address target => EnumerableSetUpgradeable.Bytes4Set)) private _roleTargetFunctions;
+    mapping(uint64 roleId => EnumerableSet.AddressSet) private _roleMembers;
+    mapping(uint64 roleId => mapping(address target => EnumerableSet.Bytes4Set)) private _roleTargetFunctions;
 
     function __AccessManagerEnumerable_init() internal onlyInitializing {
     }

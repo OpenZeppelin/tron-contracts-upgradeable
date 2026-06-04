@@ -4,14 +4,14 @@
 pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
-import {IERC6909MetadataUpgradeable} from "../../../interfaces/IERC6909Upgradeable.sol";
-import {IERC165Upgradeable} from "../../../utils/introspection/IERC165Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IERC6909Metadata} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Metadata extension defined in ERC6909. Exposes the name, symbol, and decimals of each token id.
  */
-contract ERC6909MetadataUpgradeable is Initializable, ERC6909Upgradeable, IERC6909MetadataUpgradeable {
+contract ERC6909MetadataUpgradeable is Initializable, ERC6909Upgradeable, IERC6909Metadata {
     struct TokenMetadata {
         string name;
         string symbol;
@@ -46,27 +46,27 @@ contract ERC6909MetadataUpgradeable is Initializable, ERC6909Upgradeable, IERC69
 
     function __ERC6909Metadata_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC6909MetadataUpgradeable
+    /// @inheritdoc IERC6909Metadata
     function name(uint256 id) public view virtual override returns (string memory) {
         ERC6909MetadataStorage storage $ = _getERC6909MetadataStorage();
         return $._tokenMetadata[id].name;
     }
 
-    /// @inheritdoc IERC6909MetadataUpgradeable
+    /// @inheritdoc IERC6909Metadata
     function symbol(uint256 id) public view virtual override returns (string memory) {
         ERC6909MetadataStorage storage $ = _getERC6909MetadataStorage();
         return $._tokenMetadata[id].symbol;
     }
 
-    /// @inheritdoc IERC6909MetadataUpgradeable
+    /// @inheritdoc IERC6909Metadata
     function decimals(uint256 id) public view virtual override returns (uint8) {
         ERC6909MetadataStorage storage $ = _getERC6909MetadataStorage();
         return $._tokenMetadata[id].decimals;
     }
 
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC6909MetadataUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909Metadata).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

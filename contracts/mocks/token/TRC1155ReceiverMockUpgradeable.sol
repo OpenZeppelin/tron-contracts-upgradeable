@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC1155ReceiverUpgradeable} from "../../token/TRC1155/ITRC1155ReceiverUpgradeable.sol";
+import {ITRC1155Receiver} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITRC1155Receiver.sol";
 import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract TRC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, ITRC1155ReceiverUpgradeable {
+contract TRC1155ReceiverMockUpgradeable is Initializable, ERC165Upgradeable, ITRC1155Receiver {
     enum RevertType {
         None,
         RevertWithoutMessage,

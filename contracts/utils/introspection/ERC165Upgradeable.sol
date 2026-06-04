@@ -3,8 +3,8 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC165Upgradeable} from "./IERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -18,14 +18,14 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * }
  * ```
  */
-abstract contract ERC165Upgradeable is Initializable, IERC165Upgradeable {
+abstract contract ERC165Upgradeable is Initializable, IERC165 {
     function __ERC165_init() internal onlyInitializing {
     }
 
     function __ERC165_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {
-        return interfaceId == type(IERC165Upgradeable).interfaceId;
+        return interfaceId == type(IERC165).interfaceId;
     }
 }

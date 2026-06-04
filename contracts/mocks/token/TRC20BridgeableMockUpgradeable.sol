@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC20BridgeableUpgradeable} from "../../token/TRC20/extensions/draft-TRC20BridgeableUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC20BridgeableMockUpgradeable is Initializable, TRC20BridgeableUpgradeable {
     address private _bridge;

@@ -3,8 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that changes the numbering of proposal ids from the default hash-based approach to
@@ -37,7 +38,7 @@ abstract contract GovernorSequentialProposalIdUpgradeable is Initializable, Gove
 
     function __GovernorSequentialProposalId_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function getProposalId(
         address[] memory targets,
         uint256[] memory values,

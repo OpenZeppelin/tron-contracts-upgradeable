@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20Upgradeable} from "./ITRC20Upgradeable.sol";
-import {ITRC20MetadataUpgradeable} from "./extensions/ITRC20MetadataUpgradeable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Metadata.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {ITRC20ErrorsUpgradeable} from "../../interfaces/draft-IERC6093Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {ITRC20Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the {ITRC20} interface.
@@ -27,7 +27,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * conventional and does not conflict with the expectations of TRC-20
  * applications.
  */
-abstract contract TRC20Upgradeable is Initializable, ContextUpgradeable, ITRC20Upgradeable, ITRC20MetadataUpgradeable, ITRC20ErrorsUpgradeable {
+abstract contract TRC20Upgradeable is Initializable, ContextUpgradeable, ITRC20, ITRC20Metadata, ITRC20Errors {
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC20
     struct TRC20Storage {
         mapping(address account => uint256) _balances;
@@ -98,13 +98,13 @@ abstract contract TRC20Upgradeable is Initializable, ContextUpgradeable, ITRC20U
         return 18;
     }
 
-    /// @inheritdoc ITRC20Upgradeable
+    /// @inheritdoc ITRC20
     function totalSupply() public view virtual returns (uint256) {
         TRC20Storage storage $ = _getTRC20Storage();
         return $._totalSupply;
     }
 
-    /// @inheritdoc ITRC20Upgradeable
+    /// @inheritdoc ITRC20
     function balanceOf(address account) public view virtual returns (uint256) {
         TRC20Storage storage $ = _getTRC20Storage();
         return $._balances[account];
@@ -124,7 +124,7 @@ abstract contract TRC20Upgradeable is Initializable, ContextUpgradeable, ITRC20U
         return true;
     }
 
-    /// @inheritdoc ITRC20Upgradeable
+    /// @inheritdoc ITRC20
     function allowance(address owner, address spender) public view virtual returns (uint256) {
         TRC20Storage storage $ = _getTRC20Storage();
         return $._allowances[owner][spender];

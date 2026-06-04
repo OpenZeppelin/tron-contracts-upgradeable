@@ -4,10 +4,11 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
-import {IERC1363Upgradeable} from "../../../interfaces/IERC1363Upgradeable.sol";
-import {ERC1363UtilsUpgradeable} from "../utils/ERC1363UtilsUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
+import {IERC1363} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC1363.sol";
+import {ERC1363Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/ERC1363Utils.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @title ERC1363
@@ -17,7 +18,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  *
  * _Available since v5.1._
  */
-abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165Upgradeable, IERC1363Upgradeable {
+abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165Upgradeable, IERC1363 {
     /**
      * @dev Indicates a failure within the {transfer} part of a transferAndCall operation.
      * @param receiver Address to which tokens are being transferred.
@@ -45,9 +46,9 @@ abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165U
 
     function __ERC1363_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC1363Upgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC1363).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**
@@ -74,7 +75,7 @@ abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165U
         if (!transfer(to, value)) {
             revert ERC1363TransferFailed(to, value);
         }
-        ERC1363UtilsUpgradeable.checkOnERC1363TransferReceived(_msgSender(), _msgSender(), to, value, data);
+        ERC1363Utils.checkOnERC1363TransferReceived(_msgSender(), _msgSender(), to, value, data);
         return true;
     }
 
@@ -107,7 +108,7 @@ abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165U
         if (!transferFrom(from, to, value)) {
             revert ERC1363TransferFromFailed(from, to, value);
         }
-        ERC1363UtilsUpgradeable.checkOnERC1363TransferReceived(_msgSender(), from, to, value, data);
+        ERC1363Utils.checkOnERC1363TransferReceived(_msgSender(), from, to, value, data);
         return true;
     }
 
@@ -135,7 +136,7 @@ abstract contract ERC1363Upgradeable is Initializable, TRC20Upgradeable, ERC165U
         if (!approve(spender, value)) {
             revert ERC1363ApproveFailed(spender, value);
         }
-        ERC1363UtilsUpgradeable.checkOnERC1363ApprovalReceived(_msgSender(), spender, value, data);
+        ERC1363Utils.checkOnERC1363ApprovalReceived(_msgSender(), spender, value, data);
         return true;
     }
 }

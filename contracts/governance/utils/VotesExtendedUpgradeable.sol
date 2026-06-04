@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
 import {VotesUpgradeable} from "./VotesUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Votes} that adds checkpoints for delegations and balances.
@@ -34,13 +34,13 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * {TRC20Votes} and {TRC721Votes} follow this pattern and are thus safe to use with {VotesExtended}.
  */
 abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
+    using Checkpoints for Checkpoints.Trace160;
+    using Checkpoints for Checkpoints.Trace208;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.VotesExtended
     struct VotesExtendedStorage {
-        mapping(address delegator => CheckpointsUpgradeable.Trace160) _userDelegationCheckpoints;
-        mapping(address account => CheckpointsUpgradeable.Trace208) _userVotingUnitsCheckpoints;
+        mapping(address delegator => Checkpoints.Trace160) _userDelegationCheckpoints;
+        mapping(address account => Checkpoints.Trace208) _userVotingUnitsCheckpoints;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.VotesExtended")) - 1)) & ~bytes32(uint256(0xff))
@@ -97,10 +97,10 @@ abstract contract VotesExtendedUpgradeable is Initializable, VotesUpgradeable {
         super._transferVotingUnits(from, to, amount);
         if (from != to) {
             if (from != address(0)) {
-                $._userVotingUnitsCheckpoints[from].push(clock(), SafeCastUpgradeable.toUint208(_getVotingUnits(from)));
+                $._userVotingUnitsCheckpoints[from].push(clock(), SafeCast.toUint208(_getVotingUnits(from)));
             }
             if (to != address(0)) {
-                $._userVotingUnitsCheckpoints[to].push(clock(), SafeCastUpgradeable.toUint208(_getVotingUnits(to)));
+                $._userVotingUnitsCheckpoints[to].push(clock(), SafeCast.toUint208(_getVotingUnits(to)));
             }
         }
     }

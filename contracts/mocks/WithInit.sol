@@ -54,14 +54,14 @@ contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
 import "../crosschain/bridges/BridgeERC20Upgradeable.sol";
 
 contract BridgeERC20UpgradeableWithInit is BridgeERC20Upgradeable {
-    constructor(ITRC20Upgradeable token_) payable initializer {
+    constructor(ITRC20 token_) payable initializer {
         __BridgeERC20_init(token_);
     }
 }
 import "../crosschain/bridges/BridgeERC7802Upgradeable.sol";
 
 contract BridgeERC7802UpgradeableWithInit is BridgeERC7802Upgradeable {
-    constructor(IERC7802Upgradeable token_) payable initializer {
+    constructor(IERC7802 token_) payable initializer {
         __BridgeERC7802_init(token_);
     }
 }
@@ -307,7 +307,7 @@ import "./docs/governance/MyGovernorUpgradeable.sol";
 
 contract MyGovernorUpgradeableWithInit is MyGovernorUpgradeable {
     constructor(
-        IVotesUpgradeable _token,
+        IVotes _token,
         TimelockControllerUpgradeable _timelock
     ) payable initializer {
         __MyGovernor_init(_token, _timelock);
@@ -331,7 +331,7 @@ import "./docs/governance/MyTokenWrappedUpgradeable.sol";
 
 contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
     constructor(
-        ITRC20Upgradeable wrappedToken
+        ITRC20 wrappedToken
     ) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
     }
@@ -1123,13 +1123,6 @@ contract TRC1155UpgradeableWithInit is TRC1155Upgradeable {
         __TRC1155_init(uri_);
     }
 }
-import "../token/TRC1155/utils/TRC1155HolderUpgradeable.sol";
-
-contract TRC1155HolderUpgradeableWithInit is TRC1155HolderUpgradeable {
-    constructor() payable initializer {
-        __TRC1155Holder_init();
-    }
-}
 import "../token/TRC20/extensions/draft-TRC20TemporaryApprovalUpgradeable.sol";
 
 contract TRC20TemporaryApprovalUpgradeableWithInit is TRC20TemporaryApprovalUpgradeable {
@@ -1196,14 +1189,14 @@ contract TRC20VotesUpgradeableWithInit is TRC20VotesUpgradeable {
 import "../token/TRC20/extensions/TRC20WrapperUpgradeable.sol";
 
 contract TRC20WrapperUpgradeableWithInit is TRC20WrapperUpgradeable {
-    constructor(ITRC20Upgradeable underlyingToken) payable initializer {
+    constructor(ITRC20 underlyingToken) payable initializer {
         __TRC20Wrapper_init(underlyingToken);
     }
 }
 import "../token/TRC20/extensions/TRC4626Upgradeable.sol";
 
 contract TRC4626UpgradeableWithInit is TRC4626Upgradeable {
-    constructor(ITRC20Upgradeable asset_) payable initializer {
+    constructor(ITRC20 asset_) payable initializer {
         __TRC4626_init(asset_);
     }
 }
@@ -1266,7 +1259,7 @@ contract TRC721VotesUpgradeableWithInit is TRC721VotesUpgradeable {
 import "../token/TRC721/extensions/TRC721WrapperUpgradeable.sol";
 
 contract TRC721WrapperUpgradeableWithInit is TRC721WrapperUpgradeable {
-    constructor(ITRC721Upgradeable underlyingToken) payable initializer {
+    constructor(ITRC721 underlyingToken) payable initializer {
         __TRC721Wrapper_init(underlyingToken);
     }
 }
@@ -1275,13 +1268,6 @@ import "../token/TRC721/TRC721Upgradeable.sol";
 contract TRC721UpgradeableWithInit is TRC721Upgradeable {
     constructor(string memory name_, string memory symbol_) payable initializer {
         __TRC721_init(name_, symbol_);
-    }
-}
-import "../token/TRC721/utils/TRC721HolderUpgradeable.sol";
-
-contract TRC721HolderUpgradeableWithInit is TRC721HolderUpgradeable {
-    constructor() payable initializer {
-        __TRC721Holder_init();
     }
 }
 import "../utils/ContextUpgradeable.sol";
@@ -1319,13 +1305,6 @@ contract SignerECDSAUpgradeableWithInit is SignerECDSAUpgradeable {
         __SignerECDSA_init(signerAddr);
     }
 }
-import "../utils/cryptography/signers/SignerEIP7702Upgradeable.sol";
-
-contract SignerEIP7702UpgradeableWithInit is SignerEIP7702Upgradeable {
-    constructor() payable initializer {
-        __SignerEIP7702_init();
-    }
-}
 import "../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
 
 contract SignerERC7913UpgradeableWithInit is SignerERC7913Upgradeable {
@@ -1352,27 +1331,6 @@ import "../utils/cryptography/signers/SignerWebAuthnUpgradeable.sol";
 contract SignerWebAuthnUpgradeableWithInit is SignerWebAuthnUpgradeable {
     constructor() payable initializer {
         __SignerWebAuthn_init();
-    }
-}
-import "../utils/cryptography/verifiers/ERC7913P256VerifierUpgradeable.sol";
-
-contract ERC7913P256VerifierUpgradeableWithInit is ERC7913P256VerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913P256Verifier_init();
-    }
-}
-import "../utils/cryptography/verifiers/ERC7913RSAVerifierUpgradeable.sol";
-
-contract ERC7913RSAVerifierUpgradeableWithInit is ERC7913RSAVerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913RSAVerifier_init();
-    }
-}
-import "../utils/cryptography/verifiers/ERC7913WebAuthnVerifierUpgradeable.sol";
-
-contract ERC7913WebAuthnVerifierUpgradeableWithInit is ERC7913WebAuthnVerifierUpgradeable {
-    constructor() payable initializer {
-        __ERC7913WebAuthnVerifier_init();
     }
 }
 import "../utils/introspection/ERC165Upgradeable.sol";
@@ -1408,19 +1366,5 @@ import "../utils/PausableUpgradeable.sol";
 contract PausableUpgradeableWithInit is PausableUpgradeable {
     constructor() payable initializer {
         __Pausable_init();
-    }
-}
-import "../utils/ReentrancyGuardUpgradeable.sol";
-
-contract ReentrancyGuardUpgradeableWithInit is ReentrancyGuardUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyGuard_init();
-    }
-}
-import "../utils/ReentrancyGuardTransientUpgradeable.sol";
-
-contract ReentrancyGuardTransientUpgradeableWithInit is ReentrancyGuardTransientUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyGuardTransient_init();
     }
 }

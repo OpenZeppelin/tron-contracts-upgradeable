@@ -3,16 +3,17 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC6909Upgradeable} from "../../interfaces/IERC6909Upgradeable.sol";
+import {IERC6909} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC6909.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of ERC-6909.
  * See https://eips.ethereum.org/EIPS/eip-6909
  */
-contract ERC6909Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC6909Upgradeable {
+contract ERC6909Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, IERC6909 {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909
     struct ERC6909Storage {
         mapping(address owner => mapping(uint256 id => uint256)) _balances;
@@ -43,48 +44,48 @@ contract ERC6909Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradea
 
     function __ERC6909_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC6909Upgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function balanceOf(address owner, uint256 id) public view virtual override returns (uint256) {
         ERC6909Storage storage $ = _getERC6909Storage();
         return $._balances[owner][id];
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function allowance(address owner, address spender, uint256 id) public view virtual override returns (uint256) {
         ERC6909Storage storage $ = _getERC6909Storage();
         return $._allowances[owner][spender][id];
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function isOperator(address owner, address spender) public view virtual override returns (bool) {
         ERC6909Storage storage $ = _getERC6909Storage();
         return $._operatorApprovals[owner][spender];
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function approve(address spender, uint256 id, uint256 amount) public virtual override returns (bool) {
         _approve(_msgSender(), spender, id, amount);
         return true;
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function setOperator(address spender, bool approved) public virtual override returns (bool) {
         _setOperator(_msgSender(), spender, approved);
         return true;
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function transfer(address receiver, uint256 id, uint256 amount) public virtual override returns (bool) {
         _transfer(_msgSender(), receiver, id, amount);
         return true;
     }
 
-    /// @inheritdoc IERC6909Upgradeable
+    /// @inheritdoc IERC6909
     function transferFrom(
         address sender,
         address receiver,

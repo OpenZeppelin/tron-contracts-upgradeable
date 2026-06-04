@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC721Upgradeable, TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721ReceiverUpgradeable} from "../ITRC721ReceiverUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC721} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721.sol";
+import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
+import {ITRC721Receiver} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721Receiver.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the TRC-721 token contract to support token wrapping.
@@ -14,10 +15,10 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * useful in conjunction with other modules. For example, combining this wrapping mechanism with {TRC721Votes} will allow
  * the wrapping of an existing "basic" TRC-721 into a governance token.
  */
-abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, ITRC721ReceiverUpgradeable {
+abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, ITRC721Receiver {
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721Wrapper
     struct TRC721WrapperStorage {
-        ITRC721Upgradeable _underlying;
+        ITRC721 _underlying;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721Wrapper")) - 1)) & ~bytes32(uint256(0xff))
@@ -34,11 +35,11 @@ abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, 
      */
     error TRC721UnsupportedToken(address token);
 
-    function __TRC721Wrapper_init(ITRC721Upgradeable underlyingToken) internal onlyInitializing {
+    function __TRC721Wrapper_init(ITRC721 underlyingToken) internal onlyInitializing {
         __TRC721Wrapper_init_unchained(underlyingToken);
     }
 
-    function __TRC721Wrapper_init_unchained(ITRC721Upgradeable underlyingToken) internal onlyInitializing {
+    function __TRC721Wrapper_init_unchained(ITRC721 underlyingToken) internal onlyInitializing {
         TRC721WrapperStorage storage $ = _getTRC721WrapperStorage();
         $._underlying = underlyingToken;
     }
@@ -95,7 +96,7 @@ abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, 
             revert TRC721UnsupportedToken(_msgSender());
         }
         _safeMint(from, tokenId);
-        return ITRC721ReceiverUpgradeable.onTRC721Received.selector;
+        return ITRC721Receiver.onTRC721Received.selector;
     }
 
     /**
@@ -114,7 +115,7 @@ abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, 
     /**
      * @dev Returns the underlying token.
      */
-    function underlying() public view virtual returns (ITRC721Upgradeable) {
+    function underlying() public view virtual returns (ITRC721) {
         TRC721WrapperStorage storage $ = _getTRC721WrapperStorage();
         return $._underlying;
     }

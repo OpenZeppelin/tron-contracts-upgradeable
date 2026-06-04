@@ -3,13 +3,14 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessControlDefaultAdminRulesUpgradeable} from "./IAccessControlDefaultAdminRulesUpgradeable.sol";
-import {AccessControlUpgradeable, IAccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {IERC5313Upgradeable} from "../../interfaces/IERC5313Upgradeable.sol";
-import {IERC165Upgradeable} from "../../utils/introspection/IERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IAccessControlDefaultAdminRules} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlDefaultAdminRules.sol";
+import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
+import {IAccessControl} from "@openzeppelin/tron-contracts/contracts/access/IAccessControl.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {IERC5313} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5313.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows specifying special rules to manage
@@ -39,7 +40,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * }
  * ```
  */
-abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRulesUpgradeable, IERC5313Upgradeable, AccessControlUpgradeable {
+abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRules, IERC5313, AccessControlUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlDefaultAdminRules
     struct AccessControlDefaultAdminRulesStorage {
         // pending admin pair read/written together frequently
@@ -79,12 +80,12 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         _grantRole(DEFAULT_ADMIN_ROLE, initialDefaultAdmin);
     }
 
-    /// @inheritdoc IERC165Upgradeable
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IAccessControlDefaultAdminRulesUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IAccessControlDefaultAdminRules).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc IERC5313Upgradeable
+    /// @inheritdoc IERC5313
     function owner() public view virtual returns (address) {
         return defaultAdmin();
     }
@@ -96,7 +97,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /**
      * @dev See {AccessControl-grantRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
-    function grantRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
+    function grantRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
             revert AccessControlEnforcedDefaultAdminRules();
         }
@@ -106,7 +107,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /**
      * @dev See {AccessControl-revokeRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
-    function revokeRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
+    function revokeRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
             revert AccessControlEnforcedDefaultAdminRules();
         }
@@ -126,7 +127,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * thereby disabling any functionality that is only available for it, and the possibility of reassigning a
      * non-administrated role.
      */
-    function renounceRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControlUpgradeable) {
+    function renounceRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE && account == defaultAdmin()) {
             (address newDefaultAdmin, uint48 schedule) = pendingDefaultAdmin();
@@ -181,33 +182,33 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /// AccessControlDefaultAdminRules accessors
     ///
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function defaultAdmin() public view virtual returns (address) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         return $._currentDefaultAdmin;
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function pendingDefaultAdmin() public view virtual returns (address newAdmin, uint48 schedule) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         return ($._pendingDefaultAdmin, $._pendingDefaultAdminSchedule);
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function defaultAdminDelay() public view virtual returns (uint48) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         uint48 schedule = $._pendingDelaySchedule;
         return (_isScheduleSet(schedule) && _hasSchedulePassed(schedule)) ? $._pendingDelay : $._currentDelay;
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function pendingDefaultAdminDelay() public view virtual returns (uint48 newDelay, uint48 schedule) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         schedule = $._pendingDelaySchedule;
         return (_isScheduleSet(schedule) && !_hasSchedulePassed(schedule)) ? ($._pendingDelay, schedule) : (0, 0);
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function defaultAdminDelayIncreaseWait() public view virtual returns (uint48) {
         return 5 days;
     }
@@ -216,7 +217,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /// AccessControlDefaultAdminRules public and internal setters for defaultAdmin/pendingDefaultAdmin
     ///
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function beginDefaultAdminTransfer(address newAdmin) public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _beginDefaultAdminTransfer(newAdmin);
     }
@@ -227,12 +228,12 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * Internal function without access restriction.
      */
     function _beginDefaultAdminTransfer(address newAdmin) internal virtual {
-        uint48 newSchedule = SafeCastUpgradeable.toUint48(block.timestamp) + defaultAdminDelay();
+        uint48 newSchedule = SafeCast.toUint48(block.timestamp) + defaultAdminDelay();
         _setPendingDefaultAdmin(newAdmin, newSchedule);
         emit DefaultAdminTransferScheduled(newAdmin, newSchedule);
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function cancelDefaultAdminTransfer() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _cancelDefaultAdminTransfer();
     }
@@ -246,7 +247,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         _setPendingDefaultAdmin(address(0), 0);
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function acceptDefaultAdminTransfer() public virtual {
         (address newDefaultAdmin, ) = pendingDefaultAdmin();
         if (_msgSender() != newDefaultAdmin) {
@@ -277,7 +278,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /// AccessControlDefaultAdminRules public and internal setters for defaultAdminDelay/pendingDefaultAdminDelay
     ///
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function changeDefaultAdminDelay(uint48 newDelay) public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _changeDefaultAdminDelay(newDelay);
     }
@@ -288,12 +289,12 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * Internal function without access restriction.
      */
     function _changeDefaultAdminDelay(uint48 newDelay) internal virtual {
-        uint48 newSchedule = SafeCastUpgradeable.toUint48(block.timestamp) + _delayChangeWait(newDelay);
+        uint48 newSchedule = SafeCast.toUint48(block.timestamp) + _delayChangeWait(newDelay);
         _setPendingDelay(newDelay, newSchedule);
         emit DefaultAdminDelayChangeScheduled(newDelay, newSchedule);
     }
 
-    /// @inheritdoc IAccessControlDefaultAdminRulesUpgradeable
+    /// @inheritdoc IAccessControlDefaultAdminRules
     function rollbackDefaultAdminDelay() public virtual onlyRole(DEFAULT_ADMIN_ROLE) {
         _rollbackDefaultAdminDelay();
     }
@@ -330,7 +331,7 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         // For example, if decreasing from 10 days to 3 days, the new delay will come into effect after 7 days.
         return
             newDelay > currentDelay
-                ? uint48(MathUpgradeable.min(newDelay, defaultAdminDelayIncreaseWait())) // no need to safecast, both inputs are uint48
+                ? uint48(Math.min(newDelay, defaultAdminDelayIncreaseWait())) // no need to safecast, both inputs are uint48
                 : currentDelay - newDelay;
     }
 

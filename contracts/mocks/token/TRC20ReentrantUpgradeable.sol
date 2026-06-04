@@ -2,8 +2,8 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../../token/TRC20/TRC20Upgradeable.sol";
-import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract TRC20ReentrantUpgradeable is Initializable, TRC20Upgradeable {
     enum Type {
@@ -29,7 +29,7 @@ contract TRC20ReentrantUpgradeable is Initializable, TRC20Upgradeable {
     }
 
     function functionCall(address target, bytes memory data) public returns (bytes memory) {
-        return AddressUpgradeable.functionCall(target, data);
+        return Address.functionCall(target, data);
     }
 
     function _update(address from, address to, uint256 amount) internal override {

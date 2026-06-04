@@ -4,10 +4,10 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {IVotesUpgradeable} from "../utils/IVotesUpgradeable.sol";
-import {IERC5805Upgradeable} from "../../interfaces/IERC5805Upgradeable.sol";
-import {TimeUpgradeable} from "../../utils/types/TimeUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IVotes} from "@openzeppelin/tron-contracts/contracts/governance/utils/IVotes.sol";
+import {IERC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5805.sol";
+import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from an {TRC20Votes} token, or since v4.5 an {TRC721Votes}
@@ -16,7 +16,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotes
     struct GovernorVotesStorage {
-        IERC5805Upgradeable _token;
+        IERC5805 _token;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotes")) - 1)) & ~bytes32(uint256(0xff))
@@ -28,19 +28,19 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
         }
     }
 
-    function __GovernorVotes_init(IVotesUpgradeable tokenAddress) internal onlyInitializing {
+    function __GovernorVotes_init(IVotes tokenAddress) internal onlyInitializing {
         __GovernorVotes_init_unchained(tokenAddress);
     }
 
-    function __GovernorVotes_init_unchained(IVotesUpgradeable tokenAddress) internal onlyInitializing {
+    function __GovernorVotes_init_unchained(IVotes tokenAddress) internal onlyInitializing {
         GovernorVotesStorage storage $ = _getGovernorVotesStorage();
-        $._token = IERC5805Upgradeable(address(tokenAddress));
+        $._token = IERC5805(address(tokenAddress));
     }
 
     /**
      * @dev The token that voting power is sourced from.
      */
-    function token() public view virtual returns (IERC5805Upgradeable) {
+    function token() public view virtual returns (IERC5805) {
         GovernorVotesStorage storage $ = _getGovernorVotesStorage();
         return $._token;
     }
@@ -53,7 +53,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
         try token().clock() returns (uint48 timepoint) {
             return timepoint;
         } catch {
-            return TimeUpgradeable.blockNumber();
+            return Time.blockNumber();
         }
     }
 

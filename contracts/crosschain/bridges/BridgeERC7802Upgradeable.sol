@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.26;
 
-import {IERC7802Upgradeable} from "../../interfaces/draft-IERC7802Upgradeable.sol";
+import {IERC7802} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7802.sol";
 import {BridgeFungibleUpgradeable} from "./abstract/BridgeFungibleUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This is a variant of {BridgeFungible} that implements the bridge logic for ERC-7802 compliant tokens.
@@ -14,7 +14,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
 abstract contract BridgeERC7802Upgradeable is Initializable, BridgeFungibleUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.BridgeERC7802
     struct BridgeERC7802Storage {
-        IERC7802Upgradeable _token;
+        IERC7802 _token;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.BridgeERC7802")) - 1)) & ~bytes32(uint256(0xff))
@@ -26,17 +26,17 @@ abstract contract BridgeERC7802Upgradeable is Initializable, BridgeFungibleUpgra
         }
     }
 
-    function __BridgeERC7802_init(IERC7802Upgradeable token_) internal onlyInitializing {
+    function __BridgeERC7802_init(IERC7802 token_) internal onlyInitializing {
         __BridgeERC7802_init_unchained(token_);
     }
 
-    function __BridgeERC7802_init_unchained(IERC7802Upgradeable token_) internal onlyInitializing {
+    function __BridgeERC7802_init_unchained(IERC7802 token_) internal onlyInitializing {
         BridgeERC7802Storage storage $ = _getBridgeERC7802Storage();
         $._token = token_;
     }
 
     /// @dev Return the address of the TRC20 token this bridge operates on.
-    function token() public view virtual returns (IERC7802Upgradeable) {
+    function token() public view virtual returns (IERC7802) {
         BridgeERC7802Storage storage $ = _getBridgeERC7802Storage();
         return $._token;
     }

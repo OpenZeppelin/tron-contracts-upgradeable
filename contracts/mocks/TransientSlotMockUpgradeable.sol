@@ -4,11 +4,11 @@
 pragma solidity ^0.8.24;
 
 import {MulticallUpgradeable} from "../utils/MulticallUpgradeable.sol";
-import {TransientSlotUpgradeable} from "../utils/TransientSlotUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {TransientSlot} from "@openzeppelin/tron-contracts/contracts/utils/TransientSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract TransientSlotMockUpgradeable is Initializable, MulticallUpgradeable {
-    using TransientSlotUpgradeable for *;
+    using TransientSlot for *;
 
     event AddressValue(bytes32 slot, address value);
 

@@ -8,3 +8,7 @@
 [submodule "lib/halmos-cheatcodes"]
 	path = lib/halmos-cheatcodes
 	url = https://github.com/a16z/halmos-cheatcodes
+[submodule "lib/tron-contracts"]
+	path = lib/tron-contracts
+	url = https://github.com/OpenZeppelin/tron-contracts.git
+	branch = master

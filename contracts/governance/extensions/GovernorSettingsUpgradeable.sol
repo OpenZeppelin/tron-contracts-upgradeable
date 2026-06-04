@@ -3,8 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for settings updatable through governance.
@@ -46,13 +47,13 @@ abstract contract GovernorSettingsUpgradeable is Initializable, GovernorUpgradea
         _setProposalThreshold(initialProposalThreshold);
     }
 
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function votingDelay() public view virtual override returns (uint256) {
         GovernorSettingsStorage storage $ = _getGovernorSettingsStorage();
         return $._votingDelay;
     }
 
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function votingPeriod() public view virtual override returns (uint256) {
         GovernorSettingsStorage storage $ = _getGovernorSettingsStorage();
         return $._votingPeriod;

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract BatchCallerUpgradeable is Initializable {
     struct Call {
@@ -19,7 +19,7 @@ contract BatchCallerUpgradeable is Initializable {
     function execute(Call[] calldata calls) external returns (bytes[] memory) {
         bytes[] memory returndata = new bytes[](calls.length);
         for (uint256 i = 0; i < calls.length; ++i) {
-            returndata[i] = AddressUpgradeable.functionCallWithValue(calls[i].target, calls[i].data, calls[i].value);
+            returndata[i] = Address.functionCallWithValue(calls[i].target, calls[i].data, calls[i].value);
         }
         return returndata;
     }

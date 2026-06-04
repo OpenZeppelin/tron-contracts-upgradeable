@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.26;
 
-import {SafeCastUpgradeable} from "../../math/SafeCastUpgradeable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
 import {MultiSignerERC7913Upgradeable} from "./MultiSignerERC7913Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {MultiSignerERC7913} that supports weighted signatures.
@@ -47,7 +47,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * least two signers (e.g., one with weight 1 and one with weight 3). See {signerWeight}.
  */
 abstract contract MultiSignerERC7913WeightedUpgradeable is Initializable, MultiSignerERC7913Upgradeable {
-    using SafeCastUpgradeable for *;
+    using SafeCast for *;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.MultiSignerERC7913Weighted
     struct MultiSignerERC7913WeightedStorage {

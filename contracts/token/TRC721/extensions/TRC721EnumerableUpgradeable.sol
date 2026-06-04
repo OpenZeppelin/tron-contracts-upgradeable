@@ -4,9 +4,9 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721EnumerableUpgradeable} from "./ITRC721EnumerableUpgradeable.sol";
-import {IERC165Upgradeable} from "../../../utils/introspection/ERC165Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC721Enumerable} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Enumerable.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This implements an optional extension of {TRC721} defined in the ERC that adds enumerability
@@ -15,7 +15,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * CAUTION: {TRC721} extensions that implement custom `balanceOf` logic, such as {TRC721Consecutive},
  * interfere with enumerability and should not be used together with {TRC721Enumerable}.
  */
-abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeable, ITRC721EnumerableUpgradeable {
+abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeable, ITRC721Enumerable {
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721Enumerable
     struct TRC721EnumerableStorage {
         mapping(address owner => mapping(uint256 index => uint256)) _ownedTokens;
@@ -51,12 +51,12 @@ abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeabl
 
     function __TRC721Enumerable_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, TRC721Upgradeable) returns (bool) {
-        return interfaceId == type(ITRC721EnumerableUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, TRC721Upgradeable) returns (bool) {
+        return interfaceId == type(ITRC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc ITRC721EnumerableUpgradeable
+    /// @inheritdoc ITRC721Enumerable
     function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual returns (uint256) {
         TRC721EnumerableStorage storage $ = _getTRC721EnumerableStorage();
         if (index >= balanceOf(owner)) {
@@ -65,13 +65,13 @@ abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeabl
         return $._ownedTokens[owner][index];
     }
 
-    /// @inheritdoc ITRC721EnumerableUpgradeable
+    /// @inheritdoc ITRC721Enumerable
     function totalSupply() public view virtual returns (uint256) {
         TRC721EnumerableStorage storage $ = _getTRC721EnumerableStorage();
         return $._allTokens.length;
     }
 
-    /// @inheritdoc ITRC721EnumerableUpgradeable
+    /// @inheritdoc ITRC721Enumerable
     function tokenByIndex(uint256 index) public view virtual returns (uint256) {
         TRC721EnumerableStorage storage $ = _getTRC721EnumerableStorage();
         if (index >= totalSupply()) {

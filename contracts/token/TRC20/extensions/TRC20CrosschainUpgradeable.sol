@@ -5,7 +5,7 @@ pragma solidity ^0.8.26;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {BridgeFungibleUpgradeable} from "../../../crosschain/bridges/abstract/BridgeFungibleUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {TRC20} that makes it natively cross-chain using the ERC-7786 based {BridgeFungible}.

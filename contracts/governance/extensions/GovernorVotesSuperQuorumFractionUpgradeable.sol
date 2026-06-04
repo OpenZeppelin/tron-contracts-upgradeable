@@ -6,10 +6,10 @@ pragma solidity ^0.8.24;
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {GovernorSuperQuorumUpgradeable} from "./GovernorSuperQuorumUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "./GovernorVotesQuorumFractionUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {GovernorVotesQuorumFraction} with a super quorum expressed as a
@@ -17,11 +17,11 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * the `Succeeded` state before the proposal deadline.
  */
 abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, GovernorVotesQuorumFractionUpgradeable, GovernorSuperQuorumUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
+    using Checkpoints for Checkpoints.Trace208;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotesSuperQuorumFraction
     struct GovernorVotesSuperQuorumFractionStorage {
-        CheckpointsUpgradeable.Trace208 _superQuorumNumeratorHistory;
+        Checkpoints.Trace208 _superQuorumNumeratorHistory;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesSuperQuorumFraction")) - 1)) & ~bytes32(uint256(0xff))
@@ -85,7 +85,7 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
      * See {GovernorSuperQuorum-superQuorum} for more details.
      */
     function superQuorum(uint256 timepoint) public view virtual override returns (uint256) {
-        return MathUpgradeable.mulDiv(token().getPastTotalSupply(timepoint), superQuorumNumerator(timepoint), quorumDenominator());
+        return Math.mulDiv(token().getPastTotalSupply(timepoint), superQuorumNumerator(timepoint), quorumDenominator());
     }
 
     /**
@@ -126,7 +126,7 @@ abstract contract GovernorVotesSuperQuorumFractionUpgradeable is Initializable, 
         }
 
         uint256 oldSuperQuorumNumerator = $._superQuorumNumeratorHistory.latest();
-        $._superQuorumNumeratorHistory.push(clock(), SafeCastUpgradeable.toUint208(newSuperQuorumNumerator));
+        $._superQuorumNumeratorHistory.push(clock(), SafeCast.toUint208(newSuperQuorumNumerator));
 
         emit SuperQuorumNumeratorUpdated(oldSuperQuorumNumerator, newSuperQuorumNumerator);
     }

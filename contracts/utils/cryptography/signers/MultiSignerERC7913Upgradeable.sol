@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.26;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
-import {SignatureCheckerUpgradeable} from "../SignatureCheckerUpgradeable.sol";
-import {EnumerableSetUpgradeable} from "../../structs/EnumerableSetUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using multiple ERC-7913 signers with a threshold-based
@@ -43,13 +43,13 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * (if used standalone) or during initialization (if used as a clone) may leave the contract
  * either front-runnable or unusable.
  */
-abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSignerUpgradeable {
-    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.BytesSet;
-    using SignatureCheckerUpgradeable for *;
+abstract contract MultiSignerERC7913Upgradeable is Initializable, AbstractSigner {
+    using EnumerableSet for EnumerableSet.BytesSet;
+    using SignatureChecker for *;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.MultiSignerERC7913
     struct MultiSignerERC7913Storage {
-        EnumerableSetUpgradeable.BytesSet _signers;
+        EnumerableSet.BytesSet _signers;
         uint64 _threshold;
     }
 

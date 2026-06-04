@@ -3,11 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {ICompoundTimelockUpgradeable} from "../../vendor/compound/ICompoundTimelockUpgradeable.sol";
-import {AddressUpgradeable} from "../../utils/AddressUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {ICompoundTimelock} from "@openzeppelin/tron-contracts/contracts/vendor/compound/ICompoundTimelock.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
@@ -22,7 +23,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
 abstract contract GovernorTimelockCompoundUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorTimelockCompound
     struct GovernorTimelockCompoundStorage {
-        ICompoundTimelockUpgradeable _timelock;
+        ICompoundTimelock _timelock;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorTimelockCompound")) - 1)) & ~bytes32(uint256(0xff))
@@ -42,11 +43,11 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
     /**
      * @dev Set the timelock.
      */
-    function __GovernorTimelockCompound_init(ICompoundTimelockUpgradeable timelockAddress) internal onlyInitializing {
+    function __GovernorTimelockCompound_init(ICompoundTimelock timelockAddress) internal onlyInitializing {
         __GovernorTimelockCompound_init_unchained(timelockAddress);
     }
 
-    function __GovernorTimelockCompound_init_unchained(ICompoundTimelockUpgradeable timelockAddress) internal onlyInitializing {
+    function __GovernorTimelockCompound_init_unchained(ICompoundTimelock timelockAddress) internal onlyInitializing {
         _updateTimelock(timelockAddress);
     }
 
@@ -72,7 +73,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         return address($._timelock);
     }
 
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     function proposalNeedsQueuing(uint256) public view virtual override returns (bool) {
         return true;
     }
@@ -88,7 +89,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         bytes32 /*descriptionHash*/
     ) internal virtual override returns (uint48) {
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
-        uint48 etaSeconds = SafeCastUpgradeable.toUint48(block.timestamp + $._timelock.delay());
+        uint48 etaSeconds = SafeCast.toUint48(block.timestamp + $._timelock.delay());
 
         for (uint256 i = 0; i < targets.length; ++i) {
             if (
@@ -118,7 +119,7 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
         if (etaSeconds == 0) {
             revert GovernorNotQueuedProposal(proposalId);
         }
-        AddressUpgradeable.sendValue(payable($._timelock), msg.value);
+        Address.sendValue(payable($._timelock), msg.value);
         for (uint256 i = 0; i < targets.length; ++i) {
             $._timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
         }
@@ -178,11 +179,11 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
 
      * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
      */
-    function updateTimelock(ICompoundTimelockUpgradeable newTimelock) public virtual onlyGovernance {
+    function updateTimelock(ICompoundTimelock newTimelock) public virtual onlyGovernance {
         _updateTimelock(newTimelock);
     }
 
-    function _updateTimelock(ICompoundTimelockUpgradeable newTimelock) private {
+    function _updateTimelock(ICompoundTimelock newTimelock) private {
         GovernorTimelockCompoundStorage storage $ = _getGovernorTimelockCompoundStorage();
         emit TimelockChange(address($._timelock), address(newTimelock));
         $._timelock = newTimelock;

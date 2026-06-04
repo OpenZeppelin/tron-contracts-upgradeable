@@ -4,15 +4,15 @@
 pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
-import {IERC6909TokenSupplyUpgradeable} from "../../../interfaces/IERC6909Upgradeable.sol";
-import {IERC165Upgradeable} from "../../../utils/introspection/IERC165Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IERC6909TokenSupply} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Token Supply extension defined in ERC6909.
  * Tracks the total supply of each token id individually.
  */
-contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IERC6909TokenSupplyUpgradeable {
+contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IERC6909TokenSupply {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909TokenSupply
     struct ERC6909TokenSupplyStorage {
         mapping(uint256 id => uint256) _totalSupplies;
@@ -32,15 +32,15 @@ contract ERC6909TokenSupplyUpgradeable is Initializable, ERC6909Upgradeable, IER
 
     function __ERC6909TokenSupply_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC6909TokenSupplyUpgradeable
+    /// @inheritdoc IERC6909TokenSupply
     function totalSupply(uint256 id) public view virtual override returns (uint256) {
         ERC6909TokenSupplyStorage storage $ = _getERC6909TokenSupplyStorage();
         return $._totalSupplies[id];
     }
 
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC6909TokenSupplyUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909TokenSupply).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /// @dev Override the `_update` function to update the total supply of each token id as necessary.

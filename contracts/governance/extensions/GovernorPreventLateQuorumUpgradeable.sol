@@ -4,8 +4,8 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A module that ensures there is a minimum voting period after quorum is reached. This prevents a large voter from
@@ -58,7 +58,7 @@ abstract contract GovernorPreventLateQuorumUpgradeable is Initializable, Governo
      */
     function proposalDeadline(uint256 proposalId) public view virtual override returns (uint256) {
         GovernorPreventLateQuorumStorage storage $ = _getGovernorPreventLateQuorumStorage();
-        return MathUpgradeable.max(super.proposalDeadline(proposalId), $._extendedDeadlines[proposalId]);
+        return Math.max(super.proposalDeadline(proposalId), $._extendedDeadlines[proposalId]);
     }
 
     /**

@@ -3,14 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC721Upgradeable} from "./ITRC721Upgradeable.sol";
-import {ITRC721MetadataUpgradeable} from "./extensions/ITRC721MetadataUpgradeable.sol";
-import {TRC721UtilsUpgradeable} from "./utils/TRC721UtilsUpgradeable.sol";
+import {ITRC721} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721.sol";
+import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Metadata.sol";
+import {TRC721Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {StringsUpgradeable} from "../../utils/StringsUpgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {ITRC721ErrorsUpgradeable} from "../../interfaces/draft-IERC6093Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Strings} from "@openzeppelin/tron-contracts/contracts/utils/Strings.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {ITRC721Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-721 Non-Fungible Token Standard defined in
@@ -19,8 +20,8 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {TRC721Enumerable}.
  */
-abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC721Upgradeable, ITRC721MetadataUpgradeable, ITRC721ErrorsUpgradeable {
-    using StringsUpgradeable for uint256;
+abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC721, ITRC721Metadata, ITRC721Errors {
+    using Strings for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721
     struct TRC721Storage {
@@ -61,15 +62,15 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
         $._symbol = symbol_;
     }
 
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165Upgradeable) returns (bool) {
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
         return
-            interfaceId == type(ITRC721Upgradeable).interfaceId ||
-            interfaceId == type(ITRC721MetadataUpgradeable).interfaceId ||
+            interfaceId == type(ITRC721).interfaceId ||
+            interfaceId == type(ITRC721Metadata).interfaceId ||
             super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function balanceOf(address owner) public view virtual returns (uint256) {
         TRC721Storage storage $ = _getTRC721Storage();
         if (owner == address(0)) {
@@ -78,24 +79,24 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
         return $._balances[owner];
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function ownerOf(uint256 tokenId) public view virtual returns (address) {
         return _requireOwned(tokenId);
     }
 
-    /// @inheritdoc ITRC721MetadataUpgradeable
+    /// @inheritdoc ITRC721Metadata
     function name() public view virtual returns (string memory) {
         TRC721Storage storage $ = _getTRC721Storage();
         return $._name;
     }
 
-    /// @inheritdoc ITRC721MetadataUpgradeable
+    /// @inheritdoc ITRC721Metadata
     function symbol() public view virtual returns (string memory) {
         TRC721Storage storage $ = _getTRC721Storage();
         return $._symbol;
     }
 
-    /// @inheritdoc ITRC721MetadataUpgradeable
+    /// @inheritdoc ITRC721Metadata
     function tokenURI(uint256 tokenId) public view virtual returns (string memory) {
         _requireOwned(tokenId);
 
@@ -112,30 +113,30 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
         return "";
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function approve(address to, uint256 tokenId) public virtual {
         _approve(to, tokenId, _msgSender());
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function getApproved(uint256 tokenId) public view virtual returns (address) {
         _requireOwned(tokenId);
 
         return _getApproved(tokenId);
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function setApprovalForAll(address operator, bool approved) public virtual {
         _setApprovalForAll(_msgSender(), operator, approved);
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function isApprovedForAll(address owner, address operator) public view virtual returns (bool) {
         TRC721Storage storage $ = _getTRC721Storage();
         return $._operatorApprovals[owner][operator];
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function transferFrom(address from, address to, uint256 tokenId) public virtual {
         if (to == address(0)) {
             revert TRC721InvalidReceiver(address(0));
@@ -148,15 +149,15 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
         }
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function safeTransferFrom(address from, address to, uint256 tokenId) public {
         safeTransferFrom(from, to, tokenId, "");
     }
 
-    /// @inheritdoc ITRC721Upgradeable
+    /// @inheritdoc ITRC721
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual {
         transferFrom(from, to, tokenId);
-        TRC721UtilsUpgradeable.checkOnTRC721Received(_msgSender(), from, to, tokenId, data);
+        TRC721Utils.checkOnTRC721Received(_msgSender(), from, to, tokenId, data);
     }
 
     /**
@@ -314,7 +315,7 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function _safeMint(address to, uint256 tokenId, bytes memory data) internal virtual {
         _mint(to, tokenId);
-        TRC721UtilsUpgradeable.checkOnTRC721Received(_msgSender(), address(0), to, tokenId, data);
+        TRC721Utils.checkOnTRC721Received(_msgSender(), address(0), to, tokenId, data);
     }
 
     /**
@@ -387,7 +388,7 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
      */
     function _safeTransfer(address from, address to, uint256 tokenId, bytes memory data) internal virtual {
         _transfer(from, to, tokenId);
-        TRC721UtilsUpgradeable.checkOnTRC721Received(_msgSender(), from, to, tokenId, data);
+        TRC721Utils.checkOnTRC721Received(_msgSender(), from, to, tokenId, data);
     }
 
     /**

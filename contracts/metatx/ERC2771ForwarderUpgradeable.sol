@@ -4,12 +4,12 @@
 pragma solidity ^0.8.24;
 
 import {ERC2771ContextUpgradeable} from "./ERC2771ContextUpgradeable.sol";
-import {ECDSAUpgradeable} from "../utils/cryptography/ECDSAUpgradeable.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {ErrorsUpgradeable} from "../utils/ErrorsUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Errors} from "@openzeppelin/tron-contracts/contracts/utils/Errors.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A forwarder compatible with ERC-2771 contracts. See {ERC2771Context}.
@@ -50,7 +50,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * used to execute arbitrary code.
  */
 contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, NoncesUpgradeable {
-    using ECDSAUpgradeable for bytes32;
+    using ECDSA for bytes32;
 
     struct ForwardRequestData {
         address from;
@@ -141,7 +141,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
         }
 
         if (!_execute(request, true)) {
-            revert ErrorsUpgradeable.FailedCall();
+            revert Errors.FailedCall();
         }
     }
 
@@ -197,7 +197,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
             // We know refundReceiver != address(0) && requestsValue == msg.value
             // meaning we can ensure refundValue is not taken from the original contract's balance
             // and refundReceiver is a known account.
-            AddressUpgradeable.sendValue(refundReceiver, refundValue);
+            Address.sendValue(refundReceiver, refundValue);
         }
     }
 
@@ -227,7 +227,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
     function _recoverForwardRequestSigner(
         ForwardRequestData calldata request
     ) internal view virtual returns (bool isValid, address signer) {
-        (address recovered, ECDSAUpgradeable.RecoverError err, ) = _hashTypedDataV4(
+        (address recovered, ECDSA.RecoverError err, ) = _hashTypedDataV4(
             keccak256(
                 abi.encode(
                     FORWARD_REQUEST_TYPEHASH,
@@ -242,7 +242,7 @@ contract ERC2771ForwarderUpgradeable is Initializable, EIP712Upgradeable, Nonces
             )
         ).tryRecoverCalldata(request.signature);
 
-        return (err == ECDSAUpgradeable.RecoverError.NoError, recovered);
+        return (err == ECDSA.RecoverError.NoError, recovered);
     }
 
     /**

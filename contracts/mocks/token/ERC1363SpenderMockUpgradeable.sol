@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC1363SpenderUpgradeable} from "../../interfaces/IERC1363SpenderUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IERC1363Spender} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC1363Spender.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract ERC1363SpenderMockUpgradeable is Initializable, IERC1363SpenderUpgradeable {
+contract ERC1363SpenderMockUpgradeable is Initializable, IERC1363Spender {
     enum RevertType {
         None,
         RevertWithoutMessage,
@@ -25,7 +25,7 @@ contract ERC1363SpenderMockUpgradeable is Initializable, IERC1363SpenderUpgradea
     }
 
     function __ERC1363SpenderMock_init_unchained() internal onlyInitializing {
-        _retval = IERC1363SpenderUpgradeable.onApprovalReceived.selector;
+        _retval = IERC1363Spender.onApprovalReceived.selector;
         _error = RevertType.None;
     }
 

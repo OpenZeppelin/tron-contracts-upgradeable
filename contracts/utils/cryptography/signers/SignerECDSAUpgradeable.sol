@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
-import {ECDSAUpgradeable} from "../ECDSAUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using xref:api:utils/cryptography#ECDSA[ECDSA] signatures.
@@ -26,7 +26,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * IMPORTANT: Failing to call {_setSigner} either during construction (if used standalone)
  * or during initialization (if used as a clone) may leave the signer either front-runnable or unusable.
  */
-abstract contract SignerECDSAUpgradeable is Initializable, AbstractSignerUpgradeable {
+abstract contract SignerECDSAUpgradeable is Initializable, AbstractSigner {
     /// @custom:storage-location erc7201:openzeppelin.storage.SignerECDSA
     struct SignerECDSAStorage {
         address _signer;
@@ -64,12 +64,12 @@ abstract contract SignerECDSAUpgradeable is Initializable, AbstractSignerUpgrade
         return $._signer;
     }
 
-    /// @inheritdoc AbstractSignerUpgradeable
+    /// @inheritdoc AbstractSigner
     function _rawSignatureValidation(
         bytes32 hash,
         bytes calldata signature
     ) internal view virtual override returns (bool) {
-        (address recovered, ECDSAUpgradeable.RecoverError err, ) = ECDSAUpgradeable.tryRecoverCalldata(hash, signature);
-        return signer() == recovered && err == ECDSAUpgradeable.RecoverError.NoError;
+        (address recovered, ECDSA.RecoverError err, ) = ECDSA.tryRecoverCalldata(hash, signature);
+        return signer() == recovered && err == ECDSA.RecoverError.NoError;
     }
 }

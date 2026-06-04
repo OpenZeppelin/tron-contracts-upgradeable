@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../../../access/AccessControlUpgradeable.sol";
 import {TRC20Upgradeable} from "../../../token/TRC20/TRC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract AccessControlTRC20MintBaseUpgradeable is Initializable, TRC20Upgradeable, AccessControlUpgradeable {
     // Create a new role identifier for the minter role

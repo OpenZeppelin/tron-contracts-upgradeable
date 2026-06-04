@@ -4,10 +4,10 @@
 pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
-import {TRC1155HolderUpgradeable} from "../token/TRC1155/utils/TRC1155HolderUpgradeable.sol";
-import {TRC721HolderUpgradeable} from "../token/TRC721/utils/TRC721HolderUpgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {TRC1155Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Holder.sol";
+import {TRC721Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Holder.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the
@@ -22,7 +22,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * to position this {TimelockController} as the owner of a smart contract, with
  * a multisig or a DAO as the sole proposer.
  */
-contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, TRC721HolderUpgradeable, TRC1155HolderUpgradeable {
+contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, TRC721Holder, TRC1155Holder {
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
     bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
     bytes32 public constant CANCELLER_ROLE = keccak256("CANCELLER_ROLE");
@@ -178,7 +178,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
     /// @inheritdoc AccessControlUpgradeable
     function supportsInterface(
         bytes4 interfaceId
-    ) public view virtual override(AccessControlUpgradeable, TRC1155HolderUpgradeable) returns (bool) {
+    ) public view virtual override(AccessControlUpgradeable, TRC1155Holder) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
@@ -434,7 +434,7 @@ contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeabl
      */
     function _execute(address target, uint256 value, bytes calldata data) internal virtual {
         (bool success, bytes memory returndata) = target.call{value: value}(data);
-        AddressUpgradeable.verifyCallResult(success, returndata);
+        Address.verifyCallResult(success, returndata);
     }
 
     /**

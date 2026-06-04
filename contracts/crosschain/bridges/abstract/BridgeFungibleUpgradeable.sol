@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.26;
 
-import {InteroperableAddressUpgradeable} from "../../../utils/draft-InteroperableAddressUpgradeable.sol";
+import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {ERC7786RecipientUpgradeable} from "../../ERC7786RecipientUpgradeable.sol";
+import {ERC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/ERC7786Recipient.sol";
 import {CrosschainLinkedUpgradeable} from "../../CrosschainLinkedUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Base contract for bridging TRC-20 between chains using an ERC-7786 gateway.
@@ -21,7 +21,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * extension, which embeds the bridge logic directly in the token contract.
  */
 abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable, CrosschainLinkedUpgradeable {
-    using InteroperableAddressUpgradeable for bytes;
+    using InteroperableAddress for bytes;
 
     event CrosschainFungibleTransferSent(bytes32 indexed sendId, address indexed from, bytes to, uint256 amount);
     event CrosschainFungibleTransferReceived(bytes32 indexed receiveId, bytes from, address indexed to, uint256 amount);
@@ -49,11 +49,11 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         _onSend(from, amount);
 
         (bytes2 chainType, bytes memory chainReference, bytes memory addr) = to.parseV1();
-        bytes memory chainAddr = InteroperableAddressUpgradeable.formatV1(chainType, chainReference, hex"");
+        bytes memory chainAddr = InteroperableAddress.formatV1(chainType, chainReference, hex"");
 
         bytes32 sendId = _sendMessageToCounterpart(
             chainAddr,
-            abi.encode(InteroperableAddressUpgradeable.formatEvmV1(block.chainid, from), addr, amount),
+            abi.encode(InteroperableAddress.formatEvmV1(block.chainid, from), addr, amount),
             new bytes[](0)
         );
 
@@ -62,7 +62,7 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         return sendId;
     }
 
-    /// @inheritdoc ERC7786RecipientUpgradeable
+    /// @inheritdoc ERC7786Recipient
     function _processMessage(
         address /*gateway*/,
         bytes32 receiveId,

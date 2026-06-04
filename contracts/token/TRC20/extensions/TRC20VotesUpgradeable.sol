@@ -5,8 +5,8 @@ pragma solidity ^0.8.24;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {VotesUpgradeable} from "../../../governance/utils/VotesUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../../utils/structs/CheckpointsUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of TRC-20 to support Compound-like voting and delegation. This version is more generic than Compound's,
@@ -83,7 +83,7 @@ abstract contract TRC20VotesUpgradeable is Initializable, TRC20Upgradeable, Vote
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
      */
-    function checkpoints(address account, uint32 pos) public view virtual returns (CheckpointsUpgradeable.Checkpoint208 memory) {
+    function checkpoints(address account, uint32 pos) public view virtual returns (Checkpoints.Checkpoint208 memory) {
         return _checkpoints(account, pos);
     }
 }

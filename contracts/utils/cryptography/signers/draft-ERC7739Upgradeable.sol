@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {AbstractSignerUpgradeable} from "./AbstractSignerUpgradeable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
 import {EIP712Upgradeable} from "../EIP712Upgradeable.sol";
-import {ERC7739UtilsUpgradeable} from "../draft-ERC7739UtilsUpgradeable.sol";
-import {IERC1271Upgradeable} from "../../../interfaces/IERC1271Upgradeable.sol";
-import {MessageHashUtilsUpgradeable} from "../MessageHashUtilsUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ERC7739Utils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol";
+import {IERC1271} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC1271.sol";
+import {MessageHashUtils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Validates signatures wrapping the message hash in a nested EIP712 type. See {ERC7739Utils}.
@@ -24,9 +24,9 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * which may limit the ability of the signer to be used within the ERC-4337 validation phase (due to
  * https://eips.ethereum.org/EIPS/eip-7562#storage-rules[ERC-7562 storage access rules]).
  */
-abstract contract ERC7739Upgradeable is Initializable, AbstractSignerUpgradeable, EIP712Upgradeable, IERC1271Upgradeable {
-    using ERC7739UtilsUpgradeable for *;
-    using MessageHashUtilsUpgradeable for bytes32;
+abstract contract ERC7739Upgradeable is Initializable, AbstractSigner, EIP712Upgradeable, IERC1271 {
+    using ERC7739Utils for *;
+    using MessageHashUtils for bytes32;
 
     function __ERC7739_init() internal onlyInitializing {
     }
@@ -47,7 +47,7 @@ abstract contract ERC7739Upgradeable is Initializable, AbstractSignerUpgradeable
         // maliciously. Useful for simulation purposes and to validate whether the contract supports ERC-7739.
         return
             (_isValidNestedTypedDataSignature(hash, signature) || _isValidNestedPersonalSignSignature(hash, signature))
-                ? IERC1271Upgradeable.isValidSignature.selector
+                ? IERC1271.isValidSignature.selector
                 : (hash == 0x7739773977397739773977397739773977397739773977397739773977397739 && signature.length == 0)
                     ? bytes4(0x77390001)
                     : bytes4(0xffffffff);
@@ -92,7 +92,7 @@ abstract contract ERC7739Upgradeable is Initializable, AbstractSignerUpgradeable
             bytes(contentsDescr).length != 0 &&
             _rawSignatureValidation(
                 appSeparator.toTypedDataHash(
-                    ERC7739UtilsUpgradeable.typedDataSignStructHash(
+                    ERC7739Utils.typedDataSignStructHash(
                         contentsDescr,
                         contentsHash,
                         abi.encode(keccak256(bytes(name)), keccak256(bytes(version)), chainId, verifyingContract, salt)

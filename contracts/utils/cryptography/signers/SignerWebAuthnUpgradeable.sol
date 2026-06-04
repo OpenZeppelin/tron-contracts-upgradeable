@@ -4,8 +4,8 @@
 pragma solidity ^0.8.24;
 
 import {SignerP256Upgradeable} from "./SignerP256Upgradeable.sol";
-import {WebAuthnUpgradeable} from "../WebAuthnUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {WebAuthn} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/WebAuthn.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {SignerP256} that supports WebAuthn authentication assertions.
@@ -44,9 +44,9 @@ abstract contract SignerWebAuthnUpgradeable is Initializable, SignerP256Upgradea
         bytes32 hash,
         bytes calldata signature
     ) internal view virtual override returns (bool) {
-        (bool decodeSuccess, WebAuthnUpgradeable.WebAuthnAuth calldata auth) = WebAuthnUpgradeable.tryDecodeAuth(signature);
+        (bool decodeSuccess, WebAuthn.WebAuthnAuth calldata auth) = WebAuthn.tryDecodeAuth(signature);
         if (!decodeSuccess) return false;
         (bytes32 qx, bytes32 qy) = signer();
-        return WebAuthnUpgradeable.verify(abi.encodePacked(hash), auth, qx, qy);
+        return WebAuthn.verify(abi.encodePacked(hash), auth, qx, qy);
     }
 }

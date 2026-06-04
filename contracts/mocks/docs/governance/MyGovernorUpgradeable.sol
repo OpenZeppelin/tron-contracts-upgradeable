@@ -7,8 +7,8 @@ import {GovernorVotesUpgradeable} from "../../../governance/extensions/GovernorV
 import {GovernorVotesQuorumFractionUpgradeable} from "../../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorTimelockControlUpgradeable} from "../../../governance/extensions/GovernorTimelockControlUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../../../governance/TimelockControllerUpgradeable.sol";
-import {IVotesUpgradeable} from "../../../governance/utils/IVotesUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IVotes} from "@openzeppelin/tron-contracts/contracts/governance/utils/IVotes.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MyGovernorUpgradeable is
     Initializable, GovernorUpgradeable,
@@ -18,7 +18,7 @@ contract MyGovernorUpgradeable is
     GovernorTimelockControlUpgradeable
 {
     function __MyGovernor_init(
-        IVotesUpgradeable _token,
+        IVotes _token,
         TimelockControllerUpgradeable _timelock
     ) internal onlyInitializing {
         __EIP712_init_unchained("MyGovernor", version());
@@ -29,7 +29,7 @@ contract MyGovernorUpgradeable is
     }
 
     function __MyGovernor_init_unchained(
-        IVotesUpgradeable,
+        IVotes,
         TimelockControllerUpgradeable
     ) internal onlyInitializing {}
 

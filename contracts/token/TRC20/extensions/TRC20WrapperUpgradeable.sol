@@ -3,9 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20Upgradeable, ITRC20MetadataUpgradeable, TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {SafeTRC20Upgradeable} from "../utils/SafeTRC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Metadata.sol";
+import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the TRC-20 token contract to support token wrapping.
@@ -22,7 +24,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
 abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC20Wrapper
     struct TRC20WrapperStorage {
-        ITRC20Upgradeable _underlying;
+        ITRC20 _underlying;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC20Wrapper")) - 1)) & ~bytes32(uint256(0xff))
@@ -39,11 +41,11 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
      */
     error TRC20InvalidUnderlying(address token);
 
-    function __TRC20Wrapper_init(ITRC20Upgradeable underlyingToken) internal onlyInitializing {
+    function __TRC20Wrapper_init(ITRC20 underlyingToken) internal onlyInitializing {
         __TRC20Wrapper_init_unchained(underlyingToken);
     }
 
-    function __TRC20Wrapper_init_unchained(ITRC20Upgradeable underlyingToken) internal onlyInitializing {
+    function __TRC20Wrapper_init_unchained(ITRC20 underlyingToken) internal onlyInitializing {
         TRC20WrapperStorage storage $ = _getTRC20WrapperStorage();
         if (address(underlyingToken) == address(this)) {
             revert TRC20InvalidUnderlying(address(this));
@@ -51,10 +53,10 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
         $._underlying = underlyingToken;
     }
 
-    /// @inheritdoc ITRC20MetadataUpgradeable
+    /// @inheritdoc ITRC20Metadata
     function decimals() public view virtual override returns (uint8) {
         TRC20WrapperStorage storage $ = _getTRC20WrapperStorage();
-        try ITRC20MetadataUpgradeable(address($._underlying)).decimals() returns (uint8 value) {
+        try ITRC20Metadata(address($._underlying)).decimals() returns (uint8 value) {
             return value;
         } catch {
             return super.decimals();
@@ -64,7 +66,7 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
     /**
      * @dev Returns the address of the underlying TRC-20 token that is being wrapped.
      */
-    function underlying() public view returns (ITRC20Upgradeable) {
+    function underlying() public view returns (ITRC20) {
         TRC20WrapperStorage storage $ = _getTRC20WrapperStorage();
         return $._underlying;
     }
@@ -81,7 +83,7 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
         if (account == address(this)) {
             revert TRC20InvalidReceiver(account);
         }
-        SafeTRC20Upgradeable.safeTransferFrom($._underlying, sender, address(this), value);
+        SafeTRC20.safeTransferFrom($._underlying, sender, address(this), value);
         _mint(account, value);
         return true;
     }
@@ -95,7 +97,7 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
             revert TRC20InvalidReceiver(account);
         }
         _burn(_msgSender(), value);
-        SafeTRC20Upgradeable.safeTransfer($._underlying, account, value);
+        SafeTRC20.safeTransfer($._underlying, account, value);
         return true;
     }
 

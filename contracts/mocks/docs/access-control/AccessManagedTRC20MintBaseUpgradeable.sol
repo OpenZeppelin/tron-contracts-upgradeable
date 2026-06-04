@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 import {AccessManagedUpgradeable} from "../../../access/manager/AccessManagedUpgradeable.sol";
 import {TRC20Upgradeable} from "../../../token/TRC20/TRC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract AccessManagedTRC20MintUpgradeable is Initializable, TRC20Upgradeable, AccessManagedUpgradeable {
     function __AccessManagedTRC20Mint_init(address manager) internal onlyInitializing {

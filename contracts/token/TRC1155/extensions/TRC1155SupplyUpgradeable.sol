@@ -4,8 +4,8 @@
 pragma solidity ^0.8.24;
 
 import {TRC1155Upgradeable} from "../TRC1155Upgradeable.sol";
-import {ArraysUpgradeable} from "../../../utils/ArraysUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Arrays} from "@openzeppelin/tron-contracts/contracts/utils/Arrays.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of TRC-1155 that adds tracking of total supply per id.
@@ -21,7 +21,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * CAUTION: This extension should not be added in an upgrade to an already deployed contract.
  */
 abstract contract TRC1155SupplyUpgradeable is Initializable, TRC1155Upgradeable {
-    using ArraysUpgradeable for uint256[];
+    using Arrays for uint256[];
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC1155Supply
     struct TRC1155SupplyStorage {

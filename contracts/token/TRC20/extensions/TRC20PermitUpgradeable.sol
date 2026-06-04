@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20PermitUpgradeable} from "./ITRC20PermitUpgradeable.sol";
+import {ITRC20Permit} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Permit.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {ECDSAUpgradeable} from "../../../utils/cryptography/ECDSAUpgradeable.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../../../utils/cryptography/EIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-20 Permit extension allowing approvals to be made via signatures, as defined in
@@ -19,7 +19,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * presenting a message signed by the account. By not relying on `{ITRC20-approve}`, the token holder account doesn't
  * need to send a transaction, and thus is not required to hold Ether at all.
  */
-abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITRC20PermitUpgradeable, EIP712Upgradeable, NoncesUpgradeable {
+abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITRC20Permit, EIP712Upgradeable, NoncesUpgradeable {
     bytes32 private constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
@@ -44,7 +44,7 @@ abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITR
 
     function __TRC20Permit_init_unchained(string memory) internal onlyInitializing {}
 
-    /// @inheritdoc ITRC20PermitUpgradeable
+    /// @inheritdoc ITRC20Permit
     function permit(
         address owner,
         address spender,
@@ -62,7 +62,7 @@ abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITR
 
         bytes32 hash = _hashTypedDataV4(structHash);
 
-        address signer = ECDSAUpgradeable.recover(hash, v, r, s);
+        address signer = ECDSA.recover(hash, v, r, s);
         if (signer != owner) {
             revert ERC2612InvalidSigner(signer, owner);
         }
@@ -70,12 +70,12 @@ abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITR
         _approve(owner, spender, value);
     }
 
-    /// @inheritdoc ITRC20PermitUpgradeable
-    function nonces(address owner) public view virtual override(ITRC20PermitUpgradeable, NoncesUpgradeable) returns (uint256) {
+    /// @inheritdoc ITRC20Permit
+    function nonces(address owner) public view virtual override(ITRC20Permit, NoncesUpgradeable) returns (uint256) {
         return super.nonces(owner);
     }
 
-    /// @inheritdoc ITRC20PermitUpgradeable
+    /// @inheritdoc ITRC20Permit
     // solhint-disable-next-line func-name-mixedcase
     function DOMAIN_SEPARATOR() external view returns (bytes32) {
         return _domainSeparatorV4();

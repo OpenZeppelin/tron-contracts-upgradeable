@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20Upgradeable} from "../token/TRC20/ITRC20Upgradeable.sol";
-import {SafeTRC20Upgradeable} from "../token/TRC20/utils/SafeTRC20Upgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A vesting wallet is an ownable contract that can receive native currency and TRC-20 tokens, and release these
@@ -142,7 +142,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         uint256 amount = releasable();
         $._released += amount;
         emit EtherReleased(amount);
-        AddressUpgradeable.sendValue(payable(owner()), amount);
+        Address.sendValue(payable(owner()), amount);
     }
 
     /**
@@ -155,7 +155,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
         uint256 amount = releasable(token);
         $._trc20Released[token] += amount;
         emit TRC20Released(token, amount);
-        SafeTRC20Upgradeable.safeTransfer(ITRC20Upgradeable(token), owner(), amount);
+        SafeTRC20.safeTransfer(ITRC20(token), owner(), amount);
     }
 
     /**
@@ -169,7 +169,7 @@ contract VestingWalletUpgradeable is Initializable, ContextUpgradeable, OwnableU
      * @dev Calculates the amount of tokens that has already vested. Default implementation is a linear vesting curve.
      */
     function vestedAmount(address token, uint64 timestamp) public view virtual returns (uint256) {
-        return _vestingSchedule(ITRC20Upgradeable(token).balanceOf(address(this)) + released(token), timestamp);
+        return _vestingSchedule(ITRC20(token).balanceOf(address(this)) + released(token), timestamp);
     }
 
     /**

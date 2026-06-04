@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import {Base64Upgradeable} from "../utils/Base64Upgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Base64} from "@openzeppelin/tron-contracts/contracts/utils/Base64.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract Base64DirtyUpgradeable is Initializable {
     struct A {
@@ -20,6 +20,6 @@ contract Base64DirtyUpgradeable is Initializable {
         // To silence warning
         unused;
 
-        return Base64Upgradeable.encode(input);
+        return Base64.encode(input);
     }
 }

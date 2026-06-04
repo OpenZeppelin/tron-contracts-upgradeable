@@ -3,21 +3,21 @@
 
 pragma solidity ^0.8.24;
 
-import {IAccessControlEnumerableUpgradeable} from "./IAccessControlEnumerableUpgradeable.sol";
+import {IAccessControlEnumerable} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlEnumerable.sol";
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
-import {EnumerableSetUpgradeable} from "../../utils/structs/EnumerableSetUpgradeable.sol";
-import {IERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.
  */
-abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerableUpgradeable, AccessControlUpgradeable {
-    using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
+abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessControlEnumerable, AccessControlUpgradeable {
+    using EnumerableSet for EnumerableSet.AddressSet;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlEnumerable
     struct AccessControlEnumerableStorage {
-        mapping(bytes32 role => EnumerableSetUpgradeable.AddressSet) _roleMembers;
+        mapping(bytes32 role => EnumerableSet.AddressSet) _roleMembers;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlEnumerable")) - 1)) & ~bytes32(uint256(0xff))
@@ -34,9 +34,9 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
 
     function __AccessControlEnumerable_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
+    /// @inheritdoc IERC165
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IAccessControlEnumerableUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+        return interfaceId == type(IAccessControlEnumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**

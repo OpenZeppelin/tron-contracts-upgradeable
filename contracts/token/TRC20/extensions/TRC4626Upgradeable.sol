@@ -3,13 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20Upgradeable, ITRC20MetadataUpgradeable, TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {SafeTRC20Upgradeable} from "../utils/SafeTRC20Upgradeable.sol";
-import {ITRC4626Upgradeable} from "../../../interfaces/ITRC4626Upgradeable.sol";
-import {LowLevelCallUpgradeable} from "../../../utils/LowLevelCallUpgradeable.sol";
-import {MemoryUpgradeable} from "../../../utils/MemoryUpgradeable.sol";
-import {MathUpgradeable} from "../../../utils/math/MathUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Metadata.sol";
+import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
+import {ITRC4626} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC4626.sol";
+import {LowLevelCall} from "@openzeppelin/tron-contracts/contracts/utils/LowLevelCall.sol";
+import {Memory} from "@openzeppelin/tron-contracts/contracts/utils/Memory.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-4626 "Tokenized Vault Standard" as defined in
@@ -69,12 +71,12 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * always return successfully.
  * ====
  */
-abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC4626Upgradeable {
-    using MathUpgradeable for uint256;
+abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC4626 {
+    using Math for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC4626
     struct TRC4626Storage {
-        ITRC20Upgradeable _asset;
+        ITRC20 _asset;
         uint8 _underlyingDecimals;
     }
 
@@ -110,11 +112,11 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
     /**
      * @dev Set the underlying asset contract. This must be a TRC20-compatible contract (TRC-20 or ERC-777).
      */
-    function __TRC4626_init(ITRC20Upgradeable asset_) internal onlyInitializing {
+    function __TRC4626_init(ITRC20 asset_) internal onlyInitializing {
         __TRC4626_init_unchained(asset_);
     }
 
-    function __TRC4626_init_unchained(ITRC20Upgradeable asset_) internal onlyInitializing {
+    function __TRC4626_init_unchained(ITRC20 asset_) internal onlyInitializing {
         TRC4626Storage storage $ = _getTRC4626Storage();
         (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
         $._underlyingDecimals = success ? assetDecimals : 18;
@@ -124,16 +126,16 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
     /**
      * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
      */
-    function _tryGetAssetDecimals(ITRC20Upgradeable asset_) private view returns (bool ok, uint8 assetDecimals) {
-        MemoryUpgradeable.Pointer ptr = MemoryUpgradeable.getFreeMemoryPointer();
-        (bool success, bytes32 returnedDecimals, ) = LowLevelCallUpgradeable.staticcallReturn64Bytes(
+    function _tryGetAssetDecimals(ITRC20 asset_) private view returns (bool ok, uint8 assetDecimals) {
+        Memory.Pointer ptr = Memory.getFreeMemoryPointer();
+        (bool success, bytes32 returnedDecimals, ) = LowLevelCall.staticcallReturn64Bytes(
             address(asset_),
-            abi.encodeCall(ITRC20MetadataUpgradeable.decimals, ())
+            abi.encodeCall(ITRC20Metadata.decimals, ())
         );
-        MemoryUpgradeable.unsafeSetFreeMemoryPointer(ptr);
+        Memory.unsafeSetFreeMemoryPointer(ptr);
 
         return
-            (success && LowLevelCallUpgradeable.returnDataSize() >= 32 && uint256(returnedDecimals) <= type(uint8).max)
+            (success && LowLevelCall.returnDataSize() >= 32 && uint256(returnedDecimals) <= type(uint8).max)
                 ? (true, uint8(uint256(returnedDecimals)))
                 : (false, 0);
     }
@@ -145,73 +147,73 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
      *
      * See {ITRC20Metadata-decimals}.
      */
-    function decimals() public view virtual override(ITRC20MetadataUpgradeable, TRC20Upgradeable) returns (uint8) {
+    function decimals() public view virtual override(ITRC20Metadata, TRC20Upgradeable) returns (uint8) {
         TRC4626Storage storage $ = _getTRC4626Storage();
         return $._underlyingDecimals + _decimalsOffset();
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function asset() public view virtual returns (address) {
         TRC4626Storage storage $ = _getTRC4626Storage();
         return address($._asset);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function totalAssets() public view virtual returns (uint256) {
-        return ITRC20Upgradeable(asset()).balanceOf(address(this));
+        return ITRC20(asset()).balanceOf(address(this));
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function convertToShares(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
+        return _convertToShares(assets, Math.Rounding.Floor);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function convertToAssets(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
+        return _convertToAssets(shares, Math.Rounding.Floor);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function maxDeposit(address) public view virtual returns (uint256) {
         return type(uint256).max;
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function maxMint(address) public view virtual returns (uint256) {
         return type(uint256).max;
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function maxWithdraw(address owner) public view virtual returns (uint256) {
         return previewRedeem(maxRedeem(owner));
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function maxRedeem(address owner) public view virtual returns (uint256) {
         return balanceOf(owner);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function previewDeposit(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Floor);
+        return _convertToShares(assets, Math.Rounding.Floor);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function previewMint(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Ceil);
+        return _convertToAssets(shares, Math.Rounding.Ceil);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function previewWithdraw(uint256 assets) public view virtual returns (uint256) {
-        return _convertToShares(assets, MathUpgradeable.Rounding.Ceil);
+        return _convertToShares(assets, Math.Rounding.Ceil);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function previewRedeem(uint256 shares) public view virtual returns (uint256) {
-        return _convertToAssets(shares, MathUpgradeable.Rounding.Floor);
+        return _convertToAssets(shares, Math.Rounding.Floor);
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function deposit(uint256 assets, address receiver) public virtual returns (uint256) {
         uint256 maxAssets = maxDeposit(receiver);
         if (assets > maxAssets) {
@@ -224,7 +226,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
         return shares;
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function mint(uint256 shares, address receiver) public virtual returns (uint256) {
         uint256 maxShares = maxMint(receiver);
         if (shares > maxShares) {
@@ -237,7 +239,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
         return assets;
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function withdraw(uint256 assets, address receiver, address owner) public virtual returns (uint256) {
         uint256 maxAssets = maxWithdraw(owner);
         if (assets > maxAssets) {
@@ -250,7 +252,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
         return shares;
     }
 
-    /// @inheritdoc ITRC4626Upgradeable
+    /// @inheritdoc ITRC4626
     function redeem(uint256 shares, address receiver, address owner) public virtual returns (uint256) {
         uint256 maxShares = maxRedeem(owner);
         if (shares > maxShares) {
@@ -266,14 +268,14 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
     /**
      * @dev Internal conversion function (from assets to shares) with support for rounding direction.
      */
-    function _convertToShares(uint256 assets, MathUpgradeable.Rounding rounding) internal view virtual returns (uint256) {
+    function _convertToShares(uint256 assets, Math.Rounding rounding) internal view virtual returns (uint256) {
         return assets.mulDiv(totalSupply() + 10 ** _decimalsOffset(), totalAssets() + 1, rounding);
     }
 
     /**
      * @dev Internal conversion function (from shares to assets) with support for rounding direction.
      */
-    function _convertToAssets(uint256 shares, MathUpgradeable.Rounding rounding) internal view virtual returns (uint256) {
+    function _convertToAssets(uint256 shares, Math.Rounding rounding) internal view virtual returns (uint256) {
         return shares.mulDiv(totalAssets() + 1, totalSupply() + 10 ** _decimalsOffset(), rounding);
     }
 
@@ -322,12 +324,12 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
 
     /// @dev Performs a transfer in of underlying assets. The default implementation uses `SafeTRC20`. Used by {_deposit}.
     function _transferIn(address from, uint256 assets) internal virtual {
-        SafeTRC20Upgradeable.safeTransferFrom(ITRC20Upgradeable(asset()), from, address(this), assets);
+        SafeTRC20.safeTransferFrom(ITRC20(asset()), from, address(this), assets);
     }
 
     /// @dev Performs a transfer out of underlying assets. The default implementation uses `SafeTRC20`. Used by {_withdraw}.
     function _transferOut(address to, uint256 assets) internal virtual {
-        SafeTRC20Upgradeable.safeTransfer(ITRC20Upgradeable(asset()), to, assets);
+        SafeTRC20.safeTransfer(ITRC20(asset()), to, assets);
     }
 
     function _decimalsOffset() internal view virtual returns (uint8) {

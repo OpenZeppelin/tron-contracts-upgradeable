@@ -27,5 +27,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/OpenZeppelin/tron-contracts/issues"
+  },
+  "peerDependencies": {
+    "@openzeppelin/tron-contracts": "0.0.1"
   }
 }

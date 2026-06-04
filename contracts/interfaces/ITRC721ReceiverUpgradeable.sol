@@ -1,6 +1,0 @@
-// SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.4.0) (interfaces/ITRC721Receiver.sol)
-
-pragma solidity >=0.5.0;
-
-import {ITRC721ReceiverUpgradeable} from "../token/TRC721/ITRC721ReceiverUpgradeable.sol";

@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessManagedUpgradeable} from "../access/manager/IAccessManagedUpgradeable.sol";
-import {IAuthorityUpgradeable} from "../access/manager/IAuthorityUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {IAccessManaged} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManaged.sol";
+import {IAuthority} from "@openzeppelin/tron-contracts/contracts/access/manager/IAuthority.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract NotAuthorityMockUpgradeable is Initializable, IAuthorityUpgradeable {
+contract NotAuthorityMockUpgradeable is Initializable, IAuthority {
     function __NotAuthorityMock_init() internal onlyInitializing {
     }
 
@@ -17,7 +17,7 @@ contract NotAuthorityMockUpgradeable is Initializable, IAuthorityUpgradeable {
     }
 }
 
-contract AuthorityNoDelayMockUpgradeable is Initializable, IAuthorityUpgradeable {
+contract AuthorityNoDelayMockUpgradeable is Initializable, IAuthority {
     bool private _immediate;
 
     function __AuthorityNoDelayMock_init() internal onlyInitializing {
@@ -90,6 +90,6 @@ contract AuthorityObserveIsConsumingUpgradeable is Initializable {
     }
 
     function consumeScheduledOp(address caller, bytes memory data) public {
-        emit ConsumeScheduledOpCalled(caller, data, IAccessManagedUpgradeable(msg.sender).isConsumingScheduledOp());
+        emit ConsumeScheduledOpCalled(caller, data, IAccessManaged(msg.sender).isConsumingScheduledOp());
     }
 }

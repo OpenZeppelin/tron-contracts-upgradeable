@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC20MulticallMockUpgradeable} from "./token/TRC20MulticallMockUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MulticallHelperUpgradeable is Initializable {
     function __MulticallHelper_init() internal onlyInitializing {

@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {SafeCastUpgradeable} from "../utils/math/SafeCastUpgradeable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
 import {VestingWalletUpgradeable} from "./VestingWalletUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {VestingWallet} that adds a cliff to the vesting schedule.
@@ -13,7 +13,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * _Available since v5.1._
  */
 abstract contract VestingWalletCliffUpgradeable is Initializable, VestingWalletUpgradeable {
-    using SafeCastUpgradeable for *;
+    using SafeCast for *;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.VestingWalletCliff
     struct VestingWalletCliffStorage {

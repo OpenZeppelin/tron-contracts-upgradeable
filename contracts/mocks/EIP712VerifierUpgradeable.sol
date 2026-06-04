@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.24;
 
-import {ECDSAUpgradeable} from "../utils/cryptography/ECDSAUpgradeable.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
 import {EIP712Upgradeable} from "../utils/cryptography/EIP712Upgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract EIP712VerifierUpgradeable is Initializable, EIP712Upgradeable {
     function __EIP712Verifier_init() internal onlyInitializing {
@@ -16,7 +16,7 @@ abstract contract EIP712VerifierUpgradeable is Initializable, EIP712Upgradeable 
         bytes32 digest = _hashTypedDataV4(
             keccak256(abi.encode(keccak256("Mail(address to,string contents)"), mailTo, keccak256(bytes(mailContents))))
         );
-        address recoveredSigner = ECDSAUpgradeable.recover(digest, signature);
+        address recoveredSigner = ECDSA.recover(digest, signature);
         require(recoveredSigner == signer);
     }
 }

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC1155Upgradeable} from "../../../../token/TRC1155/TRC1155Upgradeable.sol";
-import {Initializable} from "../../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract GameItemsUpgradeable is Initializable, TRC1155Upgradeable {
     uint256 public constant GOLD = 0;

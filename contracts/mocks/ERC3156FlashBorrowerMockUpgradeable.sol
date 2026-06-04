@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20Upgradeable} from "../token/TRC20/ITRC20Upgradeable.sol";
-import {IERC3156FlashBorrowerUpgradeable} from "../interfaces/IERC3156Upgradeable.sol";
-import {AddressUpgradeable} from "../utils/AddressUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {IERC3156FlashBorrower} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC3156FlashBorrower.sol";
+import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev WARNING: this IERC3156FlashBorrower mock implementation is for testing purposes ONLY.
@@ -14,7 +14,7 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * Following best practices, always have your contract properly audited before using them to manipulate important funds on
  * live networks.
  */
-contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorrowerUpgradeable {
+contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorrower {
     bytes32 internal constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     bool _enableApprove;
@@ -41,16 +41,16 @@ contract ERC3156FlashBorrowerMockUpgradeable is Initializable, IERC3156FlashBorr
     ) public returns (bytes32) {
         require(msg.sender == token);
 
-        emit BalanceOf(token, address(this), ITRC20Upgradeable(token).balanceOf(address(this)));
-        emit TotalSupply(token, ITRC20Upgradeable(token).totalSupply());
+        emit BalanceOf(token, address(this), ITRC20(token).balanceOf(address(this)));
+        emit TotalSupply(token, ITRC20(token).totalSupply());
 
         if (data.length > 0) {
             // WARNING: This code is for testing purposes only! Do not use.
-            AddressUpgradeable.functionCall(token, data);
+            Address.functionCall(token, data);
         }
 
         if (_enableApprove) {
-            ITRC20Upgradeable(token).approve(token, amount + fee);
+            ITRC20(token).approve(token, amount + fee);
         }
 
         return _enableReturn ? _RETURN_VALUE : bytes32(0);

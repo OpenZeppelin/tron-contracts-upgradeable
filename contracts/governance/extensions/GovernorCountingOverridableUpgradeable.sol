@@ -3,12 +3,13 @@
 
 pragma solidity ^0.8.24;
 
-import {SignatureCheckerUpgradeable} from "../../utils/cryptography/SignatureCheckerUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
 import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
-import {IGovernorUpgradeable, GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} which enables delegators to override the vote of their delegates. This module requires a
@@ -65,7 +66,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
 
     function __GovernorCountingOverridable_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IGovernorUpgradeable
+    /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {
         return "support=bravo,override&quorum=for,abstain&overridable=true";
@@ -175,7 +176,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         proposalVote.voteReceipt[account].hasOverridden = true;
         proposalVote.votes[support] += overriddenWeight;
         if (delegateCasted == 0) {
-            proposalVote.voteReceipt[delegate].overriddenWeight += SafeCastUpgradeable.toUint208(overriddenWeight);
+            proposalVote.voteReceipt[delegate].overriddenWeight += SafeCast.toUint208(overriddenWeight);
         } else {
             uint8 delegateSupport = delegateCasted - 1;
             proposalVote.votes[delegateSupport] -= overriddenWeight;
@@ -221,7 +222,7 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
         string calldata reason,
         bytes calldata signature
     ) public virtual returns (uint256) {
-        bool valid = SignatureCheckerUpgradeable.isValidSignatureNow(
+        bool valid = SignatureChecker.isValidSignatureNow(
             voter,
             _hashTypedDataV4(
                 keccak256(

@@ -4,14 +4,14 @@
 pragma solidity ^0.8.20;
 
 import {ERC6909Upgradeable} from "../ERC6909Upgradeable.sol";
-import {IERC6909ContentURIUpgradeable} from "../../../interfaces/IERC6909Upgradeable.sol";
-import {IERC165Upgradeable} from "../../../utils/introspection/IERC165Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IERC6909ContentURI} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC6909.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Content URI extension defined in ERC6909.
  */
-contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC6909ContentURIUpgradeable {
+contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC6909ContentURI {
     /// @custom:storage-location erc7201:openzeppelin.storage.ERC6909ContentURI
     struct ERC6909ContentURIStorage {
         string _contractURI;
@@ -38,18 +38,18 @@ contract ERC6909ContentURIUpgradeable is Initializable, ERC6909Upgradeable, IERC
 
     function __ERC6909ContentURI_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC6909ContentURIUpgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC6909Upgradeable, IERC165) returns (bool) {
+        return interfaceId == type(IERC6909ContentURI).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc IERC6909ContentURIUpgradeable
+    /// @inheritdoc IERC6909ContentURI
     function contractURI() public view virtual override returns (string memory) {
         ERC6909ContentURIStorage storage $ = _getERC6909ContentURIStorage();
         return $._contractURI;
     }
 
-    /// @inheritdoc IERC6909ContentURIUpgradeable
+    /// @inheritdoc IERC6909ContentURI
     function tokenURI(uint256 id) public view virtual override returns (string memory) {
         ERC6909ContentURIStorage storage $ = _getERC6909ContentURIStorage();
         return $._tokenURIs[id];

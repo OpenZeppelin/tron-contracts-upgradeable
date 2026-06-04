@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20Upgradeable} from "../../token/TRC20/ITRC20Upgradeable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
 import {TRC4626Upgradeable} from "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
-import {SafeTRC20Upgradeable} from "../../token/TRC20/utils/SafeTRC20Upgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /// @dev TRC-4626 vault with entry/exit fees expressed in https://en.wikipedia.org/wiki/Basis_point[basis point (bp)].
 ///
@@ -16,7 +16,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
 ///
 /// WARNING: This contract has not been audited and shouldn't be considered production ready. Consider using it with caution.
 abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
-    using MathUpgradeable for uint256;
+    using Math for uint256;
 
     uint256 private constant _BASIS_POINT_SCALE = 1e4;
 
@@ -59,7 +59,7 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
         super._deposit(caller, receiver, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeTRC20Upgradeable.safeTransfer(ITRC20Upgradeable(asset()), recipient, fee);
+            SafeTRC20.safeTransfer(ITRC20(asset()), recipient, fee);
         }
     }
 
@@ -77,7 +77,7 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
         super._withdraw(caller, receiver, owner, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeTRC20Upgradeable.safeTransfer(ITRC20Upgradeable(asset()), recipient, fee);
+            SafeTRC20.safeTransfer(ITRC20(asset()), recipient, fee);
         }
     }
 
@@ -104,12 +104,12 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
     /// @dev Calculates the fees that should be added to an amount `assets` that does not already include fees.
     /// Used in {ITRC4626-mint} and {ITRC4626-withdraw} operations.
     function _feeOnRaw(uint256 assets, uint256 feeBasisPoints) private pure returns (uint256) {
-        return assets.mulDiv(feeBasisPoints, _BASIS_POINT_SCALE, MathUpgradeable.Rounding.Ceil);
+        return assets.mulDiv(feeBasisPoints, _BASIS_POINT_SCALE, Math.Rounding.Ceil);
     }
 
     /// @dev Calculates the fee part of an amount `assets` that already includes fees.
     /// Used in {ITRC4626-deposit} and {ITRC4626-redeem} operations.
     function _feeOnTotal(uint256 assets, uint256 feeBasisPoints) private pure returns (uint256) {
-        return assets.mulDiv(feeBasisPoints, feeBasisPoints + _BASIS_POINT_SCALE, MathUpgradeable.Rounding.Ceil);
+        return assets.mulDiv(feeBasisPoints, feeBasisPoints + _BASIS_POINT_SCALE, Math.Rounding.Ceil);
     }
 }

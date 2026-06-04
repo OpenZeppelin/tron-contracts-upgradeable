@@ -4,21 +4,21 @@
 pragma solidity ^0.8.24;
 
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
-import {MathUpgradeable} from "../../utils/math/MathUpgradeable.sol";
-import {SafeCastUpgradeable} from "../../utils/math/SafeCastUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../utils/structs/CheckpointsUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from an {TRC20Votes} token and a quorum expressed as a
  * fraction of the total supply.
  */
 abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, GovernorVotesUpgradeable {
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace208;
+    using Checkpoints for Checkpoints.Trace208;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotesQuorumFraction
     struct GovernorVotesQuorumFractionStorage {
-        CheckpointsUpgradeable.Trace208 _quorumNumeratorHistory;
+        Checkpoints.Trace208 _quorumNumeratorHistory;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotesQuorumFraction")) - 1)) & ~bytes32(uint256(0xff))
@@ -79,7 +79,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the quorum for a timepoint, in terms of number of votes: `supply * numerator / denominator`.
      */
     function quorum(uint256 timepoint) public view virtual override returns (uint256) {
-        return MathUpgradeable.mulDiv(token().getPastTotalSupply(timepoint), quorumNumerator(timepoint), quorumDenominator());
+        return Math.mulDiv(token().getPastTotalSupply(timepoint), quorumNumerator(timepoint), quorumDenominator());
     }
 
     /**
@@ -113,7 +113,7 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
         }
 
         uint256 oldQuorumNumerator = quorumNumerator();
-        $._quorumNumeratorHistory.push(clock(), SafeCastUpgradeable.toUint208(newQuorumNumerator));
+        $._quorumNumeratorHistory.push(clock(), SafeCast.toUint208(newQuorumNumerator));
 
         emit QuorumNumeratorUpdated(oldQuorumNumerator, newQuorumNumerator);
     }
@@ -122,12 +122,12 @@ abstract contract GovernorVotesQuorumFractionUpgradeable is Initializable, Gover
      * @dev Returns the numerator at a specific timepoint.
      */
     function _optimisticUpperLookupRecent(
-        CheckpointsUpgradeable.Trace208 storage ckpts,
+        Checkpoints.Trace208 storage ckpts,
         uint256 timepoint
     ) internal view returns (uint256) {
         // If trace is empty, key and value are both equal to 0.
         // In that case `key <= timepoint` is true, and it is ok to return 0.
         (, uint48 key, uint208 value) = ckpts.latestCheckpoint();
-        return key <= timepoint ? value : ckpts.upperLookupRecent(SafeCastUpgradeable.toUint48(timepoint));
+        return key <= timepoint ? value : ckpts.upperLookupRecent(SafeCast.toUint48(timepoint));
     }
 }

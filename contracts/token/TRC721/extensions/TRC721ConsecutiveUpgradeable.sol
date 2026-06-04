@@ -4,10 +4,10 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {IERC2309Upgradeable} from "../../../interfaces/IERC2309Upgradeable.sol";
-import {BitMapsUpgradeable} from "../../../utils/structs/BitMapsUpgradeable.sol";
-import {CheckpointsUpgradeable} from "../../../utils/structs/CheckpointsUpgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {IERC2309} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC2309.sol";
+import {BitMaps} from "@openzeppelin/tron-contracts/contracts/utils/structs/BitMaps.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC-2309 "Consecutive Transfer Extension" as defined in
@@ -28,14 +28,14 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * values during the {_mintConsecutive} execution if the super call is not called first. To be safe, execute the
  * super call before your custom logic.
  */
-abstract contract TRC721ConsecutiveUpgradeable is Initializable, IERC2309Upgradeable, TRC721Upgradeable {
-    using BitMapsUpgradeable for BitMapsUpgradeable.BitMap;
-    using CheckpointsUpgradeable for CheckpointsUpgradeable.Trace160;
+abstract contract TRC721ConsecutiveUpgradeable is Initializable, IERC2309, TRC721Upgradeable {
+    using BitMaps for BitMaps.BitMap;
+    using Checkpoints for Checkpoints.Trace160;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721Consecutive
     struct TRC721ConsecutiveStorage {
-        CheckpointsUpgradeable.Trace160 _sequentialOwnership;
-        BitMapsUpgradeable.BitMap _sequentialBurn;
+        Checkpoints.Trace160 _sequentialOwnership;
+        BitMaps.BitMap _sequentialBurn;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721Consecutive")) - 1)) & ~bytes32(uint256(0xff))

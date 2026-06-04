@@ -6,8 +6,8 @@ pragma solidity ^0.8.24;
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {NoncesKeyedUpgradeable} from "../../utils/NoncesKeyedUpgradeable.sol";
-import {SignatureCheckerUpgradeable} from "../../utils/cryptography/SignatureCheckerUpgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev An extension of {Governor} that extends existing nonce management to use {NoncesKeyed}, where the key is the low-order 192 bits of the `proposalId`.
@@ -38,7 +38,7 @@ abstract contract GovernorNoncesKeyedUpgradeable is Initializable, GovernorUpgra
         bytes memory signature
     ) internal virtual override returns (bool) {
         if (
-            SignatureCheckerUpgradeable.isValidSignatureNow(
+            SignatureChecker.isValidSignatureNow(
                 voter,
                 _hashTypedDataV4(
                     keccak256(
@@ -70,7 +70,7 @@ abstract contract GovernorNoncesKeyedUpgradeable is Initializable, GovernorUpgra
         bytes memory signature
     ) internal virtual override returns (bool) {
         if (
-            SignatureCheckerUpgradeable.isValidSignatureNow(
+            SignatureChecker.isValidSignatureNow(
                 voter,
                 _hashTypedDataV4(
                     keccak256(

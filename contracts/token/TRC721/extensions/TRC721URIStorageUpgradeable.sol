@@ -4,15 +4,15 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721MetadataUpgradeable} from "./ITRC721MetadataUpgradeable.sol";
-import {IERC4906Upgradeable} from "../../../interfaces/IERC4906Upgradeable.sol";
-import {IERC165Upgradeable} from "../../../interfaces/IERC165Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Metadata.sol";
+import {IERC4906} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC4906.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC-721 token with storage based token URI management.
  */
-abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906Upgradeable, TRC721Upgradeable {
+abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906, TRC721Upgradeable {
     // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
     // defines events and does not include any external function.
     bytes4 private constant ERC4906_INTERFACE_ID = bytes4(0x49064906);
@@ -37,12 +37,12 @@ abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906Upgradea
 
     function __TRC721URIStorage_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, IERC165Upgradeable) returns (bool) {
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, IERC165) returns (bool) {
         return interfaceId == ERC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc ITRC721MetadataUpgradeable
+    /// @inheritdoc ITRC721Metadata
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         _requireOwned(tokenId);
 

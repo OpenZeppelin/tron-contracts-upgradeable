@@ -3,7 +3,7 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../../token/TRC721/TRC721Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MyNFTUpgradeable is Initializable, TRC721Upgradeable {
     function __MyNFT_init() internal onlyInitializing {

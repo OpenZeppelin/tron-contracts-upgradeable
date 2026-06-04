@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC3156FlashBorrowerUpgradeable} from "../../../interfaces/IERC3156FlashBorrowerUpgradeable.sol";
-import {IERC3156FlashLenderUpgradeable} from "../../../interfaces/IERC3156FlashLenderUpgradeable.sol";
+import {IERC3156FlashBorrower} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC3156FlashBorrower.sol";
+import {IERC3156FlashLender} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC3156FlashLender.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {Initializable} from "../../../proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the ERC-3156 Flash loans extension, as defined in
@@ -19,7 +19,7 @@ import {Initializable} from "../../../proxy/utils/Initializable.sol";
  * {maxFlashLoan} will not correctly reflect the maximum that can be flash minted. We recommend
  * overriding {maxFlashLoan} so that it correctly reflects the supply cap.
  */
-abstract contract TRC20FlashMintUpgradeable is Initializable, TRC20Upgradeable, IERC3156FlashLenderUpgradeable {
+abstract contract TRC20FlashMintUpgradeable is Initializable, TRC20Upgradeable, IERC3156FlashLender {
     bytes32 private constant RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
 
     /**
@@ -109,7 +109,7 @@ abstract contract TRC20FlashMintUpgradeable is Initializable, TRC20Upgradeable, 
     // minted at the beginning is always recovered and burned at the end, or else the entire function will revert.
     // slither-disable-next-line reentrancy-no-eth
     function flashLoan(
-        IERC3156FlashBorrowerUpgradeable receiver,
+        IERC3156FlashBorrower receiver,
         address token,
         uint256 value,
         bytes calldata data

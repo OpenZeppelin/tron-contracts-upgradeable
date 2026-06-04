@@ -3,9 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IERC2981Upgradeable} from "../../interfaces/IERC2981Upgradeable.sol";
-import {IERC165Upgradeable, ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
-import {Initializable} from "../../proxy/utils/Initializable.sol";
+import {IERC2981} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC2981.sol";
+import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the NFT Royalty Standard, a standardized way to retrieve royalty payment information.
@@ -20,7 +21,7 @@ import {Initializable} from "../../proxy/utils/Initializable.sol";
  * https://eips.ethereum.org/EIPS/eip-2981#optional-royalty-payments[Rationale] in the ERC. Marketplaces are expected to
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
-abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC165Upgradeable {
+abstract contract ERC2981Upgradeable is Initializable, IERC2981, ERC165Upgradeable {
     struct RoyaltyInfo {
         address receiver;
         uint96 royaltyFraction;
@@ -66,12 +67,12 @@ abstract contract ERC2981Upgradeable is Initializable, IERC2981Upgradeable, ERC1
 
     function __ERC2981_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165Upgradeable, ERC165Upgradeable) returns (bool) {
-        return interfaceId == type(IERC2981Upgradeable).interfaceId || super.supportsInterface(interfaceId);
+    /// @inheritdoc IERC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC165Upgradeable) returns (bool) {
+        return interfaceId == type(IERC2981).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc IERC2981Upgradeable
+    /// @inheritdoc IERC2981
     function royaltyInfo(
         uint256 tokenId,
         uint256 salePrice

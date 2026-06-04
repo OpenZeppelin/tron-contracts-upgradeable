@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.26;
 
-import {IERC7786GatewaySourceUpgradeable} from "../interfaces/draft-IERC7786Upgradeable.sol";
-import {InteroperableAddressUpgradeable} from "../utils/draft-InteroperableAddressUpgradeable.sol";
-import {BytesUpgradeable} from "../utils/BytesUpgradeable.sol";
-import {ERC7786RecipientUpgradeable} from "./ERC7786RecipientUpgradeable.sol";
-import {Initializable} from "../proxy/utils/Initializable.sol";
+import {IERC7786GatewaySource} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7786.sol";
+import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
+import {Bytes} from "@openzeppelin/tron-contracts/contracts/utils/Bytes.sol";
+import {ERC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/ERC7786Recipient.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Core bridging mechanism.
@@ -20,9 +20,9 @@ import {Initializable} from "../proxy/utils/Initializable.sol";
  * counterpart on a foreign chain. They must override the {_processMessage} function to handle messages that have
  * been verified.
  */
-abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786RecipientUpgradeable {
-    using BytesUpgradeable for bytes;
-    using InteroperableAddressUpgradeable for bytes;
+abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient {
+    using Bytes for bytes;
+    using InteroperableAddress for bytes;
 
     struct Link {
         address gateway;
@@ -87,7 +87,7 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient
         CrosschainLinkedStorage storage $ = _getCrosschainLinkedStorage();
         // Sanity check, this should revert if gateway is not an ERC-7786 implementation. Note that since
         // supportsAttribute returns data, an EOA would fail that test (nothing returned).
-        IERC7786GatewaySourceUpgradeable(gateway).supportsAttribute(bytes4(0));
+        IERC7786GatewaySource(gateway).supportsAttribute(bytes4(0));
 
         bytes memory chainAddr = _extractChain(counterpart);
         if (allowOverride || $._links[chainAddr].gateway == address(0)) {
@@ -109,10 +109,10 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient
         bytes[] memory attributes
     ) internal virtual returns (bytes32) {
         (address gateway, bytes memory counterpart) = getLink(chainAddr);
-        return IERC7786GatewaySourceUpgradeable(gateway).sendMessage(counterpart, payload, attributes);
+        return IERC7786GatewaySource(gateway).sendMessage(counterpart, payload, attributes);
     }
 
-    /// @inheritdoc ERC7786RecipientUpgradeable
+    /// @inheritdoc ERC7786Recipient
     function _isAuthorizedGateway(
         address instance,
         bytes calldata sender
@@ -123,6 +123,6 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient
 
     function _extractChain(bytes memory self) private pure returns (bytes memory) {
         (bytes2 chainType, bytes memory chainReference, ) = self.parseV1();
-        return InteroperableAddressUpgradeable.formatV1(chainType, chainReference, hex"");
+        return InteroperableAddress.formatV1(chainType, chainReference, hex"");
     }
 }
