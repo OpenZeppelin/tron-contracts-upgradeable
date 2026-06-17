@@ -17,7 +17,7 @@ import "../governance/GovernorSequentialProposalIdMockUpgradeable.sol";
 import "../governance/GovernorMockUpgradeable.sol";
 import "../governance/GovernorPreventLateQuorumMockUpgradeable.sol";
 import "../../governance/TimelockControllerUpgradeable.sol";
-import "../../utils/cryptography/EIP712Upgradeable.sol";
+import "../../utils/cryptography/TIP712Upgradeable.sol";
 import "../../access/AccessControlUpgradeable.sol";
 import "../../utils/ContextUpgradeable.sol";
 
@@ -114,9 +114,9 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
     }
 }
 
-contract EIP712UpgradeableWithInit is EIP712Upgradeable {
+contract TIP712UpgradeableWithInit is TIP712Upgradeable {
     constructor(string memory name, string memory version) payable initializer {
-        __EIP712_init(name, version);
+        __TIP712_init(name, version);
     }
 }
 

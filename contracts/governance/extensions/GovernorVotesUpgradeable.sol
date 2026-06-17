@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {IVotes} from "@openzeppelin/tron-contracts/contracts/governance/utils/IVotes.sol";
-import {IERC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5805.sol";
+import {ITRC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5805.sol";
 import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
@@ -16,7 +16,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.GovernorVotes
     struct GovernorVotesStorage {
-        IERC5805 _token;
+        ITRC5805 _token;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotes")) - 1)) & ~bytes32(uint256(0xff))
@@ -34,13 +34,13 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
 
     function __GovernorVotes_init_unchained(IVotes tokenAddress) internal onlyInitializing {
         GovernorVotesStorage storage $ = _getGovernorVotesStorage();
-        $._token = IERC5805(address(tokenAddress));
+        $._token = ITRC5805(address(tokenAddress));
     }
 
     /**
      * @dev The token that voting power is sourced from.
      */
-    function token() public view virtual returns (IERC5805) {
+    function token() public view virtual returns (ITRC5805) {
         GovernorVotesStorage storage $ = _getGovernorVotesStorage();
         return $._token;
     }

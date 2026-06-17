@@ -6,37 +6,37 @@ import "../../token/TRC20/extensions/TRC20PausableUpgradeable.sol";
 import "../docs/token/TRC20/GLDTokenUpgradeable.sol";
 import "../docs/TRC20WithAutoMinerRewardUpgradeable.sol";
 import "../docs/utilities/MulticallUpgradeable.sol";
-import "../ERC3156FlashBorrowerMockUpgradeable.sol";
 import "../token/TRC20ApprovalMockUpgradeable.sol";
 import "../token/TRC20DecimalsMockUpgradeable.sol";
 import "../token/TRC20ForceApproveMockUpgradeable.sol";
 import "../token/TRC20MockUpgradeable.sol";
 import "../token/TRC20NoReturnMockUpgradeable.sol";
 import "../token/TRC20ReturnFalseMockUpgradeable.sol";
-import "../../token/ERC6909/extensions/ERC6909ContentURIUpgradeable.sol";
-import "../../token/ERC6909/extensions/ERC6909TokenSupplyUpgradeable.sol";
+import "../token/TRC20USDTMockUpgradeable.sol";
+import "../TRC3156FlashBorrowerMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20BurnableUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CappedUpgradeable.sol";
+import "../../token/TRC6909/extensions/TRC6909ContentURIUpgradeable.sol";
+import "../../token/TRC6909/extensions/TRC6909TokenSupplyUpgradeable.sol";
 import "../docs/token/TRC1155/MyTRC1155HolderContractUpgradeable.sol";
-import "../ERC1271WalletMockUpgradeable.sol";
 import "../ReentrancyMockUpgradeable.sol";
 import "../ReentrancyTransientMockUpgradeable.sol";
+import "../TRC1271WalletMockUpgradeable.sol";
 import "../BatchCallerUpgradeable.sol";
 import "../TimelockReentrantUpgradeable.sol";
 import "../token/TRC1155ReceiverMockUpgradeable.sol";
 import "../../access/Ownable2StepUpgradeable.sol";
 import "../AuthorityMockUpgradeable.sol";
 import "../Base64DirtyUpgradeable.sol";
-import "../crosschain/ERC7786RecipientMockUpgradeable.sol";
+import "../crosschain/TRC7786RecipientMockUpgradeable.sol";
 import "../docs/access-control/MyContractOwnableUpgradeable.sol";
 import "../MerkleProofCustomHashMockUpgradeable.sol";
 import "../PausableMockUpgradeable.sol";
 import "../token/TRC20GetterHelperUpgradeable.sol";
 import "../UpgradeableBeaconMockUpgradeable.sol";
-import "../ERC165MockUpgradeable.sol";
 import "../ReentrancyAttackUpgradeable.sol";
-import "../token/ERC1363ReceiverMockUpgradeable.sol";
-import "../token/ERC1363SpenderMockUpgradeable.sol";
+import "../token/TRC1363ReceiverMockUpgradeable.sol";
+import "../token/TRC1363SpenderMockUpgradeable.sol";
 import "../token/TRC721ReceiverMockUpgradeable.sol";
 
 contract TRC20PausableUpgradeableWithInit is TRC20PausableUpgradeable {
@@ -60,12 +60,6 @@ contract TRC20WithAutoMinerRewardUpgradeableWithInit is TRC20WithAutoMinerReward
 contract BoxUpgradeableWithInit is BoxUpgradeable {
     constructor() payable initializer {
         __Box_init();
-    }
-}
-
-contract ERC3156FlashBorrowerMockUpgradeableWithInit is ERC3156FlashBorrowerMockUpgradeable {
-    constructor(bool enableReturn, bool enableApprove) payable initializer {
-        __ERC3156FlashBorrowerMock_init(enableReturn, enableApprove);
     }
 }
 
@@ -105,15 +99,15 @@ contract TRC20ReturnFalseMockUpgradeableWithInit is TRC20ReturnFalseMockUpgradea
     }
 }
 
-contract ERC6909ContentURIUpgradeableWithInit is ERC6909ContentURIUpgradeable {
+contract TRC20USDTMockUpgradeableWithInit is TRC20USDTMockUpgradeable {
     constructor() payable initializer {
-        __ERC6909ContentURI_init();
+        __TRC20USDTMock_init();
     }
 }
 
-contract ERC6909TokenSupplyUpgradeableWithInit is ERC6909TokenSupplyUpgradeable {
-    constructor() payable initializer {
-        __ERC6909TokenSupply_init();
+contract TRC3156FlashBorrowerMockUpgradeableWithInit is TRC3156FlashBorrowerMockUpgradeable {
+    constructor(bool enableReturn, bool enableApprove) payable initializer {
+        __TRC3156FlashBorrowerMock_init(enableReturn, enableApprove);
     }
 }
 
@@ -129,21 +123,21 @@ contract TRC20CappedUpgradeableWithInit is TRC20CappedUpgradeable {
     }
 }
 
+contract TRC6909ContentURIUpgradeableWithInit is TRC6909ContentURIUpgradeable {
+    constructor() payable initializer {
+        __TRC6909ContentURI_init();
+    }
+}
+
+contract TRC6909TokenSupplyUpgradeableWithInit is TRC6909TokenSupplyUpgradeable {
+    constructor() payable initializer {
+        __TRC6909TokenSupply_init();
+    }
+}
+
 contract MyTRC1155HolderContractUpgradeableWithInit is MyTRC1155HolderContractUpgradeable {
     constructor() payable initializer {
         __MyTRC1155HolderContract_init();
-    }
-}
-
-contract ERC1271WalletMockUpgradeableWithInit is ERC1271WalletMockUpgradeable {
-    constructor(address originalOwner) payable initializer {
-        __ERC1271WalletMock_init(originalOwner);
-    }
-}
-
-contract ERC1271MaliciousMockUpgradeableWithInit is ERC1271MaliciousMockUpgradeable {
-    constructor() payable initializer {
-        __ERC1271MaliciousMock_init();
     }
 }
 
@@ -156,6 +150,18 @@ contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
 contract ReentrancyTransientMockUpgradeableWithInit is ReentrancyTransientMockUpgradeable {
     constructor() payable initializer {
         __ReentrancyTransientMock_init();
+    }
+}
+
+contract TRC1271WalletMockUpgradeableWithInit is TRC1271WalletMockUpgradeable {
+    constructor(address originalOwner) payable initializer {
+        __TRC1271WalletMock_init(originalOwner);
+    }
+}
+
+contract TRC1271MaliciousMockUpgradeableWithInit is TRC1271MaliciousMockUpgradeable {
+    constructor() payable initializer {
+        __TRC1271MaliciousMock_init();
     }
 }
 
@@ -219,9 +225,9 @@ contract Base64DirtyUpgradeableWithInit is Base64DirtyUpgradeable {
     }
 }
 
-contract ERC7786RecipientMockUpgradeableWithInit is ERC7786RecipientMockUpgradeable {
+contract TRC7786RecipientMockUpgradeableWithInit is TRC7786RecipientMockUpgradeable {
     constructor(address gateway_) payable initializer {
-        __ERC7786RecipientMock_init(gateway_);
+        __TRC7786RecipientMock_init(gateway_);
     }
 }
 
@@ -261,63 +267,21 @@ contract UpgradeableBeaconReentrantMockUpgradeableWithInit is UpgradeableBeaconR
     }
 }
 
-contract SupportsInterfaceWithLookupMockUpgradeableWithInit is SupportsInterfaceWithLookupMockUpgradeable {
-    constructor() payable initializer {
-        __SupportsInterfaceWithLookupMock_init();
-    }
-}
-
-contract ERC165InterfacesSupportedUpgradeableWithInit is ERC165InterfacesSupportedUpgradeable {
-    constructor(bytes4[] memory interfaceIds) payable initializer {
-        __ERC165InterfacesSupported_init(interfaceIds);
-    }
-}
-
-contract ERC165RevertInvalidUpgradeableWithInit is ERC165RevertInvalidUpgradeable {
-    constructor(bytes4[] memory interfaceIds) payable initializer {
-        __ERC165RevertInvalid_init(interfaceIds);
-    }
-}
-
-contract ERC165MaliciousDataUpgradeableWithInit is ERC165MaliciousDataUpgradeable {
-    constructor() payable initializer {
-        __ERC165MaliciousData_init();
-    }
-}
-
-contract ERC165MissingDataUpgradeableWithInit is ERC165MissingDataUpgradeable {
-    constructor() payable initializer {
-        __ERC165MissingData_init();
-    }
-}
-
-contract ERC165NotSupportedUpgradeableWithInit is ERC165NotSupportedUpgradeable {
-    constructor() payable initializer {
-        __ERC165NotSupported_init();
-    }
-}
-
-contract ERC165ReturnBombMockUpgradeableWithInit is ERC165ReturnBombMockUpgradeable {
-    constructor() payable initializer {
-        __ERC165ReturnBombMock_init();
-    }
-}
-
 contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
     constructor() payable initializer {
         __ReentrancyAttack_init();
     }
 }
 
-contract ERC1363ReceiverMockUpgradeableWithInit is ERC1363ReceiverMockUpgradeable {
+contract TRC1363ReceiverMockUpgradeableWithInit is TRC1363ReceiverMockUpgradeable {
     constructor() payable initializer {
-        __ERC1363ReceiverMock_init();
+        __TRC1363ReceiverMock_init();
     }
 }
 
-contract ERC1363SpenderMockUpgradeableWithInit is ERC1363SpenderMockUpgradeable {
+contract TRC1363SpenderMockUpgradeableWithInit is TRC1363SpenderMockUpgradeable {
     constructor() payable initializer {
-        __ERC1363SpenderMock_init();
+        __TRC1363SpenderMock_init();
     }
 }
 

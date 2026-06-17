@@ -7,8 +7,8 @@ import {ITRC1155} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITR
 import {ITRC1155MetadataURI} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
 import {TRC1155Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
-import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
 import {Arrays} from "@openzeppelin/tron-contracts/contracts/utils/Arrays.sol";
 import {ITRC1155Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
@@ -20,7 +20,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  *
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
  */
-abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC1155, ITRC1155MetadataURI, ITRC1155Errors {
+abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, ITRC1155, ITRC1155MetadataURI, ITRC1155Errors {
     using Arrays for uint256[];
     using Arrays for address[];
 
@@ -54,8 +54,8 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, ERC16
         _setURI(uri_);
     }
 
-    /// @inheritdoc IERC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
+    /// @inheritdoc ITRC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return
             interfaceId == type(ITRC1155).interfaceId ||
             interfaceId == type(ITRC1155MetadataURI).interfaceId ||

@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {IERC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5805.sol";
+import {ITRC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5805.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
-import {EIP712Upgradeable} from "../../utils/cryptography/EIP712Upgradeable.sol";
+import {TIP712Upgradeable} from "../../utils/cryptography/TIP712Upgradeable.sol";
 import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
 import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
 import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
@@ -31,7 +31,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * {TRC721-balanceOf}), and can use {_transferVotingUnits} to track a change in the distribution of those units (in the
  * previous example, it would be included in {TRC721-_update}).
  */
-abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712Upgradeable, NoncesUpgradeable, IERC5805 {
+abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, TIP712Upgradeable, NoncesUpgradeable, ITRC5805 {
     using Checkpoints for Checkpoints.Trace208;
 
     bytes32 private constant DELEGATION_TYPEHASH =
@@ -58,12 +58,12 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     /**
      * @dev The clock was incorrectly modified.
      */
-    error ERC6372InconsistentClock();
+    error TRC6372InconsistentClock();
 
     /**
      * @dev Lookup to future votes is not available.
      */
-    error ERC5805FutureLookup(uint256 timepoint, uint48 clock);
+    error TRC5805FutureLookup(uint256 timepoint, uint48 clock);
 
     function __Votes_init() internal onlyInitializing {
     }
@@ -85,7 +85,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
     function CLOCK_MODE() public view virtual returns (string memory) {
         // Check that the clock was not modified
         if (clock() != Time.blockNumber()) {
-            revert ERC6372InconsistentClock();
+            revert TRC6372InconsistentClock();
         }
         return "mode=blocknumber&from=default";
     }
@@ -95,7 +95,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, EIP712U
      */
     function _validateTimepoint(uint256 timepoint) internal view returns (uint48) {
         uint48 currentTimepoint = clock();
-        if (timepoint >= currentTimepoint) revert ERC5805FutureLookup(timepoint, currentTimepoint);
+        if (timepoint >= currentTimepoint) revert TRC5805FutureLookup(timepoint, currentTimepoint);
         return SafeCast.toUint48(timepoint);
     }
 

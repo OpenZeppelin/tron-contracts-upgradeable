@@ -10,13 +10,13 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 contract MyTokenTimestampBasedUpgradeable is Initializable, TRC20Upgradeable, TRC20PermitUpgradeable, TRC20VotesUpgradeable {
     function __MyTokenTimestampBased_init() internal onlyInitializing {
         __TRC20_init_unchained("MyTokenTimestampBased", "MTK");
-        __EIP712_init_unchained("MyTokenTimestampBased", "1");
+        __TIP712_init_unchained("MyTokenTimestampBased", "1");
         __TRC20Permit_init_unchained("MyTokenTimestampBased");
     }
 
     function __MyTokenTimestampBased_init_unchained() internal onlyInitializing {}
 
-    // Overrides IERC6372 functions to make the token & governor timestamp-based
+    // Overrides ITRC6372 functions to make the token & governor timestamp-based
 
     function clock() public view override returns (uint48) {
         return uint48(block.timestamp);

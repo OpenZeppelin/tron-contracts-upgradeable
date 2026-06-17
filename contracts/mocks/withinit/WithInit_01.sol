@@ -3,9 +3,9 @@ pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
 import "../StatelessUpgradeable.sol";
-import "../../utils/cryptography/signers/MultiSignerERC7913WeightedUpgradeable.sol";
-import "../../utils/cryptography/signers/MultiSignerERC7913Upgradeable.sol";
-import "../../utils/introspection/ERC165Upgradeable.sol";
+import "../../utils/cryptography/signers/MultiSignerTRC7913WeightedUpgradeable.sol";
+import "../../utils/cryptography/signers/MultiSignerTRC7913Upgradeable.sol";
+import "../../utils/introspection/TRC165Upgradeable.sol";
 import "../../utils/NoncesKeyedUpgradeable.sol";
 import "../../utils/NoncesUpgradeable.sol";
 
@@ -15,21 +15,21 @@ contract Dummy1234UpgradeableWithInit is Dummy1234Upgradeable {
     }
 }
 
-contract MultiSignerERC7913WeightedUpgradeableWithInit is MultiSignerERC7913WeightedUpgradeable {
+contract MultiSignerTRC7913WeightedUpgradeableWithInit is MultiSignerTRC7913WeightedUpgradeable {
     constructor(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) payable initializer {
-        __MultiSignerERC7913Weighted_init(signers_, weights_, threshold_);
+        __MultiSignerTRC7913Weighted_init(signers_, weights_, threshold_);
     }
 }
 
-contract MultiSignerERC7913UpgradeableWithInit is MultiSignerERC7913Upgradeable {
+contract MultiSignerTRC7913UpgradeableWithInit is MultiSignerTRC7913Upgradeable {
     constructor(bytes[] memory signers_, uint64 threshold_) payable initializer {
-        __MultiSignerERC7913_init(signers_, threshold_);
+        __MultiSignerTRC7913_init(signers_, threshold_);
     }
 }
 
-contract ERC165UpgradeableWithInit is ERC165Upgradeable {
+contract TRC165UpgradeableWithInit is TRC165Upgradeable {
     constructor() payable initializer {
-        __ERC165_init();
+        __TRC165_init();
     }
 }
 

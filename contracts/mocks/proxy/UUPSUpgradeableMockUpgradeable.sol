@@ -3,7 +3,7 @@
 pragma solidity ^0.8.22;
 
 import {UUPSUpgradeable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/UUPSUpgradeable.sol";
-import {ERC1967Utils} from "@openzeppelin/tron-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol";
+import {TRC1967Utils} from "@openzeppelin/tron-contracts/contracts/proxy/TRC1967/TRC1967Utils.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
@@ -40,7 +40,7 @@ contract UUPSUpgradeableUnsafeMockUpgradeable is Initializable, UUPSUpgradeableM
     function __UUPSUpgradeableUnsafeMock_init_unchained() internal onlyInitializing {
     }
     function upgradeToAndCall(address newImplementation, bytes memory data) public payable override {
-        ERC1967Utils.upgradeToAndCall(newImplementation, data);
+        TRC1967Utils.upgradeToAndCall(newImplementation, data);
     }
 }
 

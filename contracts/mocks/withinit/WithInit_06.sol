@@ -11,22 +11,22 @@ import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
 import "../MerkleTreeMockUpgradeable.sol";
 import "../proxy/UUPSUpgradeableMockUpgradeable.sol";
 import "../token/TRC20MulticallMockUpgradeable.sol";
-import "../../utils/cryptography/signers/SignerERC7913Upgradeable.sol";
+import "../../utils/cryptography/signers/SignerTRC7913Upgradeable.sol";
 import "../token/TRC20FlashMintMockUpgradeable.sol";
 import "../token/TRC20ReentrantUpgradeable.sol";
 import "../AccessManagedTargetUpgradeable.sol";
 import "../ArraysMockUpgradeable.sol";
-import "../crosschain/ERC7786GatewayMockUpgradeable.sol";
+import "../crosschain/TRC7786GatewayMockUpgradeable.sol";
 import "../DummyImplementationUpgradeable.sol";
-import "../ERC2771ContextMockUpgradeable.sol";
+import "../TRC2771ContextMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20FlashMintUpgradeable.sol";
-import "../docs/token/ERC6909/ERC6909GameItemsUpgradeable.sol";
+import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
 import "../StorageSlotMockUpgradeable.sol";
 import "../TransientSlotMockUpgradeable.sol";
 import "../../access/manager/AccessManagedUpgradeable.sol";
 import "../docs/access-control/AccessControlModifiedUpgradeable.sol";
-import "../../token/ERC6909/extensions/ERC6909MetadataUpgradeable.sol";
-import "../../token/ERC6909/ERC6909Upgradeable.sol";
+import "../../token/TRC6909/extensions/TRC6909MetadataUpgradeable.sol";
+import "../../token/TRC6909/TRC6909Upgradeable.sol";
 import "../ContextMockUpgradeable.sol";
 
 contract AccessManagedTRC20MintUpgradeableWithInit is AccessManagedTRC20MintUpgradeable {
@@ -101,9 +101,9 @@ contract TRC20MulticallMockUpgradeableWithInit is TRC20MulticallMockUpgradeable 
     }
 }
 
-contract SignerERC7913UpgradeableWithInit is SignerERC7913Upgradeable {
+contract SignerTRC7913UpgradeableWithInit is SignerTRC7913Upgradeable {
     constructor(bytes memory signer_) payable initializer {
-        __SignerERC7913_init(signer_);
+        __SignerTRC7913_init(signer_);
     }
 }
 
@@ -155,9 +155,9 @@ contract StringArraysMockUpgradeableWithInit is StringArraysMockUpgradeable {
     }
 }
 
-contract ERC7786GatewayMockUpgradeableWithInit is ERC7786GatewayMockUpgradeable {
+contract TRC7786GatewayMockUpgradeableWithInit is TRC7786GatewayMockUpgradeable {
     constructor() payable initializer {
-        __ERC7786GatewayMock_init();
+        __TRC7786GatewayMock_init();
     }
 }
 
@@ -173,8 +173,8 @@ contract DummyImplementationV2UpgradeableWithInit is DummyImplementationV2Upgrad
     }
 }
 
-contract ERC2771ContextMockUpgradeableWithInit is ERC2771ContextMockUpgradeable {
-    constructor(address trustedForwarder) ERC2771ContextMockUpgradeable(trustedForwarder) payable initializer {
+contract TRC2771ContextMockUpgradeableWithInit is TRC2771ContextMockUpgradeable {
+    constructor(address trustedForwarder) TRC2771ContextMockUpgradeable(trustedForwarder) payable initializer {
 
     }
 }
@@ -185,9 +185,9 @@ contract TRC20FlashMintUpgradeableWithInit is TRC20FlashMintUpgradeable {
     }
 }
 
-contract ERC6909GameItemsUpgradeableWithInit is ERC6909GameItemsUpgradeable {
+contract TRC6909GameItemsUpgradeableWithInit is TRC6909GameItemsUpgradeable {
     constructor() payable initializer {
-        __ERC6909GameItems_init();
+        __TRC6909GameItems_init();
     }
 }
 
@@ -215,15 +215,15 @@ contract AccessControlModifiedUpgradeableWithInit is AccessControlModifiedUpgrad
     }
 }
 
-contract ERC6909MetadataUpgradeableWithInit is ERC6909MetadataUpgradeable {
+contract TRC6909MetadataUpgradeableWithInit is TRC6909MetadataUpgradeable {
     constructor() payable initializer {
-        __ERC6909Metadata_init();
+        __TRC6909Metadata_init();
     }
 }
 
-contract ERC6909UpgradeableWithInit is ERC6909Upgradeable {
+contract TRC6909UpgradeableWithInit is TRC6909Upgradeable {
     constructor() payable initializer {
-        __ERC6909_init();
+        __TRC6909_init();
     }
 }
 

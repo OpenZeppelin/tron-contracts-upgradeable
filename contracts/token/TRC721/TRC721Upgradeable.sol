@@ -8,8 +8,8 @@ import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC7
 import {TRC721Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {Strings} from "@openzeppelin/tron-contracts/contracts/utils/Strings.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
-import {ERC165Upgradeable} from "../../utils/introspection/ERC165Upgradeable.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
 import {ITRC721Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
@@ -20,7 +20,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {TRC721Enumerable}.
  */
-abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165Upgradeable, ITRC721, ITRC721Metadata, ITRC721Errors {
+abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, ITRC721, ITRC721Metadata, ITRC721Errors {
     using Strings for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721
@@ -62,8 +62,8 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, ERC165
         $._symbol = symbol_;
     }
 
-    /// @inheritdoc IERC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165Upgradeable, IERC165) returns (bool) {
+    /// @inheritdoc ITRC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return
             interfaceId == type(ITRC721).interfaceId ||
             interfaceId == type(ITRC721Metadata).interfaceId ||

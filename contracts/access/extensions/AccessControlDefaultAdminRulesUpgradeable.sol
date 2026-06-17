@@ -8,8 +8,8 @@ import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
 import {IAccessControl} from "@openzeppelin/tron-contracts/contracts/access/IAccessControl.sol";
 import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
 import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {IERC5313} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC5313.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ITRC5313} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5313.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -40,7 +40,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * }
  * ```
  */
-abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRules, IERC5313, AccessControlUpgradeable {
+abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRules, ITRC5313, AccessControlUpgradeable {
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlDefaultAdminRules
     struct AccessControlDefaultAdminRulesStorage {
         // pending admin pair read/written together frequently
@@ -80,12 +80,12 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
         _grantRole(DEFAULT_ADMIN_ROLE, initialDefaultAdmin);
     }
 
-    /// @inheritdoc IERC165
+    /// @inheritdoc ITRC165
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
         return interfaceId == type(IAccessControlDefaultAdminRules).interfaceId || super.supportsInterface(interfaceId);
     }
 
-    /// @inheritdoc IERC5313
+    /// @inheritdoc ITRC5313
     function owner() public view virtual returns (address) {
         return defaultAdmin();
     }

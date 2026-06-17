@@ -4,7 +4,7 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {IERC2309} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC2309.sol";
+import {ITRC2309} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC2309.sol";
 import {BitMaps} from "@openzeppelin/tron-contracts/contracts/utils/structs/BitMaps.sol";
 import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
@@ -28,7 +28,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * values during the {_mintConsecutive} execution if the super call is not called first. To be safe, execute the
  * super call before your custom logic.
  */
-abstract contract TRC721ConsecutiveUpgradeable is Initializable, IERC2309, TRC721Upgradeable {
+abstract contract TRC721ConsecutiveUpgradeable is Initializable, ITRC2309, TRC721Upgradeable {
     using BitMaps for BitMaps.BitMap;
     using Checkpoints for Checkpoints.Trace160;
 
@@ -118,7 +118,7 @@ abstract contract TRC721ConsecutiveUpgradeable is Initializable, IERC2309, TRC72
      *
      * CAUTION: Does not invoke `onTRC721Received` on the receiver.
      *
-     * Emits a {IERC2309-ConsecutiveTransfer} event.
+     * Emits a {ITRC2309-ConsecutiveTransfer} event.
      */
     function _mintConsecutive(address to, uint96 batchSize) internal virtual returns (uint96) {
         TRC721ConsecutiveStorage storage $ = _getTRC721ConsecutiveStorage();

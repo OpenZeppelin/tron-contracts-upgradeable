@@ -6,7 +6,7 @@ import {TRC721Upgradeable} from "../../token/TRC721/TRC721Upgradeable.sol";
 import {TRC721ConsecutiveUpgradeable} from "../../token/TRC721/extensions/TRC721ConsecutiveUpgradeable.sol";
 import {TRC721PausableUpgradeable} from "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import {TRC721VotesUpgradeable} from "../../token/TRC721/extensions/TRC721VotesUpgradeable.sol";
-import {EIP712Upgradeable} from "../../utils/cryptography/EIP712Upgradeable.sol";
+import {TIP712Upgradeable} from "../../utils/cryptography/TIP712Upgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -24,7 +24,7 @@ contract TRC721ConsecutiveMockUpgradeable is Initializable, TRC721ConsecutiveUpg
         uint96[] memory amounts
     ) internal onlyInitializing {
         __TRC721_init_unchained(name, symbol);
-        __EIP712_init_unchained(name, "1");
+        __TIP712_init_unchained(name, "1");
         __TRC721ConsecutiveMock_init_unchained(name, symbol, offset, delegates, receivers, amounts);
     }
 

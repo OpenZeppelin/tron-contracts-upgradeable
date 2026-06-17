@@ -6,7 +6,7 @@ pragma solidity ^0.8.24;
 import {ITRC20Permit} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Permit.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
-import {EIP712Upgradeable} from "../../../utils/cryptography/EIP712Upgradeable.sol";
+import {TIP712Upgradeable} from "../../../utils/cryptography/TIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
@@ -19,27 +19,27 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * presenting a message signed by the account. By not relying on `{ITRC20-approve}`, the token holder account doesn't
  * need to send a transaction, and thus is not required to hold Ether at all.
  */
-abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITRC20Permit, EIP712Upgradeable, NoncesUpgradeable {
+abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITRC20Permit, TIP712Upgradeable, NoncesUpgradeable {
     bytes32 private constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 
     /**
      * @dev Permit deadline has expired.
      */
-    error ERC2612ExpiredSignature(uint256 deadline);
+    error TRC2612ExpiredSignature(uint256 deadline);
 
     /**
      * @dev Mismatched signature.
      */
-    error ERC2612InvalidSigner(address signer, address owner);
+    error TRC2612InvalidSigner(address signer, address owner);
 
     /**
-     * @dev Initializes the {EIP712} domain separator using the `name` parameter, and setting `version` to `"1"`.
+     * @dev Initializes the {TIP712} domain separator using the `name` parameter, and setting `version` to `"1"`.
      *
      * It's a good idea to use the same `name` that is defined as the TRC-20 token name.
      */
     function __TRC20Permit_init(string memory name) internal onlyInitializing {
-        __EIP712_init_unchained(name, "1");
+        __TIP712_init_unchained(name, "1");
     }
 
     function __TRC20Permit_init_unchained(string memory) internal onlyInitializing {}
@@ -55,7 +55,7 @@ abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITR
         bytes32 s
     ) public virtual {
         if (block.timestamp > deadline) {
-            revert ERC2612ExpiredSignature(deadline);
+            revert TRC2612ExpiredSignature(deadline);
         }
 
         bytes32 structHash = keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, _useNonce(owner), deadline));
@@ -64,7 +64,7 @@ abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITR
 
         address signer = ECDSA.recover(hash, v, r, s);
         if (signer != owner) {
-            revert ERC2612InvalidSigner(signer, owner);
+            revert TRC2612InvalidSigner(signer, owner);
         }
 
         _approve(owner, spender, value);

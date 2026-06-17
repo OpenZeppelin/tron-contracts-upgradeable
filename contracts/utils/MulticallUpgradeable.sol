@@ -16,7 +16,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  *
  * NOTE: Since 5.0.1 and 4.9.4, this contract identifies non-canonical contexts (i.e. `msg.sender` is not {Context-_msgSender}).
  * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
- * to the subcall. This makes it safe to use with {ERC2771Context}. Contexts that don't affect the resolution of
+ * to the subcall. This makes it safe to use with {TRC2771Context}. Contexts that don't affect the resolution of
  * {Context-_msgSender} are not propagated to subcalls.
  */
 abstract contract MulticallUpgradeable is Initializable, ContextUpgradeable {

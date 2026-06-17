@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {IERC7674} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7674.sol";
+import {ITRC7674} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7674.sol";
 import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
 import {SlotDerivation} from "@openzeppelin/tron-contracts/contracts/utils/SlotDerivation.sol";
 import {TransientSlot} from "@openzeppelin/tron-contracts/contracts/utils/TransientSlot.sol";
@@ -18,7 +18,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  *
  * _Available since v5.1._
  */
-abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgradeable, IERC7674 {
+abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgradeable, ITRC7674 {
     using SlotDerivation for bytes32;
     using TransientSlot for bytes32;
     using TransientSlot for TransientSlot.Uint256Slot;
