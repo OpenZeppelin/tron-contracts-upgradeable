@@ -6,7 +6,7 @@ pragma solidity ^0.8.24;
 import {IAccessControlEnumerable} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlEnumerable.sol";
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
 import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -34,7 +34,7 @@ abstract contract AccessControlEnumerableUpgradeable is Initializable, IAccessCo
 
     function __AccessControlEnumerable_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165
+    /// @inheritdoc ITRC165
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
         return interfaceId == type(IAccessControlEnumerable).interfaceId || super.supportsInterface(interfaceId);
     }

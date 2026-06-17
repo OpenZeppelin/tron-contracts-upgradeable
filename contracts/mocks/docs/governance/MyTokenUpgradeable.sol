@@ -10,7 +10,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 contract MyTokenUpgradeable is Initializable, TRC20Upgradeable, TRC20PermitUpgradeable, TRC20VotesUpgradeable {
     function __MyToken_init() internal onlyInitializing {
         __TRC20_init_unchained("MyToken", "MTK");
-        __EIP712_init_unchained("MyToken", "1");
+        __TIP712_init_unchained("MyToken", "1");
         __TRC20Permit_init_unchained("MyToken");
     }
 

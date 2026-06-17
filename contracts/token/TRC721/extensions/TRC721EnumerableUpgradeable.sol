@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
 import {ITRC721Enumerable} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Enumerable.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -51,8 +51,8 @@ abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeabl
 
     function __TRC721Enumerable_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, TRC721Upgradeable) returns (bool) {
+    /// @inheritdoc ITRC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ITRC165, TRC721Upgradeable) returns (bool) {
         return interfaceId == type(ITRC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 

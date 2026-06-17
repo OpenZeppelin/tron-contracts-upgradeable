@@ -5,17 +5,17 @@ pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
 import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Metadata.sol";
-import {IERC4906} from "@openzeppelin/tron-contracts/contracts/interfaces/IERC4906.sol";
-import {IERC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/IERC165.sol";
+import {ITRC4906} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC4906.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC-721 token with storage based token URI management.
  */
-abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906, TRC721Upgradeable {
+abstract contract TRC721URIStorageUpgradeable is Initializable, ITRC4906, TRC721Upgradeable {
     // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
     // defines events and does not include any external function.
-    bytes4 private constant ERC4906_INTERFACE_ID = bytes4(0x49064906);
+    bytes4 private constant TRC4906_INTERFACE_ID = bytes4(0x49064906);
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721URIStorage
     struct TRC721URIStorageStorage {
@@ -37,9 +37,9 @@ abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906, TRC721
 
     function __TRC721URIStorage_init_unchained() internal onlyInitializing {
     }
-    /// @inheritdoc IERC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, IERC165) returns (bool) {
-        return interfaceId == ERC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
+    /// @inheritdoc ITRC165
+    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, ITRC165) returns (bool) {
+        return interfaceId == TRC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
     }
 
     /// @inheritdoc ITRC721Metadata
@@ -64,7 +64,7 @@ abstract contract TRC721URIStorageUpgradeable is Initializable, IERC4906, TRC721
     /**
      * @dev Sets `_tokenURI` as the tokenURI of `tokenId`.
      *
-     * Emits {IERC4906-MetadataUpdate}.
+     * Emits {ITRC4906-MetadataUpdate}.
      */
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
         TRC721URIStorageStorage storage $ = _getTRC721URIStorageStorage();

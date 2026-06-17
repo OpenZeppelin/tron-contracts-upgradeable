@@ -14,7 +14,7 @@ contract MyTokenWrappedUpgradeable is Initializable, TRC20Upgradeable, TRC20Perm
         ITRC20 wrappedToken
     ) internal onlyInitializing {
         __TRC20_init_unchained("MyTokenWrapped", "MTK");
-        __EIP712_init_unchained("MyTokenWrapped", "1");
+        __TIP712_init_unchained("MyTokenWrapped", "1");
         __TRC20Permit_init_unchained("MyTokenWrapped");
         __TRC20Wrapper_init_unchained(wrappedToken);
     }

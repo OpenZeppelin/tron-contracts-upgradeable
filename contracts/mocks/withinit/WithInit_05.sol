@@ -14,16 +14,16 @@ import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC721/extensions/TRC721BurnableUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721WrapperUpgradeable.sol";
 import "../../access/extensions/AccessControlEnumerableUpgradeable.sol";
-import "../token/ERC1363ForceApproveMockUpgradeable.sol";
-import "../token/ERC1363NoReturnMockUpgradeable.sol";
-import "../token/ERC1363ReturnFalseMockUpgradeable.sol";
+import "../token/TRC1363ForceApproveMockUpgradeable.sol";
+import "../token/TRC1363NoReturnMockUpgradeable.sol";
+import "../token/TRC1363ReturnFalseMockUpgradeable.sol";
 import "../../finance/VestingWalletCliffUpgradeable.sol";
-import "../../token/TRC20/extensions/ERC1363Upgradeable.sol";
+import "../../token/TRC20/extensions/TRC1363Upgradeable.sol";
 import "../../token/TRC20/extensions/draft-TRC20TemporaryApprovalUpgradeable.sol";
 import "../../finance/VestingWalletUpgradeable.sol";
 import "../../utils/cryptography/signers/SignerWebAuthnUpgradeable.sol";
 import "../../access/extensions/AccessControlDefaultAdminRulesUpgradeable.sol";
-import "../../token/common/ERC2981Upgradeable.sol";
+import "../../token/common/TRC2981Upgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
 
 contract TRC1155PausableUpgradeableWithInit is TRC1155PausableUpgradeable {
@@ -98,27 +98,27 @@ contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUp
     }
 }
 
-contract ERC1363ForceApproveMockUpgradeableWithInit is ERC1363ForceApproveMockUpgradeable {
+contract TRC1363ForceApproveMockUpgradeableWithInit is TRC1363ForceApproveMockUpgradeable {
     constructor() payable initializer {
-        __ERC1363ForceApproveMock_init();
+        __TRC1363ForceApproveMock_init();
     }
 }
 
-contract ERC1363NoReturnMockUpgradeableWithInit is ERC1363NoReturnMockUpgradeable {
+contract TRC1363NoReturnMockUpgradeableWithInit is TRC1363NoReturnMockUpgradeable {
     constructor() payable initializer {
-        __ERC1363NoReturnMock_init();
+        __TRC1363NoReturnMock_init();
     }
 }
 
-contract ERC1363ReturnFalseOnTRC20MockUpgradeableWithInit is ERC1363ReturnFalseOnTRC20MockUpgradeable {
+contract TRC1363ReturnFalseOnTRC20MockUpgradeableWithInit is TRC1363ReturnFalseOnTRC20MockUpgradeable {
     constructor() payable initializer {
-        __ERC1363ReturnFalseOnTRC20Mock_init();
+        __TRC1363ReturnFalseOnTRC20Mock_init();
     }
 }
 
-contract ERC1363ReturnFalseMockUpgradeableWithInit is ERC1363ReturnFalseMockUpgradeable {
+contract TRC1363ReturnFalseMockUpgradeableWithInit is TRC1363ReturnFalseMockUpgradeable {
     constructor() payable initializer {
-        __ERC1363ReturnFalseMock_init();
+        __TRC1363ReturnFalseMock_init();
     }
 }
 
@@ -128,9 +128,9 @@ contract VestingWalletCliffUpgradeableWithInit is VestingWalletCliffUpgradeable 
     }
 }
 
-contract ERC1363UpgradeableWithInit is ERC1363Upgradeable {
+contract TRC1363UpgradeableWithInit is TRC1363Upgradeable {
     constructor() payable initializer {
-        __ERC1363_init();
+        __TRC1363_init();
     }
 }
 
@@ -158,9 +158,9 @@ contract AccessControlDefaultAdminRulesUpgradeableWithInit is AccessControlDefau
     }
 }
 
-contract ERC2981UpgradeableWithInit is ERC2981Upgradeable {
+contract TRC2981UpgradeableWithInit is TRC2981Upgradeable {
     constructor() payable initializer {
-        __ERC2981_init();
+        __TRC2981_init();
     }
 }
 

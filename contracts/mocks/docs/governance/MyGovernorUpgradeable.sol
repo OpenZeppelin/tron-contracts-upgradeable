@@ -21,7 +21,7 @@ contract MyGovernorUpgradeable is
         IVotes _token,
         TimelockControllerUpgradeable _timelock
     ) internal onlyInitializing {
-        __EIP712_init_unchained("MyGovernor", version());
+        __TIP712_init_unchained("MyGovernor", version());
         __Governor_init_unchained("MyGovernor");
         __GovernorVotes_init_unchained(_token);
         __GovernorVotesQuorumFraction_init_unchained(4);

@@ -5,7 +5,7 @@ pragma solidity ^0.8.26;
 
 import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {ERC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/ERC7786Recipient.sol";
+import {TRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/TRC7786Recipient.sol";
 import {CrosschainLinkedUpgradeable} from "../../CrosschainLinkedUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
@@ -16,7 +16,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * * {_onSend}: called when a crosschain transfer is going out. Must take the sender tokens or revert.
  * * {_onReceive}: called when a crosschain transfer is coming in. Must give tokens to the receiver.
  *
- * This base contract is used by the {BridgeERC20}, which interfaces with legacy TRC-20 tokens, and {BridgeERC7802},
+ * This base contract is used by the {BridgeTRC20}, which interfaces with legacy TRC-20 tokens, and {BridgeTRC7802},
  * which interface with ERC-7802 to provide an approve-free user experience. It is also used by the {TRC20Crosschain}
  * extension, which embeds the bridge logic directly in the token contract.
  */
@@ -62,7 +62,7 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         return sendId;
     }
 
-    /// @inheritdoc ERC7786Recipient
+    /// @inheritdoc TRC7786Recipient
     function _processMessage(
         address /*gateway*/,
         bytes32 receiveId,

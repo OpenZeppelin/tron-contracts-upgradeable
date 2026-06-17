@@ -2,43 +2,43 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
-import "../utils/cryptography/ERC7739MockUpgradeable.sol";
+import "../utils/cryptography/TRC7739MockUpgradeable.sol";
 import "../docs/AccessManagerEnumerableUpgradeable.sol";
 import "../token/TRC4626FeesMockUpgradeable.sol";
 import "../VotesMockUpgradeable.sol";
-import "../../crosschain/bridges/BridgeERC20Upgradeable.sol";
+import "../../crosschain/bridges/BridgeTRC20Upgradeable.sol";
 import "../docs/TRC4626FeesUpgradeable.sol";
 import "../token/TRC4626LimitsMockUpgradeable.sol";
 import "../token/TRC4626MockUpgradeable.sol";
 import "../token/TRC4626OffsetMockUpgradeable.sol";
-import "../../metatx/ERC2771ForwarderUpgradeable.sol";
+import "../../metatx/TRC2771ForwarderUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CrosschainUpgradeable.sol";
-import "../../crosschain/bridges/BridgeERC7802Upgradeable.sol";
+import "../../crosschain/bridges/BridgeTRC7802Upgradeable.sol";
 import "../AccessManagerMockUpgradeable.sol";
 import "../../access/manager/AccessManagerUpgradeable.sol";
-import "../EIP712VerifierUpgradeable.sol";
+import "../TIP712VerifierUpgradeable.sol";
 import "../../utils/cryptography/signers/SignerP256Upgradeable.sol";
 import "../../utils/cryptography/signers/SignerRSAUpgradeable.sol";
 import "../../utils/MulticallUpgradeable.sol";
 import "../../utils/cryptography/signers/SignerECDSAUpgradeable.sol";
-import "../../metatx/ERC2771ContextUpgradeable.sol";
+import "../../metatx/TRC2771ContextUpgradeable.sol";
 
-contract ERC7739ECDSAMockUpgradeableWithInit is ERC7739ECDSAMockUpgradeable {
+contract TRC7739ECDSAMockUpgradeableWithInit is TRC7739ECDSAMockUpgradeable {
     constructor() payable initializer {
-        __ERC7739ECDSAMock_init();
+        __TRC7739ECDSAMock_init();
     }
 }
 
-contract ERC7739P256MockUpgradeableWithInit is ERC7739P256MockUpgradeable {
+contract TRC7739P256MockUpgradeableWithInit is TRC7739P256MockUpgradeable {
     constructor() payable initializer {
-        __ERC7739P256Mock_init();
+        __TRC7739P256Mock_init();
     }
 }
 
-contract ERC7739RSAMockUpgradeableWithInit is ERC7739RSAMockUpgradeable {
+contract TRC7739RSAMockUpgradeableWithInit is TRC7739RSAMockUpgradeable {
     constructor() payable initializer {
-        __ERC7739RSAMock_init();
+        __TRC7739RSAMock_init();
     }
 }
 
@@ -71,9 +71,9 @@ contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable 
     }
 }
 
-contract BridgeERC20UpgradeableWithInit is BridgeERC20Upgradeable {
+contract BridgeTRC20UpgradeableWithInit is BridgeTRC20Upgradeable {
     constructor(ITRC20 token_) payable initializer {
-        __BridgeERC20_init(token_);
+        __BridgeTRC20_init(token_);
     }
 }
 
@@ -101,9 +101,9 @@ contract TRC4626OffsetMockUpgradeableWithInit is TRC4626OffsetMockUpgradeable {
     }
 }
 
-contract ERC2771ForwarderUpgradeableWithInit is ERC2771ForwarderUpgradeable {
+contract TRC2771ForwarderUpgradeableWithInit is TRC2771ForwarderUpgradeable {
     constructor(string memory name) payable initializer {
-        __ERC2771Forwarder_init(name);
+        __TRC2771Forwarder_init(name);
     }
 }
 
@@ -119,9 +119,9 @@ contract TRC20CrosschainUpgradeableWithInit is TRC20CrosschainUpgradeable {
     }
 }
 
-contract BridgeERC7802UpgradeableWithInit is BridgeERC7802Upgradeable {
-    constructor(IERC7802 token_) payable initializer {
-        __BridgeERC7802_init(token_);
+contract BridgeTRC7802UpgradeableWithInit is BridgeTRC7802Upgradeable {
+    constructor(ITRC7802 token_) payable initializer {
+        __BridgeTRC7802_init(token_);
     }
 }
 
@@ -137,9 +137,9 @@ contract AccessManagerUpgradeableWithInit is AccessManagerUpgradeable {
     }
 }
 
-contract EIP712VerifierUpgradeableWithInit is EIP712VerifierUpgradeable {
+contract TIP712VerifierUpgradeableWithInit is TIP712VerifierUpgradeable {
     constructor() payable initializer {
-        __EIP712Verifier_init();
+        __TIP712Verifier_init();
     }
 }
 
@@ -167,8 +167,8 @@ contract SignerECDSAUpgradeableWithInit is SignerECDSAUpgradeable {
     }
 }
 
-contract ERC2771ContextUpgradeableWithInit is ERC2771ContextUpgradeable {
-    constructor(address trustedForwarder_) ERC2771ContextUpgradeable(trustedForwarder_) payable initializer {
+contract TRC2771ContextUpgradeableWithInit is TRC2771ContextUpgradeable {
+    constructor(address trustedForwarder_) TRC2771ContextUpgradeable(trustedForwarder_) payable initializer {
 
     }
 }

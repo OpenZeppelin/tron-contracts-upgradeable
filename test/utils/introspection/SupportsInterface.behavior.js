@@ -32,7 +32,7 @@ const GOVERNOR_INTERFACE = [
   'castVoteWithReasonAndParamsBySig(uint256,uint8,address,string,bytes,bytes)',
 ];
 const SIGNATURES = {
-  ERC165: ['supportsInterface(bytes4)'],
+  TRC165: ['supportsInterface(bytes4)'],
   TRC721: [
     'balanceOf(address)',
     'ownerOf(uint256)',
@@ -59,7 +59,7 @@ const SIGNATURES = {
     'onERC1155Received(address,address,uint256,uint256,bytes)',
     'onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)',
   ],
-  ERC1363: [
+  TRC1363: [
     'transferAndCall(address,uint256)',
     'transferAndCall(address,uint256,bytes)',
     'transferFromAndCall(address,address,uint256)',
@@ -89,8 +89,8 @@ const SIGNATURES = {
   ],
   Governor: GOVERNOR_INTERFACE,
   Governor_5_3: GOVERNOR_INTERFACE.concat('getProposalId(address[],uint256[],bytes[],bytes32)'),
-  ERC2981: ['royaltyInfo(uint256,uint256)'],
-  ERC6909: [
+  TRC2981: ['royaltyInfo(uint256,uint256)'],
+  TRC6909: [
     'balanceOf(address,uint256)',
     'allowance(address,address,uint256)',
     'isOperator(address,address)',
@@ -99,9 +99,9 @@ const SIGNATURES = {
     'approve(address,uint256,uint256)',
     'setOperator(address,bool)',
   ],
-  ERC6909TokenSupply: ['totalSupply(uint256)'],
-  ERC6909Metadata: ['name(uint256)', 'symbol(uint256)', 'decimals(uint256)'],
-  ERC6909ContentURI: ['contractURI()', 'tokenURI(uint256)'],
+  TRC6909TokenSupply: ['totalSupply(uint256)'],
+  TRC6909Metadata: ['name(uint256)', 'symbol(uint256)', 'decimals(uint256)'],
+  TRC6909ContentURI: ['contractURI()', 'tokenURI(uint256)'],
 };
 
 const INTERFACE_IDS = mapValues(SIGNATURES, interfaceId);
@@ -113,11 +113,11 @@ function shouldSupportInterfaces(interfaces = [], signatures = SIGNATURES) {
     interfaces = Object.keys(interfaces);
   }
 
-  interfaces.unshift('ERC165');
-  signatures.ERC165 = SIGNATURES.ERC165;
+  interfaces.unshift('TRC165');
+  signatures.TRC165 = SIGNATURES.TRC165;
   const interfaceIds = mapValues(signatures, interfaceId, ([name]) => interfaces.includes(name));
 
-  describe('ERC165', function () {
+  describe('TRC165', function () {
     beforeEach(function () {
       this.contractUnderTest = this.mock || this.token;
     });

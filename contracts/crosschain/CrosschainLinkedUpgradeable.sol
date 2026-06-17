@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.26;
 
-import {IERC7786GatewaySource} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC7786.sol";
+import {ITRC7786GatewaySource} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7786.sol";
 import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
 import {Bytes} from "@openzeppelin/tron-contracts/contracts/utils/Bytes.sol";
-import {ERC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/ERC7786Recipient.sol";
+import {TRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/TRC7786Recipient.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -20,7 +20,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * counterpart on a foreign chain. They must override the {_processMessage} function to handle messages that have
  * been verified.
  */
-abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient {
+abstract contract CrosschainLinkedUpgradeable is Initializable, TRC7786Recipient {
     using Bytes for bytes;
     using InteroperableAddress for bytes;
 
@@ -87,7 +87,7 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient
         CrosschainLinkedStorage storage $ = _getCrosschainLinkedStorage();
         // Sanity check, this should revert if gateway is not an ERC-7786 implementation. Note that since
         // supportsAttribute returns data, an EOA would fail that test (nothing returned).
-        IERC7786GatewaySource(gateway).supportsAttribute(bytes4(0));
+        ITRC7786GatewaySource(gateway).supportsAttribute(bytes4(0));
 
         bytes memory chainAddr = _extractChain(counterpart);
         if (allowOverride || $._links[chainAddr].gateway == address(0)) {
@@ -109,10 +109,10 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, ERC7786Recipient
         bytes[] memory attributes
     ) internal virtual returns (bytes32) {
         (address gateway, bytes memory counterpart) = getLink(chainAddr);
-        return IERC7786GatewaySource(gateway).sendMessage(counterpart, payload, attributes);
+        return ITRC7786GatewaySource(gateway).sendMessage(counterpart, payload, attributes);
     }
 
-    /// @inheritdoc ERC7786Recipient
+    /// @inheritdoc TRC7786Recipient
     function _isAuthorizedGateway(
         address instance,
         bytes calldata sender

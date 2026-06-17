@@ -2,6 +2,7 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../TRC165MockUpgradeable.sol";
 import "../CallReceiverMockUpgradeable.sol";
 import "../compound/CompTimelockUpgradeable.sol";
 import "../ConstructorMockUpgradeable.sol";
@@ -9,6 +10,48 @@ import "../EtherReceiverMockUpgradeable.sol";
 import "../proxy/BadBeaconUpgradeable.sol";
 import "../proxy/ClashingImplementationUpgradeable.sol";
 import "../token/TRC20ExcessDecimalsMockUpgradeable.sol";
+
+contract SupportsInterfaceWithLookupMockUpgradeableWithInit is SupportsInterfaceWithLookupMockUpgradeable {
+    constructor() payable initializer {
+        __SupportsInterfaceWithLookupMock_init();
+    }
+}
+
+contract TRC165InterfacesSupportedUpgradeableWithInit is TRC165InterfacesSupportedUpgradeable {
+    constructor(bytes4[] memory interfaceIds) payable initializer {
+        __TRC165InterfacesSupported_init(interfaceIds);
+    }
+}
+
+contract TRC165RevertInvalidUpgradeableWithInit is TRC165RevertInvalidUpgradeable {
+    constructor(bytes4[] memory interfaceIds) payable initializer {
+        __TRC165RevertInvalid_init(interfaceIds);
+    }
+}
+
+contract TRC165MaliciousDataUpgradeableWithInit is TRC165MaliciousDataUpgradeable {
+    constructor() payable initializer {
+        __TRC165MaliciousData_init();
+    }
+}
+
+contract TRC165MissingDataUpgradeableWithInit is TRC165MissingDataUpgradeable {
+    constructor() payable initializer {
+        __TRC165MissingData_init();
+    }
+}
+
+contract TRC165NotSupportedUpgradeableWithInit is TRC165NotSupportedUpgradeable {
+    constructor() payable initializer {
+        __TRC165NotSupported_init();
+    }
+}
+
+contract TRC165ReturnBombMockUpgradeableWithInit is TRC165ReturnBombMockUpgradeable {
+    constructor() payable initializer {
+        __TRC165ReturnBombMock_init();
+    }
+}
 
 contract CallReceiverMockUpgradeableWithInit is CallReceiverMockUpgradeable {
     constructor() payable initializer {
