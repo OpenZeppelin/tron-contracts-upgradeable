@@ -95,18 +95,28 @@ jobs:
           # On a cache hit the corpus is already compiled — skip exposed:regen +
           # the tron batched compile inside run-tests-parallel.sh.
           SKIP_COMPILE: ${{ steps.tron-artifacts.outputs.cache-hit == 'true' && '1' || '' }}
+      # The checks below validate the SOURCE contracts — inheritance ordering,
+      # pragma ranges, procedurally-generated files, and gas regression — and do
+      # not apply to the transpiled -upgradeable output, which imports stateless
+      # code (e.g. utils/math/SafeCast.sol) from the peer instead of emitting it
+      # (so test:generation can't even find it). The behavioural suite above
+      # (npm run test) is what validates the transpilation; skip these source-only
+      # meta-checks in the -upgradeable repo.
       - name: Check linearisation of the inheritance graph
+        if: ${{ !endsWith(github.repository, '-upgradeable') }}
         run: npm run test:inheritance
       # test:pragma recompiles every contract (per-file, to validate its pragma
       # range) — pure contract work. A cache hit means the corpus is byte-for-byte
       # a prior state where pragma already passed, so skip it: test-only changes
       # then do zero compilation. It always runs when contracts change (miss).
       - name: Check pragma validity
-        if: steps.tron-artifacts.outputs.cache-hit != 'true'
+        if: ${{ !endsWith(github.repository, '-upgradeable') && steps.tron-artifacts.outputs.cache-hit != 'true' }}
         run: npm run test:pragma -- --concurrency 1
       - name: Check procedurally generated contracts are up-to-date
+        if: ${{ !endsWith(github.repository, '-upgradeable') }}
         run: npm run test:generation
       - name: Compare gas costs
+        if: ${{ !endsWith(github.repository, '-upgradeable') }}
         uses: ./.github/actions/gas-compare
         with:
           token: ${{ github.token }}
