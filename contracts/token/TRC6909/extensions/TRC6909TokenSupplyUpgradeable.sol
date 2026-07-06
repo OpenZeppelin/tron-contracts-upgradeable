@@ -19,7 +19,8 @@ contract TRC6909TokenSupplyUpgradeable is Initializable, TRC6909Upgradeable, ITR
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC6909TokenSupply")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC6909TokenSupplyStorageLocation = 0x45cc65fcf637f14f749687006fcd76d90179c7b5a96d43da35b61c43c7cf4c00;
+    bytes32 private constant TRC6909TokenSupplyStorageLocation =
+        0x45cc65fcf637f14f749687006fcd76d90179c7b5a96d43da35b61c43c7cf4c00;
 
     function _getTRC6909TokenSupplyStorage() private pure returns (TRC6909TokenSupplyStorage storage $) {
         assembly {
@@ -27,11 +28,9 @@ contract TRC6909TokenSupplyUpgradeable is Initializable, TRC6909Upgradeable, ITR
         }
     }
 
-    function __TRC6909TokenSupply_init() internal onlyInitializing {
-    }
+    function __TRC6909TokenSupply_init() internal onlyInitializing {}
 
-    function __TRC6909TokenSupply_init_unchained() internal onlyInitializing {
-    }
+    function __TRC6909TokenSupply_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC6909TokenSupply
     function totalSupply(uint256 id) public view virtual override returns (uint256) {
         TRC6909TokenSupplyStorage storage $ = _getTRC6909TokenSupplyStorage();
@@ -39,7 +38,9 @@ contract TRC6909TokenSupplyUpgradeable is Initializable, TRC6909Upgradeable, ITR
     }
 
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC6909TokenSupply).interfaceId || super.supportsInterface(interfaceId);
     }
 

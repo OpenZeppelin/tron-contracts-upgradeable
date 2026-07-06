@@ -24,7 +24,8 @@ abstract contract TRC721URIStorageUpgradeable is Initializable, ITRC4906, TRC721
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721URIStorage")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC721URIStorageStorageLocation = 0xe7c5d43d19a43678c6603c1fb2e1f5296ba05fda5f23b63e102eba9bf8610100;
+    bytes32 private constant TRC721URIStorageStorageLocation =
+        0xe7c5d43d19a43678c6603c1fb2e1f5296ba05fda5f23b63e102eba9bf8610100;
 
     function _getTRC721URIStorageStorage() private pure returns (TRC721URIStorageStorage storage $) {
         assembly {
@@ -32,13 +33,13 @@ abstract contract TRC721URIStorageUpgradeable is Initializable, ITRC4906, TRC721
         }
     }
 
-    function __TRC721URIStorage_init() internal onlyInitializing {
-    }
+    function __TRC721URIStorage_init() internal onlyInitializing {}
 
-    function __TRC721URIStorage_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721URIStorage_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC721Upgradeable, ITRC165) returns (bool) {
         return interfaceId == TRC4906_INTERFACE_ID || super.supportsInterface(interfaceId);
     }
 

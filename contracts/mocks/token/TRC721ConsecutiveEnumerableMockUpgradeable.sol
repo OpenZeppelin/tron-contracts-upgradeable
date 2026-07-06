@@ -7,7 +7,11 @@ import {TRC721ConsecutiveUpgradeable} from "../../token/TRC721/extensions/TRC721
 import {TRC721EnumerableUpgradeable} from "../../token/TRC721/extensions/TRC721EnumerableUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract TRC721ConsecutiveEnumerableMockUpgradeable is Initializable, TRC721ConsecutiveUpgradeable, TRC721EnumerableUpgradeable {
+contract TRC721ConsecutiveEnumerableMockUpgradeable is
+    Initializable,
+    TRC721ConsecutiveUpgradeable,
+    TRC721EnumerableUpgradeable
+{
     function __TRC721ConsecutiveEnumerableMock_init(
         string memory name,
         string memory symbol,
@@ -35,7 +39,9 @@ contract TRC721ConsecutiveEnumerableMockUpgradeable is Initializable, TRC721Cons
         return super.supportsInterface(interfaceId);
     }
 
-    function _ownerOf(uint256 tokenId) internal view virtual override(TRC721Upgradeable, TRC721ConsecutiveUpgradeable) returns (address) {
+    function _ownerOf(
+        uint256 tokenId
+    ) internal view virtual override(TRC721Upgradeable, TRC721ConsecutiveUpgradeable) returns (address) {
         return super._ownerOf(tokenId);
     }
 
@@ -47,7 +53,10 @@ contract TRC721ConsecutiveEnumerableMockUpgradeable is Initializable, TRC721Cons
         return super._update(to, tokenId, auth);
     }
 
-    function _increaseBalance(address account, uint128 amount) internal virtual override(TRC721Upgradeable, TRC721EnumerableUpgradeable) {
+    function _increaseBalance(
+        address account,
+        uint128 amount
+    ) internal virtual override(TRC721Upgradeable, TRC721EnumerableUpgradeable) {
         super._increaseBalance(account, amount);
     }
 }

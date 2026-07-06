@@ -22,11 +22,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  */
 // slither-disable-next-line locked-ether
 abstract contract TRC20CrosschainUpgradeable is Initializable, TRC20Upgradeable, BridgeFungibleUpgradeable {
-    function __TRC20Crosschain_init() internal onlyInitializing {
-    }
+    function __TRC20Crosschain_init() internal onlyInitializing {}
 
-    function __TRC20Crosschain_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20Crosschain_init_unchained() internal onlyInitializing {}
     /// @dev Variant of {crosschainTransfer} that allows an authorized account (using TRC20 allowance) to operate on `from`'s assets.
     function crosschainTransferFrom(address from, bytes memory to, uint256 amount) public virtual returns (bytes32) {
         _spendAllowance(from, _msgSender(), amount);

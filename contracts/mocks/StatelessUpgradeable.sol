@@ -28,9 +28,15 @@ import {TRC165Checker} from "@openzeppelin/tron-contracts/contracts/utils/intros
 import {TRC1155Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Holder.sol";
 import {TRC721Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Holder.sol";
 import {TRC1967Utils} from "@openzeppelin/tron-contracts/contracts/proxy/TRC1967/TRC1967Utils.sol";
-import {TRC7913P256Verifier} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913P256Verifier.sol";
-import {TRC7913RSAVerifier} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913RSAVerifier.sol";
-import {TRC7913WebAuthnVerifier} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913WebAuthnVerifier.sol";
+import {
+    TRC7913P256Verifier
+} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913P256Verifier.sol";
+import {
+    TRC7913RSAVerifier
+} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913RSAVerifier.sol";
+import {
+    TRC7913WebAuthnVerifier
+} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/verifiers/TRC7913WebAuthnVerifier.sol";
 import {Heap} from "@openzeppelin/tron-contracts/contracts/utils/structs/Heap.sol";
 import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
 import {LowLevelCall} from "@openzeppelin/tron-contracts/contracts/utils/LowLevelCall.sol";
@@ -57,9 +63,8 @@ import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol"
 import {TrieProof} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/TrieProof.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract Dummy1234Upgradeable is Initializable {    function __Dummy1234_init() internal onlyInitializing {
-    }
+contract Dummy1234Upgradeable is Initializable {
+    function __Dummy1234_init() internal onlyInitializing {}
 
-    function __Dummy1234_init_unchained() internal onlyInitializing {
-    }
+    function __Dummy1234_init_unchained() internal onlyInitializing {}
 }

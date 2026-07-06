@@ -16,11 +16,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * the votes in governance decisions, or they can delegate to themselves to be their own representative.
  */
 abstract contract TRC721VotesUpgradeable is Initializable, TRC721Upgradeable, VotesUpgradeable {
-    function __TRC721Votes_init() internal onlyInitializing {
-    }
+    function __TRC721Votes_init() internal onlyInitializing {}
 
-    function __TRC721Votes_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Votes_init_unchained() internal onlyInitializing {}
     /**
      * @dev See {TRC721-_update}. Adjusts votes when tokens are transferred.
      *

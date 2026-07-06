@@ -19,7 +19,13 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * presenting a message signed by the account. By not relying on `{ITRC20-approve}`, the token holder account doesn't
  * need to send a transaction, and thus is not required to hold TRX at all.
  */
-abstract contract TRC20PermitUpgradeable is Initializable, TRC20Upgradeable, ITRC20Permit, TIP712Upgradeable, NoncesUpgradeable {
+abstract contract TRC20PermitUpgradeable is
+    Initializable,
+    TRC20Upgradeable,
+    ITRC20Permit,
+    TIP712Upgradeable,
+    NoncesUpgradeable
+{
     bytes32 private constant PERMIT_TYPEHASH =
         keccak256("Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)");
 

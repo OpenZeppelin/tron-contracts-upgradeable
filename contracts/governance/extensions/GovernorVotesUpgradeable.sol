@@ -20,7 +20,8 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorVotes")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorVotesStorageLocation = 0x3ba4977254e415696610a40ebf2258dbfa0ec6a2ff64e84bfe715ff16977cc00;
+    bytes32 private constant GovernorVotesStorageLocation =
+        0x3ba4977254e415696610a40ebf2258dbfa0ec6a2ff64e84bfe715ff16977cc00;
 
     function _getGovernorVotesStorage() private pure returns (GovernorVotesStorage storage $) {
         assembly {

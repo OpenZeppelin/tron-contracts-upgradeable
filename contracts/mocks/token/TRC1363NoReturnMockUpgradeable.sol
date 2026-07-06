@@ -6,11 +6,9 @@ import {TRC1363Upgradeable} from "../../token/TRC20/extensions/TRC1363Upgradeabl
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC1363NoReturnMockUpgradeable is Initializable, TRC1363Upgradeable {
-    function __TRC1363NoReturnMock_init() internal onlyInitializing {
-    }
+    function __TRC1363NoReturnMock_init() internal onlyInitializing {}
 
-    function __TRC1363NoReturnMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1363NoReturnMock_init_unchained() internal onlyInitializing {}
     function transferAndCall(address to, uint256 value, bytes memory data) public override returns (bool) {
         super.transferAndCall(to, value, data);
         assembly {

@@ -20,8 +20,7 @@ contract TRC20ReentrantUpgradeable is Initializable, TRC20Upgradeable {
         __TRC20_init_unchained("TEST", "TST");
     }
 
-    function __TRC20Reentrant_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20Reentrant_init_unchained() internal onlyInitializing {}
     function scheduleReenter(Type when, address target, bytes calldata data) external {
         _reenterType = when;
         _reenterTarget = target;

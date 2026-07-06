@@ -27,7 +27,10 @@ contract TRC3156FlashBorrowerMockUpgradeable is Initializable, ITRC3156FlashBorr
         __TRC3156FlashBorrowerMock_init_unchained(enableReturn, enableApprove);
     }
 
-    function __TRC3156FlashBorrowerMock_init_unchained(bool enableReturn, bool enableApprove) internal onlyInitializing {
+    function __TRC3156FlashBorrowerMock_init_unchained(
+        bool enableReturn,
+        bool enableApprove
+    ) internal onlyInitializing {
         _enableApprove = enableApprove;
         _enableReturn = enableReturn;
     }

@@ -7,14 +7,16 @@ import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/Gov
 import {GovernorVotesUpgradeable} from "../../governance/extensions/GovernorVotesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-abstract contract GovernorWithParamsMockUpgradeable is Initializable, GovernorVotesUpgradeable, GovernorCountingSimpleUpgradeable {
+abstract contract GovernorWithParamsMockUpgradeable is
+    Initializable,
+    GovernorVotesUpgradeable,
+    GovernorCountingSimpleUpgradeable
+{
     event CountParams(uint256 uintParam, string strParam);
 
-    function __GovernorWithParamsMock_init() internal onlyInitializing {
-    }
+    function __GovernorWithParamsMock_init() internal onlyInitializing {}
 
-    function __GovernorWithParamsMock_init_unchained() internal onlyInitializing {
-    }
+    function __GovernorWithParamsMock_init_unchained() internal onlyInitializing {}
     function quorum(uint256) public pure override returns (uint256) {
         return 0;
     }

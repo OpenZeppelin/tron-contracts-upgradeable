@@ -26,11 +26,9 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
     event CrosschainFungibleTransferSent(bytes32 indexed sendId, address indexed from, bytes to, uint256 amount);
     event CrosschainFungibleTransferReceived(bytes32 indexed receiveId, bytes from, address indexed to, uint256 amount);
 
-    function __BridgeFungible_init() internal onlyInitializing {
-    }
+    function __BridgeFungible_init() internal onlyInitializing {}
 
-    function __BridgeFungible_init_unchained() internal onlyInitializing {
-    }
+    function __BridgeFungible_init_unchained() internal onlyInitializing {}
     /**
      * @dev Transfer `amount` tokens to a crosschain receiver.
      *

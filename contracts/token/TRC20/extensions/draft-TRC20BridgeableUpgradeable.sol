@@ -22,13 +22,13 @@ abstract contract TRC20BridgeableUpgradeable is Initializable, TRC20Upgradeable,
         _;
     }
 
-    function __TRC20Bridgeable_init() internal onlyInitializing {
-    }
+    function __TRC20Bridgeable_init() internal onlyInitializing {}
 
-    function __TRC20Bridgeable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20Bridgeable_init_unchained() internal onlyInitializing {}
     /// @inheritdoc TRC165Upgradeable
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC7802).interfaceId || super.supportsInterface(interfaceId);
     }
 

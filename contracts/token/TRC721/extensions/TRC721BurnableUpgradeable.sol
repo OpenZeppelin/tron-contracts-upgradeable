@@ -12,11 +12,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * @dev TRC-721 Token that can be burned (destroyed).
  */
 abstract contract TRC721BurnableUpgradeable is Initializable, ContextUpgradeable, TRC721Upgradeable {
-    function __TRC721Burnable_init() internal onlyInitializing {
-    }
+    function __TRC721Burnable_init() internal onlyInitializing {}
 
-    function __TRC721Burnable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Burnable_init_unchained() internal onlyInitializing {}
     /**
      * @dev Burns `tokenId`. See {TRC721-_burn}.
      *

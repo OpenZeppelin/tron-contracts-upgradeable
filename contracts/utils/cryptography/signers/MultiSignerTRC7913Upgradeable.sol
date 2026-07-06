@@ -54,7 +54,8 @@ abstract contract MultiSignerTRC7913Upgradeable is Initializable, AbstractSigner
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.MultiSignerTRC7913")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant MultiSignerTRC7913StorageLocation = 0x1e2d6dae973eb235164e3a632e81ab42ad5c7b04ecb1e44573bc8dcd71c98700;
+    bytes32 private constant MultiSignerTRC7913StorageLocation =
+        0x1e2d6dae973eb235164e3a632e81ab42ad5c7b04ecb1e44573bc8dcd71c98700;
 
     function _getMultiSignerTRC7913Storage() private pure returns (MultiSignerTRC7913Storage storage $) {
         assembly {

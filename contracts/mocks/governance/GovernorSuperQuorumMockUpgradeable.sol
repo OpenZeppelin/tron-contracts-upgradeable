@@ -11,7 +11,8 @@ import {GovernorTimelockControlUpgradeable} from "../../governance/extensions/Go
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorSuperQuorumMockUpgradeable is
-    Initializable, GovernorSettingsUpgradeable,
+    Initializable,
+    GovernorSettingsUpgradeable,
     GovernorVotesUpgradeable,
     GovernorTimelockControlUpgradeable,
     GovernorSuperQuorumUpgradeable,
@@ -39,11 +40,21 @@ abstract contract GovernorSuperQuorumMockUpgradeable is
 
     function state(
         uint256 proposalId
-    ) public view override(GovernorUpgradeable, GovernorSuperQuorumUpgradeable, GovernorTimelockControlUpgradeable) returns (ProposalState) {
+    )
+        public
+        view
+        override(GovernorUpgradeable, GovernorSuperQuorumUpgradeable, GovernorTimelockControlUpgradeable)
+        returns (ProposalState)
+    {
         return super.state(proposalId);
     }
 
-    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+    function proposalThreshold()
+        public
+        view
+        override(GovernorUpgradeable, GovernorSettingsUpgradeable)
+        returns (uint256)
+    {
         return super.proposalThreshold();
     }
 
@@ -78,7 +89,12 @@ abstract contract GovernorSuperQuorumMockUpgradeable is
         super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
     }
 
-    function _executor() internal view override(GovernorUpgradeable, GovernorTimelockControlUpgradeable) returns (address) {
+    function _executor()
+        internal
+        view
+        override(GovernorUpgradeable, GovernorTimelockControlUpgradeable)
+        returns (address)
+    {
         return super._executor();
     }
 

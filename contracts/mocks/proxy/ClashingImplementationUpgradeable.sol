@@ -10,11 +10,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 contract ClashingImplementationUpgradeable is Initializable {
     event ClashingImplementationCall();
 
-    function __ClashingImplementation_init() internal onlyInitializing {
-    }
+    function __ClashingImplementation_init() internal onlyInitializing {}
 
-    function __ClashingImplementation_init_unchained() internal onlyInitializing {
-    }
+    function __ClashingImplementation_init_unchained() internal onlyInitializing {}
     function upgradeToAndCall(address, bytes calldata) external payable {
         emit ClashingImplementationCall();
     }

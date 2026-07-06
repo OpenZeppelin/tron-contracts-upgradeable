@@ -12,11 +12,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * extension must implement {proposalVotes}.
  */
 abstract contract GovernorSuperQuorumUpgradeable is Initializable, GovernorUpgradeable {
-    function __GovernorSuperQuorum_init() internal onlyInitializing {
-    }
+    function __GovernorSuperQuorum_init() internal onlyInitializing {}
 
-    function __GovernorSuperQuorum_init_unchained() internal onlyInitializing {
-    }
+    function __GovernorSuperQuorum_init_unchained() internal onlyInitializing {}
     /**
      * @dev Minimum number of cast votes required for a proposal to reach super quorum. Only FOR votes are counted
      * towards the super quorum. Once the super quorum is reached, an active proposal can proceed to the next state

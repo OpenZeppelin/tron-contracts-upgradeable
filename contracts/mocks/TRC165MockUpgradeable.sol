@@ -87,11 +87,9 @@ contract TRC165RevertInvalidUpgradeable is Initializable, SupportsInterfaceWithL
 }
 
 contract TRC165MaliciousDataUpgradeable is Initializable {
-    function __TRC165MaliciousData_init() internal onlyInitializing {
-    }
+    function __TRC165MaliciousData_init() internal onlyInitializing {}
 
-    function __TRC165MaliciousData_init_unchained() internal onlyInitializing {
-    }
+    function __TRC165MaliciousData_init_unchained() internal onlyInitializing {}
     function supportsInterface(bytes4) public pure returns (bool) {
         assembly {
             mstore(0, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
@@ -101,27 +99,22 @@ contract TRC165MaliciousDataUpgradeable is Initializable {
 }
 
 contract TRC165MissingDataUpgradeable is Initializable {
-    function __TRC165MissingData_init() internal onlyInitializing {
-    }
+    function __TRC165MissingData_init() internal onlyInitializing {}
 
-    function __TRC165MissingData_init_unchained() internal onlyInitializing {
-    }
+    function __TRC165MissingData_init_unchained() internal onlyInitializing {}
     function supportsInterface(bytes4 interfaceId) public view {} // missing return
 }
 
-contract TRC165NotSupportedUpgradeable is Initializable {    function __TRC165NotSupported_init() internal onlyInitializing {
-    }
+contract TRC165NotSupportedUpgradeable is Initializable {
+    function __TRC165NotSupported_init() internal onlyInitializing {}
 
-    function __TRC165NotSupported_init_unchained() internal onlyInitializing {
-    }
+    function __TRC165NotSupported_init_unchained() internal onlyInitializing {}
 }
 
 contract TRC165ReturnBombMockUpgradeable is Initializable, ITRC165 {
-    function __TRC165ReturnBombMock_init() internal onlyInitializing {
-    }
+    function __TRC165ReturnBombMock_init() internal onlyInitializing {}
 
-    function __TRC165ReturnBombMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC165ReturnBombMock_init_unchained() internal onlyInitializing {}
     function supportsInterface(bytes4 interfaceId) public pure override returns (bool) {
         if (interfaceId == type(ITRC165).interfaceId) {
             assembly {

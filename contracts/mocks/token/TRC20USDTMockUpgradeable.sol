@@ -11,11 +11,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * `approve` are left unchanged (return `true`), matching the real contract — only `transfer` is broken.
  */
 abstract contract TRC20USDTMockUpgradeable is Initializable, TRC20Upgradeable {
-    function __TRC20USDTMock_init() internal onlyInitializing {
-    }
+    function __TRC20USDTMock_init() internal onlyInitializing {}
 
-    function __TRC20USDTMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20USDTMock_init_unchained() internal onlyInitializing {}
     function transfer(address to, uint256 value) public override returns (bool) {
         super.transfer(to, value);
         return false;

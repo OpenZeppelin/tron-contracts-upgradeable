@@ -25,11 +25,9 @@ abstract contract TRC20VotesLegacyMockUpgradeable is Initializable, IVotes, TRC2
     mapping(address delegatee => Checkpoint[]) private _checkpoints;
     Checkpoint[] private _totalSupplyCheckpoints;
 
-    function __TRC20VotesLegacyMock_init() internal onlyInitializing {
-    }
+    function __TRC20VotesLegacyMock_init() internal onlyInitializing {}
 
-    function __TRC20VotesLegacyMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20VotesLegacyMock_init_unchained() internal onlyInitializing {}
     /**
      * @dev Get the `pos`-th checkpoint for `account`.
      */

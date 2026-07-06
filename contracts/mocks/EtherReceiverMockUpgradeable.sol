@@ -6,11 +6,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 contract EtherReceiverMockUpgradeable is Initializable {
     bool private _acceptEther;
 
-    function __EtherReceiverMock_init() internal onlyInitializing {
-    }
+    function __EtherReceiverMock_init() internal onlyInitializing {}
 
-    function __EtherReceiverMock_init_unchained() internal onlyInitializing {
-    }
+    function __EtherReceiverMock_init_unchained() internal onlyInitializing {}
     function setAcceptEther(bool acceptEther) public {
         _acceptEther = acceptEther;
     }

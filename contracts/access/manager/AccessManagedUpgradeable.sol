@@ -21,12 +21,12 @@ abstract contract AccessManagedUpgradeable is Initializable, ContextUpgradeable,
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessManaged
     struct AccessManagedStorage {
         address _authority;
-
         bool _consumingSchedule;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessManaged")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant AccessManagedStorageLocation = 0xf3177357ab46d8af007ab3fdb9af81da189e1068fefdc0073dca88a2cab40a00;
+    bytes32 private constant AccessManagedStorageLocation =
+        0xf3177357ab46d8af007ab3fdb9af81da189e1068fefdc0073dca88a2cab40a00;
 
     function _getAccessManagedStorage() private pure returns (AccessManagedStorage storage $) {
         assembly {

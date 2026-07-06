@@ -5,22 +5,28 @@ pragma solidity ^0.8.24;
 import {GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
-import {GovernorVotesQuorumFractionUpgradeable} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
+import {
+    GovernorVotesQuorumFractionUpgradeable
+} from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorProposalGuardianUpgradeable} from "../../governance/extensions/GovernorProposalGuardianUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorProposalGuardianMockUpgradeable is
-    Initializable, GovernorSettingsUpgradeable,
+    Initializable,
+    GovernorSettingsUpgradeable,
     GovernorVotesQuorumFractionUpgradeable,
     GovernorCountingSimpleUpgradeable,
     GovernorProposalGuardianUpgradeable
 {
-    function __GovernorProposalGuardianMock_init() internal onlyInitializing {
-    }
+    function __GovernorProposalGuardianMock_init() internal onlyInitializing {}
 
-    function __GovernorProposalGuardianMock_init_unchained() internal onlyInitializing {
-    }
-    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+    function __GovernorProposalGuardianMock_init_unchained() internal onlyInitializing {}
+    function proposalThreshold()
+        public
+        view
+        override(GovernorUpgradeable, GovernorSettingsUpgradeable)
+        returns (uint256)
+    {
         return super.proposalThreshold();
     }
 

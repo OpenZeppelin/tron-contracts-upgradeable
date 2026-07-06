@@ -39,7 +39,8 @@ abstract contract TRC721ConsecutiveUpgradeable is Initializable, ITRC2309, TRC72
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721Consecutive")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC721ConsecutiveStorageLocation = 0x5bc7cccd131aab8905412667e798af1b4f779b18fd5504ea15af3fabbf574900;
+    bytes32 private constant TRC721ConsecutiveStorageLocation =
+        0x5bc7cccd131aab8905412667e798af1b4f779b18fd5504ea15af3fabbf574900;
 
     function _getTRC721ConsecutiveStorage() private pure returns (TRC721ConsecutiveStorage storage $) {
         assembly {
@@ -69,11 +70,9 @@ abstract contract TRC721ConsecutiveUpgradeable is Initializable, ITRC2309, TRC72
      */
     error TRC721ForbiddenBatchBurn();
 
-    function __TRC721Consecutive_init() internal onlyInitializing {
-    }
+    function __TRC721Consecutive_init() internal onlyInitializing {}
 
-    function __TRC721Consecutive_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Consecutive_init_unchained() internal onlyInitializing {}
     /**
      * @dev Maximum size of a batch of consecutive tokens. This is designed to limit stress on off-chain indexing
      * services that have to record one entry per token, and have protections against "unreasonably large" batches of
@@ -101,7 +100,8 @@ abstract contract TRC721ConsecutiveUpgradeable is Initializable, ITRC2309, TRC72
 
         // Otherwise, check the token was not burned, and fetch ownership from the anchors
         // Note: no need for safe cast, we know that tokenId <= type(uint96).max
-        return $._sequentialBurn.get(tokenId) ? address(0) : address($._sequentialOwnership.lowerLookup(uint96(tokenId)));
+        return
+            $._sequentialBurn.get(tokenId) ? address(0) : address($._sequentialOwnership.lowerLookup(uint96(tokenId)));
     }
 
     /**

@@ -9,19 +9,21 @@ import {TRC20WrapperUpgradeable} from "../../../token/TRC20/extensions/TRC20Wrap
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
-contract MyTokenWrappedUpgradeable is Initializable, TRC20Upgradeable, TRC20PermitUpgradeable, TRC20VotesUpgradeable, TRC20WrapperUpgradeable {
-    function __MyTokenWrapped_init(
-        ITRC20 wrappedToken
-    ) internal onlyInitializing {
+contract MyTokenWrappedUpgradeable is
+    Initializable,
+    TRC20Upgradeable,
+    TRC20PermitUpgradeable,
+    TRC20VotesUpgradeable,
+    TRC20WrapperUpgradeable
+{
+    function __MyTokenWrapped_init(ITRC20 wrappedToken) internal onlyInitializing {
         __TRC20_init_unchained("MyTokenWrapped", "MTK");
         __TIP712_init_unchained("MyTokenWrapped", "1");
         __TRC20Permit_init_unchained("MyTokenWrapped");
         __TRC20Wrapper_init_unchained(wrappedToken);
     }
 
-    function __MyTokenWrapped_init_unchained(
-        ITRC20
-    ) internal onlyInitializing {}
+    function __MyTokenWrapped_init_unchained(ITRC20) internal onlyInitializing {}
 
     // The functions below are overrides required by Solidity.
 
@@ -29,11 +31,17 @@ contract MyTokenWrappedUpgradeable is Initializable, TRC20Upgradeable, TRC20Perm
         return super.decimals();
     }
 
-    function _update(address from, address to, uint256 amount) internal override(TRC20Upgradeable, TRC20VotesUpgradeable) {
+    function _update(
+        address from,
+        address to,
+        uint256 amount
+    ) internal override(TRC20Upgradeable, TRC20VotesUpgradeable) {
         super._update(from, to, amount);
     }
 
-    function nonces(address owner) public view virtual override(TRC20PermitUpgradeable, NoncesUpgradeable) returns (uint256) {
+    function nonces(
+        address owner
+    ) public view virtual override(TRC20PermitUpgradeable, NoncesUpgradeable) returns (uint256) {
         return super.nonces(owner);
     }
 }

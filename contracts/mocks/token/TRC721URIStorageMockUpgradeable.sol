@@ -8,11 +8,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 abstract contract TRC721URIStorageMockUpgradeable is Initializable, TRC721URIStorageUpgradeable {
     string private _baseTokenURI;
 
-    function __TRC721URIStorageMock_init() internal onlyInitializing {
-    }
+    function __TRC721URIStorageMock_init() internal onlyInitializing {}
 
-    function __TRC721URIStorageMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721URIStorageMock_init_unchained() internal onlyInitializing {}
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseTokenURI;
     }

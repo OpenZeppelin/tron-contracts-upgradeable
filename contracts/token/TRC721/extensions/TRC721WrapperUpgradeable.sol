@@ -22,7 +22,8 @@ abstract contract TRC721WrapperUpgradeable is Initializable, TRC721Upgradeable, 
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721Wrapper")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC721WrapperStorageLocation = 0x5c3c24fa12a168107e8bd722e130ea71f532fdd7ee1845698e8a7f83558a4700;
+    bytes32 private constant TRC721WrapperStorageLocation =
+        0x5c3c24fa12a168107e8bd722e130ea71f532fdd7ee1845698e8a7f83558a4700;
 
     function _getTRC721WrapperStorage() private pure returns (TRC721WrapperStorage storage $) {
         assembly {

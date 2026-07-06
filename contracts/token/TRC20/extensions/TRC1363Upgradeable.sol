@@ -41,13 +41,13 @@ abstract contract TRC1363Upgradeable is Initializable, TRC20Upgradeable, TRC165U
      */
     error TRC1363ApproveFailed(address spender, uint256 value);
 
-    function __TRC1363_init() internal onlyInitializing {
-    }
+    function __TRC1363_init() internal onlyInitializing {}
 
-    function __TRC1363_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1363_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC1363).interfaceId || super.supportsInterface(interfaceId);
     }
 

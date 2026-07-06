@@ -31,11 +31,8 @@ abstract contract TRC20Upgradeable is Initializable, ContextUpgradeable, ITRC20,
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC20
     struct TRC20Storage {
         mapping(address account => uint256) _balances;
-
         mapping(address account => mapping(address spender => uint256)) _allowances;
-
         uint256 _totalSupply;
-
         string _name;
         string _symbol;
     }

@@ -16,12 +16,13 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * NOTE: Traditional (un-keyed) nonces are still supported and can continue to be used as if this extension was not present.
  */
 abstract contract GovernorNoncesKeyedUpgradeable is Initializable, GovernorUpgradeable, NoncesKeyedUpgradeable {
-    function __GovernorNoncesKeyed_init() internal onlyInitializing {
-    }
+    function __GovernorNoncesKeyed_init() internal onlyInitializing {}
 
-    function __GovernorNoncesKeyed_init_unchained() internal onlyInitializing {
-    }
-    function _useCheckedNonce(address owner, uint256 nonce) internal virtual override(NoncesUpgradeable, NoncesKeyedUpgradeable) {
+    function __GovernorNoncesKeyed_init_unchained() internal onlyInitializing {}
+    function _useCheckedNonce(
+        address owner,
+        uint256 nonce
+    ) internal virtual override(NoncesUpgradeable, NoncesKeyedUpgradeable) {
         super._useCheckedNonce(owner, nonce);
     }
 

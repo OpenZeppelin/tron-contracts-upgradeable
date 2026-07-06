@@ -23,11 +23,19 @@ contract TRC1155ReceiverMockUpgradeable is Initializable, TRC165Upgradeable, ITR
     event BatchReceived(address operator, address from, uint256[] ids, uint256[] values, bytes data, uint256 gas);
     error CustomError(bytes4);
 
-    function __TRC1155ReceiverMock_init(bytes4 recRetval, bytes4 batRetval, RevertType error) internal onlyInitializing {
+    function __TRC1155ReceiverMock_init(
+        bytes4 recRetval,
+        bytes4 batRetval,
+        RevertType error
+    ) internal onlyInitializing {
         __TRC1155ReceiverMock_init_unchained(recRetval, batRetval, error);
     }
 
-    function __TRC1155ReceiverMock_init_unchained(bytes4 recRetval, bytes4 batRetval, RevertType error) internal onlyInitializing {
+    function __TRC1155ReceiverMock_init_unchained(
+        bytes4 recRetval,
+        bytes4 batRetval,
+        RevertType error
+    ) internal onlyInitializing {
         _recRetval = recRetval;
         _batRetval = batRetval;
         _error = error;

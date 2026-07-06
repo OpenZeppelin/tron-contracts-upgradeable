@@ -125,9 +125,7 @@ contract TRC721URIStorageMockUpgradeableWithInit is TRC721URIStorageMockUpgradea
 }
 
 contract TRC2771ContextMockUpgradeableWithInit is TRC2771ContextMockUpgradeable {
-    constructor(address trustedForwarder) TRC2771ContextMockUpgradeable(trustedForwarder) payable initializer {
-
-    }
+    constructor(address trustedForwarder) payable TRC2771ContextMockUpgradeable(trustedForwarder) initializer {}
 }
 
 contract TRC1155PausableUpgradeableWithInit is TRC1155PausableUpgradeable {

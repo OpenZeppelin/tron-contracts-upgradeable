@@ -27,7 +27,8 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorTimelockCompound")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorTimelockCompoundStorageLocation = 0x7d1501d734d0ca30b8d26751a7fae89646767b24afe11265192d56e5fe515b00;
+    bytes32 private constant GovernorTimelockCompoundStorageLocation =
+        0x7d1501d734d0ca30b8d26751a7fae89646767b24afe11265192d56e5fe515b00;
 
     function _getGovernorTimelockCompoundStorage() private pure returns (GovernorTimelockCompoundStorage storage $) {
         assembly {
@@ -93,7 +94,9 @@ abstract contract GovernorTimelockCompoundUpgradeable is Initializable, Governor
 
         for (uint256 i = 0; i < targets.length; ++i) {
             if (
-                $._timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds)))
+                $._timelock.queuedTransactions(
+                    keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds))
+                )
             ) {
                 revert GovernorAlreadyQueuedProposal(proposalId);
             }

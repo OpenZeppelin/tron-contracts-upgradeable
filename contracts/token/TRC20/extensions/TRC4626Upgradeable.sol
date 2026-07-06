@@ -81,7 +81,8 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC4626")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC4626StorageLocation = 0x3213ac7f21e2a972ec05e3c5c579ca9c3a8b178bb73095f78f613631bed24b00;
+    bytes32 private constant TRC4626StorageLocation =
+        0x3213ac7f21e2a972ec05e3c5c579ca9c3a8b178bb73095f78f613631bed24b00;
 
     function _getTRC4626Storage() private pure returns (TRC4626Storage storage $) {
         assembly {

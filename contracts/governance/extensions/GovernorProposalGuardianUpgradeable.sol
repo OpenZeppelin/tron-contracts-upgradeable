@@ -18,7 +18,8 @@ abstract contract GovernorProposalGuardianUpgradeable is Initializable, Governor
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorProposalGuardian")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorProposalGuardianStorageLocation = 0x2953e0c334ced07e397f02d0e9b450dbfd92be015e93a9c249855132826e0300;
+    bytes32 private constant GovernorProposalGuardianStorageLocation =
+        0x2953e0c334ced07e397f02d0e9b450dbfd92be015e93a9c249855132826e0300;
 
     function _getGovernorProposalGuardianStorage() private pure returns (GovernorProposalGuardianStorage storage $) {
         assembly {
@@ -28,11 +29,9 @@ abstract contract GovernorProposalGuardianUpgradeable is Initializable, Governor
 
     event ProposalGuardianSet(address oldProposalGuardian, address newProposalGuardian);
 
-    function __GovernorProposalGuardian_init() internal onlyInitializing {
-    }
+    function __GovernorProposalGuardian_init() internal onlyInitializing {}
 
-    function __GovernorProposalGuardian_init_unchained() internal onlyInitializing {
-    }
+    function __GovernorProposalGuardian_init_unchained() internal onlyInitializing {}
     /**
      * @dev Getter that returns the address of the proposal guardian.
      */

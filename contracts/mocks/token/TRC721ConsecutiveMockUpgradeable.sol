@@ -12,7 +12,12 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 /**
  * @title TRC721ConsecutiveMock
  */
-contract TRC721ConsecutiveMockUpgradeable is Initializable, TRC721ConsecutiveUpgradeable, TRC721PausableUpgradeable, TRC721VotesUpgradeable {
+contract TRC721ConsecutiveMockUpgradeable is
+    Initializable,
+    TRC721ConsecutiveUpgradeable,
+    TRC721PausableUpgradeable,
+    TRC721VotesUpgradeable
+{
     uint96 private _offset;
 
     function __TRC721ConsecutiveMock_init(
@@ -51,7 +56,9 @@ contract TRC721ConsecutiveMockUpgradeable is Initializable, TRC721ConsecutiveUpg
         return _offset;
     }
 
-    function _ownerOf(uint256 tokenId) internal view virtual override(TRC721Upgradeable, TRC721ConsecutiveUpgradeable) returns (address) {
+    function _ownerOf(
+        uint256 tokenId
+    ) internal view virtual override(TRC721Upgradeable, TRC721ConsecutiveUpgradeable) returns (address) {
         return super._ownerOf(tokenId);
     }
 
@@ -59,22 +66,36 @@ contract TRC721ConsecutiveMockUpgradeable is Initializable, TRC721ConsecutiveUpg
         address to,
         uint256 tokenId,
         address auth
-    ) internal virtual override(TRC721ConsecutiveUpgradeable, TRC721PausableUpgradeable, TRC721VotesUpgradeable) returns (address) {
+    )
+        internal
+        virtual
+        override(TRC721ConsecutiveUpgradeable, TRC721PausableUpgradeable, TRC721VotesUpgradeable)
+        returns (address)
+    {
         return super._update(to, tokenId, auth);
     }
 
-    function _increaseBalance(address account, uint128 amount) internal virtual override(TRC721Upgradeable, TRC721VotesUpgradeable) {
+    function _increaseBalance(
+        address account,
+        uint128 amount
+    ) internal virtual override(TRC721Upgradeable, TRC721VotesUpgradeable) {
         super._increaseBalance(account, amount);
     }
 }
 
 contract TRC721ConsecutiveNoConstructorMintMockUpgradeable is Initializable, TRC721ConsecutiveUpgradeable {
-    function __TRC721ConsecutiveNoConstructorMintMock_init(string memory name, string memory symbol) internal onlyInitializing {
+    function __TRC721ConsecutiveNoConstructorMintMock_init(
+        string memory name,
+        string memory symbol
+    ) internal onlyInitializing {
         __TRC721_init_unchained(name, symbol);
         __TRC721ConsecutiveNoConstructorMintMock_init_unchained(name, symbol);
     }
 
-    function __TRC721ConsecutiveNoConstructorMintMock_init_unchained(string memory, string memory) internal onlyInitializing {
+    function __TRC721ConsecutiveNoConstructorMintMock_init_unchained(
+        string memory,
+        string memory
+    ) internal onlyInitializing {
         _mint(msg.sender, 0);
     }
 }

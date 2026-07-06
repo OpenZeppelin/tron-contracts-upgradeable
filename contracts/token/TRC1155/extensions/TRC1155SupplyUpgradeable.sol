@@ -30,7 +30,8 @@ abstract contract TRC1155SupplyUpgradeable is Initializable, TRC1155Upgradeable 
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC1155Supply")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC1155SupplyStorageLocation = 0xf536c51e65f37217406c6c8e23c50e1b94a87db372ee6ac03cd675e091171e00;
+    bytes32 private constant TRC1155SupplyStorageLocation =
+        0xf536c51e65f37217406c6c8e23c50e1b94a87db372ee6ac03cd675e091171e00;
 
     function _getTRC1155SupplyStorage() private pure returns (TRC1155SupplyStorage storage $) {
         assembly {
@@ -38,11 +39,9 @@ abstract contract TRC1155SupplyUpgradeable is Initializable, TRC1155Upgradeable 
         }
     }
 
-    function __TRC1155Supply_init() internal onlyInitializing {
-    }
+    function __TRC1155Supply_init() internal onlyInitializing {}
 
-    function __TRC1155Supply_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1155Supply_init_unchained() internal onlyInitializing {}
     /**
      * @dev Total value of tokens with a given id.
      */

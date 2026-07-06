@@ -17,11 +17,9 @@ abstract contract TRC20USDTFeeMockUpgradeable is Initializable, TRC20Upgradeable
     uint256 private _feeBasisPoints;
     address private _feeCollector;
 
-    function __TRC20USDTFeeMock_init() internal onlyInitializing {
-    }
+    function __TRC20USDTFeeMock_init() internal onlyInitializing {}
 
-    function __TRC20USDTFeeMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20USDTFeeMock_init_unchained() internal onlyInitializing {}
     /// @dev Configure the transfer fee (in basis points) and the collector that receives it.
     function setFee(uint256 feeBasisPoints, address feeCollector) public {
         _feeBasisPoints = feeBasisPoints;

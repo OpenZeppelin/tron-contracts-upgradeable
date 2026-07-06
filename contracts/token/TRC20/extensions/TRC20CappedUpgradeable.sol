@@ -16,7 +16,8 @@ abstract contract TRC20CappedUpgradeable is Initializable, TRC20Upgradeable {
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC20Capped")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC20CappedStorageLocation = 0x8391ac74d06230773498c936b0caeffa8bdd51a9c0c5ecf43196ed825b5daa00;
+    bytes32 private constant TRC20CappedStorageLocation =
+        0x8391ac74d06230773498c936b0caeffa8bdd51a9c0c5ecf43196ed825b5daa00;
 
     function _getTRC20CappedStorage() private pure returns (TRC20CappedStorage storage $) {
         assembly {

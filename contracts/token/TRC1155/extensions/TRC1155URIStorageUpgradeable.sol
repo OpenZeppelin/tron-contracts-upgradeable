@@ -15,13 +15,13 @@ abstract contract TRC1155URIStorageUpgradeable is Initializable, TRC1155Upgradea
     struct TRC1155URIStorageStorage {
         // Optional base URI
         string _baseURI;
-
         // Optional mapping for token URIs
         mapping(uint256 tokenId => string) _tokenURIs;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC1155URIStorage")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC1155URIStorageStorageLocation = 0x3bfc10e699d514b04df65e70acf24d06e77bc15c9922a44f7618866513b28900;
+    bytes32 private constant TRC1155URIStorageStorageLocation =
+        0x3bfc10e699d514b04df65e70acf24d06e77bc15c9922a44f7618866513b28900;
 
     function _getTRC1155URIStorageStorage() private pure returns (TRC1155URIStorageStorage storage $) {
         assembly {

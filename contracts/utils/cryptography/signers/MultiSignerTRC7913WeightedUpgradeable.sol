@@ -53,15 +53,19 @@ abstract contract MultiSignerTRC7913WeightedUpgradeable is Initializable, MultiS
     struct MultiSignerTRC7913WeightedStorage {
         // Sum of all the extra weights of all signers. Storage packed with `MultiSignerTRC7913._threshold`
         uint64 _totalExtraWeight;
-
         // Mapping from signer to extraWeight (in addition to all authorized signers having weight 1)
         mapping(bytes signer => uint64) _extraWeights;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.MultiSignerTRC7913Weighted")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant MultiSignerTRC7913WeightedStorageLocation = 0xded817a609cbf0d7ba05253ef97ea009b919a1131e85f6baff90bc3a00eb8d00;
+    bytes32 private constant MultiSignerTRC7913WeightedStorageLocation =
+        0xded817a609cbf0d7ba05253ef97ea009b919a1131e85f6baff90bc3a00eb8d00;
 
-    function _getMultiSignerTRC7913WeightedStorage() private pure returns (MultiSignerTRC7913WeightedStorage storage $) {
+    function _getMultiSignerTRC7913WeightedStorage()
+        private
+        pure
+        returns (MultiSignerTRC7913WeightedStorage storage $)
+    {
         assembly {
             $.slot := MultiSignerTRC7913WeightedStorageLocation
         }
@@ -81,12 +85,20 @@ abstract contract MultiSignerTRC7913WeightedUpgradeable is Initializable, MultiS
     /// @dev Thrown when the arrays lengths don't match. See {_setSignerWeights}.
     error MultiSignerTRC7913WeightedMismatchedLength();
 
-    function __MultiSignerTRC7913Weighted_init(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) internal onlyInitializing {
+    function __MultiSignerTRC7913Weighted_init(
+        bytes[] memory signers_,
+        uint64[] memory weights_,
+        uint64 threshold_
+    ) internal onlyInitializing {
         __MultiSignerTRC7913_init_unchained(signers_, 1);
         __MultiSignerTRC7913Weighted_init_unchained(signers_, weights_, threshold_);
     }
 
-    function __MultiSignerTRC7913Weighted_init_unchained(bytes[] memory signers_, uint64[] memory weights_, uint64 threshold_) internal onlyInitializing {
+    function __MultiSignerTRC7913Weighted_init_unchained(
+        bytes[] memory signers_,
+        uint64[] memory weights_,
+        uint64 threshold_
+    ) internal onlyInitializing {
         _setSignerWeights(signers_, weights_);
         _setThreshold(threshold_);
     }

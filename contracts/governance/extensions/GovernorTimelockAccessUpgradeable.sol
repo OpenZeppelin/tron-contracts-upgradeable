@@ -61,16 +61,14 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         // If target == address(this), the manager is ignored by default, and a true toggle means it won't be ignored.
         // For all other target contracts, the manager is used by default, and a true toggle means it will be ignored.
         mapping(address target => mapping(bytes4 selector => bool)) _ignoreToggle;
-
         mapping(uint256 proposalId => ExecutionPlan) _executionPlan;
-
         uint32 _baseDelay;
-
         IAccessManager _manager;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorTimelockAccess")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorTimelockAccessStorageLocation = 0xb26e23d38df572f5669f6310d407229c15b4fb320cb19bf5e8c38856d28d0800;
+    bytes32 private constant GovernorTimelockAccessStorageLocation =
+        0xb26e23d38df572f5669f6310d407229c15b4fb320cb19bf5e8c38856d28d0800;
 
     function _getGovernorTimelockAccessStorage() private pure returns (GovernorTimelockAccessStorage storage $) {
         assembly {
@@ -92,7 +90,10 @@ abstract contract GovernorTimelockAccessUpgradeable is Initializable, GovernorUp
         __GovernorTimelockAccess_init_unchained(manager, initialBaseDelay);
     }
 
-    function __GovernorTimelockAccess_init_unchained(address manager, uint32 initialBaseDelay) internal onlyInitializing {
+    function __GovernorTimelockAccess_init_unchained(
+        address manager,
+        uint32 initialBaseDelay
+    ) internal onlyInitializing {
         GovernorTimelockAccessStorage storage $ = _getGovernorTimelockAccessStorage();
         $._manager = IAccessManager(manager);
         _setBaseDelaySeconds(initialBaseDelay);

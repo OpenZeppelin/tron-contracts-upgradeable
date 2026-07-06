@@ -2,7 +2,10 @@
 
 pragma solidity ^0.8.26;
 
-import {ITRC7786GatewaySource, ITRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7786.sol";
+import {
+    ITRC7786GatewaySource,
+    ITRC7786Recipient
+} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7786.sol";
 import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
@@ -14,11 +17,9 @@ abstract contract TRC7786GatewayMockUpgradeable is Initializable, ITRC7786Gatewa
 
     uint256 private _lastReceiveId;
 
-    function __TRC7786GatewayMock_init() internal onlyInitializing {
-    }
+    function __TRC7786GatewayMock_init() internal onlyInitializing {}
 
-    function __TRC7786GatewayMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC7786GatewayMock_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC7786GatewaySource
     function supportsAttribute(bytes4 /*selector*/) public view virtual returns (bool) {
         return false;

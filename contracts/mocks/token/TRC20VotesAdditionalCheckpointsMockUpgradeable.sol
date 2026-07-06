@@ -7,12 +7,13 @@ import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCa
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC20VotesExtendedMockUpgradeable is Initializable, TRC20VotesUpgradeable, VotesExtendedUpgradeable {
-    function __TRC20VotesExtendedMock_init() internal onlyInitializing {
-    }
+    function __TRC20VotesExtendedMock_init() internal onlyInitializing {}
 
-    function __TRC20VotesExtendedMock_init_unchained() internal onlyInitializing {
-    }
-    function _delegate(address account, address delegatee) internal virtual override(VotesUpgradeable, VotesExtendedUpgradeable) {
+    function __TRC20VotesExtendedMock_init_unchained() internal onlyInitializing {}
+    function _delegate(
+        address account,
+        address delegatee
+    ) internal virtual override(VotesUpgradeable, VotesExtendedUpgradeable) {
         return super._delegate(account, delegatee);
     }
 
@@ -26,11 +27,9 @@ abstract contract TRC20VotesExtendedMockUpgradeable is Initializable, TRC20Votes
 }
 
 abstract contract TRC20VotesExtendedTimestampMockUpgradeable is Initializable, TRC20VotesExtendedMockUpgradeable {
-    function __TRC20VotesExtendedTimestampMock_init() internal onlyInitializing {
-    }
+    function __TRC20VotesExtendedTimestampMock_init() internal onlyInitializing {}
 
-    function __TRC20VotesExtendedTimestampMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20VotesExtendedTimestampMock_init_unchained() internal onlyInitializing {}
     function clock() public view virtual override returns (uint48) {
         return SafeCast.toUint48(block.timestamp);
     }

@@ -27,11 +27,9 @@ abstract contract TRC20VotesUpgradeable is Initializable, TRC20Upgradeable, Vote
      */
     error TRC20ExceededSafeSupply(uint256 increasedSupply, uint256 cap);
 
-    function __TRC20Votes_init() internal onlyInitializing {
-    }
+    function __TRC20Votes_init() internal onlyInitializing {}
 
-    function __TRC20Votes_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20Votes_init_unchained() internal onlyInitializing {}
     /**
      * @dev Maximum token supply. Defaults to `type(uint208).max` (2^208^ - 1).
      *

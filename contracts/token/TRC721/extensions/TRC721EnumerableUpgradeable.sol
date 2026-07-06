@@ -20,13 +20,13 @@ abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeabl
     struct TRC721EnumerableStorage {
         mapping(address owner => mapping(uint256 index => uint256)) _ownedTokens;
         mapping(uint256 tokenId => uint256) _ownedTokensIndex;
-
         uint256[] _allTokens;
         mapping(uint256 tokenId => uint256) _allTokensIndex;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC721Enumerable")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC721EnumerableStorageLocation = 0xe01ecb87377615ab2a84c6423dbf0954826d99b73461fa29a2e624d20e629a00;
+    bytes32 private constant TRC721EnumerableStorageLocation =
+        0xe01ecb87377615ab2a84c6423dbf0954826d99b73461fa29a2e624d20e629a00;
 
     function _getTRC721EnumerableStorage() private pure returns (TRC721EnumerableStorage storage $) {
         assembly {
@@ -46,13 +46,13 @@ abstract contract TRC721EnumerableUpgradeable is Initializable, TRC721Upgradeabl
      */
     error TRC721EnumerableForbiddenBatchMint();
 
-    function __TRC721Enumerable_init() internal onlyInitializing {
-    }
+    function __TRC721Enumerable_init() internal onlyInitializing {}
 
-    function __TRC721Enumerable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Enumerable_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ITRC165, TRC721Upgradeable) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(ITRC165, TRC721Upgradeable) returns (bool) {
         return interfaceId == type(ITRC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
     }
 

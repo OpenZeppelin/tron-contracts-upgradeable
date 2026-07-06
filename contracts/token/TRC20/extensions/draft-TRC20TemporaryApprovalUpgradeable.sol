@@ -27,16 +27,17 @@ abstract contract TRC20TemporaryApprovalUpgradeable is Initializable, TRC20Upgra
     bytes32 private constant TRC20_TEMPORARY_APPROVAL_STORAGE =
         0xb61882a12df176025333fce994831e67ed4ae7cde51545307fa7cd3f34ee6300;
 
-    function __TRC20TemporaryApproval_init() internal onlyInitializing {
-    }
+    function __TRC20TemporaryApproval_init() internal onlyInitializing {}
 
-    function __TRC20TemporaryApproval_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20TemporaryApproval_init_unchained() internal onlyInitializing {}
     /**
      * @dev {allowance} override that includes the temporary allowance when looking up the current allowance. If
      * adding up the persistent and the temporary allowances result in an overflow, type(uint256).max is returned.
      */
-    function allowance(address owner, address spender) public view virtual override(ITRC20, TRC20Upgradeable) returns (uint256) {
+    function allowance(
+        address owner,
+        address spender
+    ) public view virtual override(ITRC20, TRC20Upgradeable) returns (uint256) {
         (bool success, uint256 amount) = Math.tryAdd(
             super.allowance(owner, spender),
             _temporaryAllowance(owner, spender)

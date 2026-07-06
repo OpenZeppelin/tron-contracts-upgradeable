@@ -37,11 +37,9 @@ abstract contract TRC20FlashMintUpgradeable is Initializable, TRC20Upgradeable, 
      */
     error TRC3156InvalidReceiver(address receiver);
 
-    function __TRC20FlashMint_init() internal onlyInitializing {
-    }
+    function __TRC20FlashMint_init() internal onlyInitializing {}
 
-    function __TRC20FlashMint_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20FlashMint_init_unchained() internal onlyInitializing {}
     /**
      * @dev Returns the maximum amount of tokens available for loan.
      *

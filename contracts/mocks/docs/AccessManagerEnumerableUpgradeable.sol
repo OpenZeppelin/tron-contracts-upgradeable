@@ -21,11 +21,9 @@ abstract contract AccessManagerEnumerableUpgradeable is Initializable, AccessMan
     mapping(uint64 roleId => EnumerableSet.AddressSet) private _roleMembers;
     mapping(uint64 roleId => mapping(address target => EnumerableSet.Bytes4Set)) private _roleTargetFunctions;
 
-    function __AccessManagerEnumerable_init() internal onlyInitializing {
-    }
+    function __AccessManagerEnumerable_init() internal onlyInitializing {}
 
-    function __AccessManagerEnumerable_init_unchained() internal onlyInitializing {
-    }
+    function __AccessManagerEnumerable_init_unchained() internal onlyInitializing {}
     /**
      * @dev Returns the number of accounts that have `roleId`. Can be used
      * together with {getRoleMember} to enumerate all bearers of a role.

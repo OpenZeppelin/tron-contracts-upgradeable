@@ -115,14 +115,14 @@ contract AccessManagerUpgradeable is Initializable, ContextUpgradeable, Multical
         mapping(address target => TargetConfig mode) _targets;
         mapping(uint64 roleId => Role) _roles;
         mapping(bytes32 operationId => Schedule) _schedules;
-
         // Used to identify operations that are currently being executed via {execute}.
         // This should be transient storage when supported by the EVM.
         bytes32 _executionId;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessManager")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant AccessManagerStorageLocation = 0x40c6c8c28789853c7efd823ab20824bbd71718a8a5915e855f6f288c9a26ad00;
+    bytes32 private constant AccessManagerStorageLocation =
+        0x40c6c8c28789853c7efd823ab20824bbd71718a8a5915e855f6f288c9a26ad00;
 
     function _getAccessManagerStorage() private pure returns (AccessManagerStorage storage $) {
         assembly {

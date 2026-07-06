@@ -20,13 +20,13 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * voluntarily pay royalties together with sales, but note that this standard is not yet widely supported.
  */
 abstract contract TRC721RoyaltyUpgradeable is Initializable, TRC2981Upgradeable, TRC721Upgradeable {
-    function __TRC721Royalty_init() internal onlyInitializing {
-    }
+    function __TRC721Royalty_init() internal onlyInitializing {}
 
-    function __TRC721Royalty_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Royalty_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC721Upgradeable, TRC2981Upgradeable) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC721Upgradeable, TRC2981Upgradeable) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }
