@@ -13,7 +13,9 @@ const customRules = require('solhint-plugin-openzeppelin');
 let upgradeable = false;
 try {
   upgradeable = require('./contracts/package.json').name.endsWith('-upgradeable');
-} catch {}
+} catch {
+  // contracts/package.json may be absent (e.g. a partial checkout); stay strict.
+}
 
 const disabledForUpgradeable = upgradeable
   ? ['func-name-mixedcase', 'const-name-snakecase', 'no-global-import', 'imports-on-top', 'duplicated-imports']
