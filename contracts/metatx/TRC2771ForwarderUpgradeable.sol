@@ -192,7 +192,7 @@ contract TRC2771ForwarderUpgradeable is Initializable, TIP712Upgradeable, Nonces
         }
 
         // Some requests with value were invalid (possibly due to frontrunning).
-        // To avoid leaving ETH in the contract this value is refunded.
+        // To avoid leaving TRX in the contract this value is refunded.
         if (refundValue != 0) {
             // We know refundReceiver != address(0) && requestsValue == msg.value
             // meaning we can ensure refundValue is not taken from the original contract's balance
@@ -219,7 +219,7 @@ contract TRC2771ForwarderUpgradeable is Initializable, TIP712Upgradeable, Nonces
     }
 
     /**
-     * @dev Returns a tuple with the recovered the signer of a TIP-712 forward request message hash
+     * @dev Returns a tuple with the recovered signer of a TIP-712 forward request message hash
      * and a boolean indicating if the signature is valid.
      *
      * NOTE: The signature is considered valid if {ECDSA-tryRecoverCalldata} indicates no recover error for it.
