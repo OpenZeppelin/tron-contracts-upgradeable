@@ -3,14 +3,17 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../../governance/GovernorUpgradeable.sol";
-import {GovernorPreventLateQuorumUpgradeable} from "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
+import {
+    GovernorPreventLateQuorumUpgradeable
+} from "../../governance/extensions/GovernorPreventLateQuorumUpgradeable.sol";
 import {GovernorSettingsUpgradeable} from "../../governance/extensions/GovernorSettingsUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/GovernorCountingSimpleUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "../../governance/extensions/GovernorVotesUpgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorPreventLateQuorumMockUpgradeable is
-    Initializable, GovernorSettingsUpgradeable,
+    Initializable,
+    GovernorSettingsUpgradeable,
     GovernorVotesUpgradeable,
     GovernorCountingSimpleUpgradeable,
     GovernorPreventLateQuorumUpgradeable
@@ -35,11 +38,18 @@ abstract contract GovernorPreventLateQuorumMockUpgradeable is
         return super.proposalDeadline(proposalId);
     }
 
-    function proposalThreshold() public view override(GovernorUpgradeable, GovernorSettingsUpgradeable) returns (uint256) {
+    function proposalThreshold()
+        public
+        view
+        override(GovernorUpgradeable, GovernorSettingsUpgradeable)
+        returns (uint256)
+    {
         return super.proposalThreshold();
     }
 
-    function _tallyUpdated(uint256 proposalId) internal override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) {
+    function _tallyUpdated(
+        uint256 proposalId
+    ) internal override(GovernorUpgradeable, GovernorPreventLateQuorumUpgradeable) {
         super._tallyUpdated(proposalId);
     }
 }

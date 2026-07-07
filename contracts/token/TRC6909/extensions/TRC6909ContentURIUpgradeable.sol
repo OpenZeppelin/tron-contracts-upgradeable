@@ -19,7 +19,8 @@ contract TRC6909ContentURIUpgradeable is Initializable, TRC6909Upgradeable, ITRC
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC6909ContentURI")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC6909ContentURIStorageLocation = 0xfccaac9e6e0e462e4bce21a44d10ffaac72c19bf1c5aa0a2afc113d70be87c00;
+    bytes32 private constant TRC6909ContentURIStorageLocation =
+        0xfccaac9e6e0e462e4bce21a44d10ffaac72c19bf1c5aa0a2afc113d70be87c00;
 
     function _getTRC6909ContentURIStorage() private pure returns (TRC6909ContentURIStorage storage $) {
         assembly {
@@ -33,13 +34,13 @@ contract TRC6909ContentURIUpgradeable is Initializable, TRC6909Upgradeable, ITRC
     /// @dev See {ITRC1155-URI}
     event URI(string value, uint256 indexed id);
 
-    function __TRC6909ContentURI_init() internal onlyInitializing {
-    }
+    function __TRC6909ContentURI_init() internal onlyInitializing {}
 
-    function __TRC6909ContentURI_init_unchained() internal onlyInitializing {
-    }
+    function __TRC6909ContentURI_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC6909ContentURI).interfaceId || super.supportsInterface(interfaceId);
     }
 

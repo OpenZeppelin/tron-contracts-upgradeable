@@ -77,10 +77,7 @@ contract GovernorTimelockControlMockUpgradeableWithInit is GovernorTimelockContr
 }
 
 contract MyGovernorUpgradeableWithInit is MyGovernorUpgradeable {
-    constructor(
-        IVotes _token,
-        TimelockControllerUpgradeable _timelock
-    ) payable initializer {
+    constructor(IVotes _token, TimelockControllerUpgradeable _timelock) payable initializer {
         __MyGovernor_init(_token, _timelock);
     }
 }
@@ -146,7 +143,9 @@ contract TRC721ConsecutiveMockUpgradeableWithInit is TRC721ConsecutiveMockUpgrad
     }
 }
 
-contract TRC721ConsecutiveNoConstructorMintMockUpgradeableWithInit is TRC721ConsecutiveNoConstructorMintMockUpgradeable {
+contract TRC721ConsecutiveNoConstructorMintMockUpgradeableWithInit is
+    TRC721ConsecutiveNoConstructorMintMockUpgradeable
+{
     constructor(string memory name, string memory symbol) payable initializer {
         __TRC721ConsecutiveNoConstructorMintMock_init(name, symbol);
     }
@@ -177,9 +176,7 @@ contract TRC721VotesTimestampMockUpgradeableWithInit is TRC721VotesTimestampMock
 }
 
 contract MyTokenWrappedUpgradeableWithInit is MyTokenWrappedUpgradeable {
-    constructor(
-        ITRC20 wrappedToken
-    ) payable initializer {
+    constructor(ITRC20 wrappedToken) payable initializer {
         __MyTokenWrapped_init(wrappedToken);
     }
 }
@@ -334,7 +331,12 @@ contract TRC721PausableUpgradeableWithInit is TRC721PausableUpgradeable {
 }
 
 contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable {
-    constructor(uint256 minDelay, address[] memory proposers, address[] memory executors, address admin) payable initializer {
+    constructor(
+        uint256 minDelay,
+        address[] memory proposers,
+        address[] memory executors,
+        address admin
+    ) payable initializer {
         __TimelockController_init(minDelay, proposers, executors, admin);
     }
 }
@@ -382,9 +384,7 @@ contract TRC721UpgradeableWithInit is TRC721Upgradeable {
 }
 
 contract TRC2771ContextUpgradeableWithInit is TRC2771ContextUpgradeable {
-    constructor(address trustedForwarder_) TRC2771ContextUpgradeable(trustedForwarder_) payable initializer {
-
-    }
+    constructor(address trustedForwarder_) payable TRC2771ContextUpgradeable(trustedForwarder_) initializer {}
 }
 
 contract TRC20UpgradeableWithInit is TRC20Upgradeable {

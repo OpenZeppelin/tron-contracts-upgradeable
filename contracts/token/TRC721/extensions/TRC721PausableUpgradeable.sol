@@ -21,11 +21,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * make the contract pause mechanism of the contract unreachable, and thus unusable.
  */
 abstract contract TRC721PausableUpgradeable is Initializable, TRC721Upgradeable, PausableUpgradeable {
-    function __TRC721Pausable_init() internal onlyInitializing {
-    }
+    function __TRC721Pausable_init() internal onlyInitializing {}
 
-    function __TRC721Pausable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC721Pausable_init_unchained() internal onlyInitializing {}
     /**
      * @dev See {TRC721-_update}.
      *

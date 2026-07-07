@@ -4,7 +4,9 @@
 pragma solidity ^0.8.24;
 
 import {ITRC1155} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITRC1155.sol";
-import {ITRC1155MetadataURI} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
+import {
+    ITRC1155MetadataURI
+} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
 import {TRC1155Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
@@ -20,22 +22,28 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  *
  * Originally based on code by Enjin: https://github.com/enjin/erc-1155
  */
-abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, ITRC1155, ITRC1155MetadataURI, ITRC1155Errors {
+abstract contract TRC1155Upgradeable is
+    Initializable,
+    ContextUpgradeable,
+    TRC165Upgradeable,
+    ITRC1155,
+    ITRC1155MetadataURI,
+    ITRC1155Errors
+{
     using Arrays for uint256[];
     using Arrays for address[];
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC1155
     struct TRC1155Storage {
         mapping(uint256 id => mapping(address account => uint256)) _balances;
-
         mapping(address account => mapping(address operator => bool)) _operatorApprovals;
-
         // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
         string _uri;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC1155")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC1155StorageLocation = 0x6dd2c569b32eb0f842d614361f9b541373f6d51f649d9419258a8931fa1b5300;
+    bytes32 private constant TRC1155StorageLocation =
+        0x6dd2c569b32eb0f842d614361f9b541373f6d51f649d9419258a8931fa1b5300;
 
     function _getTRC1155Storage() private pure returns (TRC1155Storage storage $) {
         assembly {
@@ -55,7 +63,9 @@ abstract contract TRC1155Upgradeable is Initializable, ContextUpgradeable, TRC16
     }
 
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return
             interfaceId == type(ITRC1155).interfaceId ||
             interfaceId == type(ITRC1155MetadataURI).interfaceId ||

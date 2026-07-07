@@ -20,23 +20,25 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {TRC721Enumerable}.
  */
-abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, ITRC721, ITRC721Metadata, ITRC721Errors {
+abstract contract TRC721Upgradeable is
+    Initializable,
+    ContextUpgradeable,
+    TRC165Upgradeable,
+    ITRC721,
+    ITRC721Metadata,
+    ITRC721Errors
+{
     using Strings for uint256;
 
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC721
     struct TRC721Storage {
         // Token name
         string _name;
-
         // Token symbol
         string _symbol;
-
         mapping(uint256 tokenId => address) _owners;
-
         mapping(address owner => uint256) _balances;
-
         mapping(uint256 tokenId => address) _tokenApprovals;
-
         mapping(address owner => mapping(address operator => bool)) _operatorApprovals;
     }
 
@@ -63,7 +65,9 @@ abstract contract TRC721Upgradeable is Initializable, ContextUpgradeable, TRC165
     }
 
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return
             interfaceId == type(ITRC721).interfaceId ||
             interfaceId == type(ITRC721Metadata).interfaceId ||

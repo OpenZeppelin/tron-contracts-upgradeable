@@ -11,11 +11,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * own tokens and those that they have been approved to use.
  */
 abstract contract TRC1155BurnableUpgradeable is Initializable, TRC1155Upgradeable {
-    function __TRC1155Burnable_init() internal onlyInitializing {
-    }
+    function __TRC1155Burnable_init() internal onlyInitializing {}
 
-    function __TRC1155Burnable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1155Burnable_init_unchained() internal onlyInitializing {}
     function burn(address account, uint256 id, uint256 value) public virtual {
         if (account != _msgSender() && !isApprovedForAll(account, _msgSender())) {
             revert TRC1155MissingApprovalForAll(_msgSender(), account);

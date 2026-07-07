@@ -9,11 +9,9 @@ abstract contract TRC20FlashMintMockUpgradeable is Initializable, TRC20FlashMint
     uint256 _flashFeeAmount;
     address _flashFeeReceiverAddress;
 
-    function __TRC20FlashMintMock_init() internal onlyInitializing {
-    }
+    function __TRC20FlashMintMock_init() internal onlyInitializing {}
 
-    function __TRC20FlashMintMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20FlashMintMock_init_unchained() internal onlyInitializing {}
     function setFlashFee(uint256 amount) public {
         _flashFeeAmount = amount;
     }

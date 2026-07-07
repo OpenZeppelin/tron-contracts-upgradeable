@@ -13,11 +13,9 @@ contract TRC20GetterHelperUpgradeable is Initializable {
     event TRC20Symbol(ITRC20Metadata token, string symbol);
     event TRC20Decimals(ITRC20Metadata token, uint8 decimals);
 
-    function __TRC20GetterHelper_init() internal onlyInitializing {
-    }
+    function __TRC20GetterHelper_init() internal onlyInitializing {}
 
-    function __TRC20GetterHelper_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20GetterHelper_init_unchained() internal onlyInitializing {}
     function totalSupply(ITRC20 token) external {
         emit TRC20TotalSupply(token, token.totalSupply());
     }

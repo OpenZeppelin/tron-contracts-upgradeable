@@ -30,11 +30,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * or during initialization (if used as a clone) may leave the signer either front-runnable or unusable.
  */
 abstract contract SignerWebAuthnUpgradeable is Initializable, SignerP256Upgradeable {
-    function __SignerWebAuthn_init() internal onlyInitializing {
-    }
+    function __SignerWebAuthn_init() internal onlyInitializing {}
 
-    function __SignerWebAuthn_init_unchained() internal onlyInitializing {
-    }
+    function __SignerWebAuthn_init_unchained() internal onlyInitializing {}
     /**
      * @dev Validates a raw signature using the WebAuthn authentication assertion.
      *

@@ -28,11 +28,9 @@ abstract contract TRC7739Upgradeable is Initializable, AbstractSigner, TIP712Upg
     using TRC7739Utils for *;
     using MessageHashUtils for bytes32;
 
-    function __TRC7739_init() internal onlyInitializing {
-    }
+    function __TRC7739_init() internal onlyInitializing {}
 
-    function __TRC7739_init_unchained() internal onlyInitializing {
-    }
+    function __TRC7739_init_unchained() internal onlyInitializing {}
     /**
      * @dev Attempts validating the signature in a nested EIP-712 type.
      *

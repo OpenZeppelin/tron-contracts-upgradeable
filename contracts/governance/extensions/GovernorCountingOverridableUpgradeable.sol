@@ -53,19 +53,22 @@ abstract contract GovernorCountingOverridableUpgradeable is Initializable, Gover
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorCountingOverridable")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorCountingOverridableStorageLocation = 0xbffde6e7ca736efb3d8171f99b09abc076e81f804bf1703dc71fb0b1f7715100;
+    bytes32 private constant GovernorCountingOverridableStorageLocation =
+        0xbffde6e7ca736efb3d8171f99b09abc076e81f804bf1703dc71fb0b1f7715100;
 
-    function _getGovernorCountingOverridableStorage() private pure returns (GovernorCountingOverridableStorage storage $) {
+    function _getGovernorCountingOverridableStorage()
+        private
+        pure
+        returns (GovernorCountingOverridableStorage storage $)
+    {
         assembly {
             $.slot := GovernorCountingOverridableStorageLocation
         }
     }
 
-    function __GovernorCountingOverridable_init() internal onlyInitializing {
-    }
+    function __GovernorCountingOverridable_init() internal onlyInitializing {}
 
-    function __GovernorCountingOverridable_init_unchained() internal onlyInitializing {
-    }
+    function __GovernorCountingOverridable_init_unchained() internal onlyInitializing {}
     /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {

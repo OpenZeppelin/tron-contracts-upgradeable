@@ -34,7 +34,8 @@ abstract contract TRC2981Upgradeable is Initializable, ITRC2981, TRC165Upgradeab
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC2981")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC2981StorageLocation = 0x040486b52aec0da9656248119d88c68b08f1a00cad7e35e2cfe8802acce16000;
+    bytes32 private constant TRC2981StorageLocation =
+        0x040486b52aec0da9656248119d88c68b08f1a00cad7e35e2cfe8802acce16000;
 
     function _getTRC2981Storage() private pure returns (TRC2981Storage storage $) {
         assembly {
@@ -62,13 +63,13 @@ abstract contract TRC2981Upgradeable is Initializable, ITRC2981, TRC165Upgradeab
      */
     error TRC2981InvalidTokenRoyaltyReceiver(uint256 tokenId, address receiver);
 
-    function __TRC2981_init() internal onlyInitializing {
-    }
+    function __TRC2981_init() internal onlyInitializing {}
 
-    function __TRC2981_init_unchained() internal onlyInitializing {
-    }
+    function __TRC2981_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ITRC165, TRC165Upgradeable) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(ITRC165, TRC165Upgradeable) returns (bool) {
         return interfaceId == type(ITRC2981).interfaceId || super.supportsInterface(interfaceId);
     }
 

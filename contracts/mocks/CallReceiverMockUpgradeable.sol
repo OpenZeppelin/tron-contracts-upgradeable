@@ -10,11 +10,9 @@ contract CallReceiverMockUpgradeable is Initializable {
 
     uint256[] private _array;
 
-    function __CallReceiverMock_init() internal onlyInitializing {
-    }
+    function __CallReceiverMock_init() internal onlyInitializing {}
 
-    function __CallReceiverMock_init_unchained() internal onlyInitializing {
-    }
+    function __CallReceiverMock_init_unchained() internal onlyInitializing {}
     function mockFunction() public payable returns (string memory) {
         emit MockFunctionCalled();
         return "0x1234";

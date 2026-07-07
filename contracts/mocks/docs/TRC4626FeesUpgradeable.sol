@@ -20,11 +20,9 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
 
     uint256 private constant _BASIS_POINT_SCALE = 1e4;
 
-    function __TRC4626Fees_init() internal onlyInitializing {
-    }
+    function __TRC4626Fees_init() internal onlyInitializing {}
 
-    function __TRC4626Fees_init_unchained() internal onlyInitializing {
-    }
+    function __TRC4626Fees_init_unchained() internal onlyInitializing {}
     // === Overrides ===
 
     /// @dev Preview taking an entry fee on deposit. See {ITRC4626-previewDeposit}.

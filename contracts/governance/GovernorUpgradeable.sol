@@ -28,7 +28,16 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * - A voting module must implement {_getVotes}
  * - Additionally, {votingPeriod}, {votingDelay}, and {quorum} must also be implemented
  */
-abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, TIP712Upgradeable, NoncesUpgradeable, IGovernor, ITRC721Receiver, ITRC1155Receiver {
+abstract contract GovernorUpgradeable is
+    Initializable,
+    ContextUpgradeable,
+    TRC165Upgradeable,
+    TIP712Upgradeable,
+    NoncesUpgradeable,
+    IGovernor,
+    ITRC721Receiver,
+    ITRC1155Receiver
+{
     using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;
 
     bytes32 public constant BALLOT_TYPEHASH =
@@ -51,9 +60,7 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, TRC1
     /// @custom:storage-location erc7201:openzeppelin.storage.Governor
     struct GovernorStorage {
         string _name;
-
         mapping(uint256 proposalId => ProposalCore) _proposals;
-
         // This queue keeps track of the governor operating on itself. Calls to functions protected by the {onlyGovernance}
         // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
         // {onlyGovernance} modifier and eventually reset after {_executeOperations} completes. This ensures that the
@@ -62,7 +69,8 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, TRC1
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.Governor")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorStorageLocation = 0x7c712897014dbe49c045ef1299aa2d5f9e67e48eea4403efa21f1e0f3ac0cb00;
+    bytes32 private constant GovernorStorageLocation =
+        0x7c712897014dbe49c045ef1299aa2d5f9e67e48eea4403efa21f1e0f3ac0cb00;
 
     function _getGovernorStorage() private pure returns (GovernorStorage storage $) {
         assembly {
@@ -108,7 +116,9 @@ abstract contract GovernorUpgradeable is Initializable, ContextUpgradeable, TRC1
     }
 
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ITRC165, TRC165Upgradeable) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(ITRC165, TRC165Upgradeable) returns (bool) {
         return
             interfaceId == type(IGovernor).interfaceId ||
             interfaceId == type(IGovernor).interfaceId ^ IGovernor.getProposalId.selector ||

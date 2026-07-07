@@ -8,11 +8,9 @@ import {TRC1363Upgradeable} from "../../token/TRC20/extensions/TRC1363Upgradeabl
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC1363ReturnFalseOnTRC20MockUpgradeable is Initializable, TRC1363Upgradeable {
-    function __TRC1363ReturnFalseOnTRC20Mock_init() internal onlyInitializing {
-    }
+    function __TRC1363ReturnFalseOnTRC20Mock_init() internal onlyInitializing {}
 
-    function __TRC1363ReturnFalseOnTRC20Mock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1363ReturnFalseOnTRC20Mock_init_unchained() internal onlyInitializing {}
     function transfer(address, uint256) public pure override(ITRC20, TRC20Upgradeable) returns (bool) {
         return false;
     }
@@ -27,11 +25,9 @@ abstract contract TRC1363ReturnFalseOnTRC20MockUpgradeable is Initializable, TRC
 }
 
 abstract contract TRC1363ReturnFalseMockUpgradeable is Initializable, TRC1363Upgradeable {
-    function __TRC1363ReturnFalseMock_init() internal onlyInitializing {
-    }
+    function __TRC1363ReturnFalseMock_init() internal onlyInitializing {}
 
-    function __TRC1363ReturnFalseMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1363ReturnFalseMock_init_unchained() internal onlyInitializing {}
     function transferAndCall(address, uint256, bytes memory) public pure override returns (bool) {
         return false;
     }

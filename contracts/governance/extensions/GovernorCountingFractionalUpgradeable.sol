@@ -54,9 +54,14 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.GovernorCountingFractional")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant GovernorCountingFractionalStorageLocation = 0xd073797d8f9d07d835a3fc13195afeafd2f137da609f97a44f7a3aa434170800;
+    bytes32 private constant GovernorCountingFractionalStorageLocation =
+        0xd073797d8f9d07d835a3fc13195afeafd2f137da609f97a44f7a3aa434170800;
 
-    function _getGovernorCountingFractionalStorage() private pure returns (GovernorCountingFractionalStorage storage $) {
+    function _getGovernorCountingFractionalStorage()
+        private
+        pure
+        returns (GovernorCountingFractionalStorage storage $)
+    {
         assembly {
             $.slot := GovernorCountingFractionalStorageLocation
         }
@@ -67,11 +72,9 @@ abstract contract GovernorCountingFractionalUpgradeable is Initializable, Govern
      */
     error GovernorExceedRemainingWeight(address voter, uint256 usedVotes, uint256 remainingWeight);
 
-    function __GovernorCountingFractional_init() internal onlyInitializing {
-    }
+    function __GovernorCountingFractional_init() internal onlyInitializing {}
 
-    function __GovernorCountingFractional_init_unchained() internal onlyInitializing {
-    }
+    function __GovernorCountingFractional_init_unchained() internal onlyInitializing {}
     /// @inheritdoc IGovernor
     // solhint-disable-next-line func-name-mixedcase
     function COUNTING_MODE() public pure virtual override returns (string memory) {

@@ -7,11 +7,9 @@ import {IAuthority} from "@openzeppelin/tron-contracts/contracts/access/manager/
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract NotAuthorityMockUpgradeable is Initializable, IAuthority {
-    function __NotAuthorityMock_init() internal onlyInitializing {
-    }
+    function __NotAuthorityMock_init() internal onlyInitializing {}
 
-    function __NotAuthorityMock_init_unchained() internal onlyInitializing {
-    }
+    function __NotAuthorityMock_init_unchained() internal onlyInitializing {}
     function canCall(address /* caller */, address /* target */, bytes4 /* selector */) external pure returns (bool) {
         revert("NotAuthorityMock: not implemented");
     }
@@ -20,11 +18,9 @@ contract NotAuthorityMockUpgradeable is Initializable, IAuthority {
 contract AuthorityNoDelayMockUpgradeable is Initializable, IAuthority {
     bool private _immediate;
 
-    function __AuthorityNoDelayMock_init() internal onlyInitializing {
-    }
+    function __AuthorityNoDelayMock_init() internal onlyInitializing {}
 
-    function __AuthorityNoDelayMock_init_unchained() internal onlyInitializing {
-    }
+    function __AuthorityNoDelayMock_init_unchained() internal onlyInitializing {}
     function canCall(
         address /* caller */,
         address /* target */,
@@ -42,11 +38,9 @@ contract AuthorityDelayMockUpgradeable is Initializable {
     bool private _immediate;
     uint256 private _delay;
 
-    function __AuthorityDelayMock_init() internal onlyInitializing {
-    }
+    function __AuthorityDelayMock_init() internal onlyInitializing {}
 
-    function __AuthorityDelayMock_init_unchained() internal onlyInitializing {
-    }
+    function __AuthorityDelayMock_init_unchained() internal onlyInitializing {}
     function canCall(
         address /* caller */,
         address /* target */,
@@ -65,22 +59,18 @@ contract AuthorityDelayMockUpgradeable is Initializable {
 }
 
 contract AuthorityNoResponseUpgradeable is Initializable {
-    function __AuthorityNoResponse_init() internal onlyInitializing {
-    }
+    function __AuthorityNoResponse_init() internal onlyInitializing {}
 
-    function __AuthorityNoResponse_init_unchained() internal onlyInitializing {
-    }
+    function __AuthorityNoResponse_init_unchained() internal onlyInitializing {}
     function canCall(address /* caller */, address /* target */, bytes4 /* selector */) external view {}
 }
 
 contract AuthorityObserveIsConsumingUpgradeable is Initializable {
     event ConsumeScheduledOpCalled(address caller, bytes data, bytes4 isConsuming);
 
-    function __AuthorityObserveIsConsuming_init() internal onlyInitializing {
-    }
+    function __AuthorityObserveIsConsuming_init() internal onlyInitializing {}
 
-    function __AuthorityObserveIsConsuming_init_unchained() internal onlyInitializing {
-    }
+    function __AuthorityObserveIsConsuming_init_unchained() internal onlyInitializing {}
     function canCall(
         address /* caller */,
         address /* target */,

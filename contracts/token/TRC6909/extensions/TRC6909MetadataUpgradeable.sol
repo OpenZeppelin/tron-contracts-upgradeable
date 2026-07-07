@@ -24,7 +24,8 @@ contract TRC6909MetadataUpgradeable is Initializable, TRC6909Upgradeable, ITRC69
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC6909Metadata")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC6909MetadataStorageLocation = 0x5d3cdfc8b49195da6280952caa2aadb1d709d06d576f9ee6ceaf35fb83cc9000;
+    bytes32 private constant TRC6909MetadataStorageLocation =
+        0x5d3cdfc8b49195da6280952caa2aadb1d709d06d576f9ee6ceaf35fb83cc9000;
 
     function _getTRC6909MetadataStorage() private pure returns (TRC6909MetadataStorage storage $) {
         assembly {
@@ -41,11 +42,9 @@ contract TRC6909MetadataUpgradeable is Initializable, TRC6909Upgradeable, ITRC69
     /// @dev The decimals value for token of type `id` was updated to `newDecimals`.
     event TRC6909DecimalsUpdated(uint256 indexed id, uint8 newDecimals);
 
-    function __TRC6909Metadata_init() internal onlyInitializing {
-    }
+    function __TRC6909Metadata_init() internal onlyInitializing {}
 
-    function __TRC6909Metadata_init_unchained() internal onlyInitializing {
-    }
+    function __TRC6909Metadata_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC6909Metadata
     function name(uint256 id) public view virtual override returns (string memory) {
         TRC6909MetadataStorage storage $ = _getTRC6909MetadataStorage();
@@ -65,7 +64,9 @@ contract TRC6909MetadataUpgradeable is Initializable, TRC6909Upgradeable, ITRC69
     }
 
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC6909Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC6909Metadata).interfaceId || super.supportsInterface(interfaceId);
     }
 

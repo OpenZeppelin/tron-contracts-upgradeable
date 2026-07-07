@@ -18,7 +18,8 @@ abstract contract BridgeTRC7802Upgradeable is Initializable, BridgeFungibleUpgra
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.BridgeTRC7802")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant BridgeTRC7802StorageLocation = 0xcf35197a3f2e8f4af83d4d392549137b03573a4b32ae69d22ad1d6eae8de1e00;
+    bytes32 private constant BridgeTRC7802StorageLocation =
+        0xcf35197a3f2e8f4af83d4d392549137b03573a4b32ae69d22ad1d6eae8de1e00;
 
     function _getBridgeTRC7802Storage() private pure returns (BridgeTRC7802Storage storage $) {
         assembly {

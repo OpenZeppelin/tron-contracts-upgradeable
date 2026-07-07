@@ -31,7 +31,13 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * {TRC721-balanceOf}), and can use {_transferVotingUnits} to track a change in the distribution of those units (in the
  * previous example, it would be included in {TRC721-_update}).
  */
-abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, TIP712Upgradeable, NoncesUpgradeable, ITRC5805 {
+abstract contract VotesUpgradeable is
+    Initializable,
+    ContextUpgradeable,
+    TIP712Upgradeable,
+    NoncesUpgradeable,
+    ITRC5805
+{
     using Checkpoints for Checkpoints.Trace208;
 
     bytes32 private constant DELEGATION_TYPEHASH =
@@ -40,9 +46,7 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, TIP712U
     /// @custom:storage-location erc7201:openzeppelin.storage.Votes
     struct VotesStorage {
         mapping(address account => address) _delegatee;
-
         mapping(address delegatee => Checkpoints.Trace208) _delegateCheckpoints;
-
         Checkpoints.Trace208 _totalCheckpoints;
     }
 
@@ -65,11 +69,9 @@ abstract contract VotesUpgradeable is Initializable, ContextUpgradeable, TIP712U
      */
     error TRC5805FutureLookup(uint256 timepoint, uint48 clock);
 
-    function __Votes_init() internal onlyInitializing {
-    }
+    function __Votes_init() internal onlyInitializing {}
 
-    function __Votes_init_unchained() internal onlyInitializing {
-    }
+    function __Votes_init_unchained() internal onlyInitializing {}
     /**
      * @dev Clock used for flagging checkpoints. Can be overridden to implement timestamp based
      * checkpoints (and voting), in which case {CLOCK_MODE} should be overridden as well to match.

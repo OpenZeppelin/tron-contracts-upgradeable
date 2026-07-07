@@ -3,7 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessControlDefaultAdminRules} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlDefaultAdminRules.sol";
+import {
+    IAccessControlDefaultAdminRules
+} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlDefaultAdminRules.sol";
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
 import {IAccessControl} from "@openzeppelin/tron-contracts/contracts/access/IAccessControl.sol";
 import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
@@ -40,25 +42,33 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * }
  * ```
  */
-abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IAccessControlDefaultAdminRules, ITRC5313, AccessControlUpgradeable {
+abstract contract AccessControlDefaultAdminRulesUpgradeable is
+    Initializable,
+    IAccessControlDefaultAdminRules,
+    ITRC5313,
+    AccessControlUpgradeable
+{
     /// @custom:storage-location erc7201:openzeppelin.storage.AccessControlDefaultAdminRules
     struct AccessControlDefaultAdminRulesStorage {
         // pending admin pair read/written together frequently
         address _pendingDefaultAdmin;
         uint48 _pendingDefaultAdminSchedule; // 0 == unset
-
         uint48 _currentDelay;
         address _currentDefaultAdmin;
-
         // pending delay pair read/written together frequently
         uint48 _pendingDelay;
         uint48 _pendingDelaySchedule; // 0 == unset
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.AccessControlDefaultAdminRules")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant AccessControlDefaultAdminRulesStorageLocation = 0xeef3dac4538c82c8ace4063ab0acd2d15cdb5883aa1dff7c2673abb3d8698400;
+    bytes32 private constant AccessControlDefaultAdminRulesStorageLocation =
+        0xeef3dac4538c82c8ace4063ab0acd2d15cdb5883aa1dff7c2673abb3d8698400;
 
-    function _getAccessControlDefaultAdminRulesStorage() private pure returns (AccessControlDefaultAdminRulesStorage storage $) {
+    function _getAccessControlDefaultAdminRulesStorage()
+        private
+        pure
+        returns (AccessControlDefaultAdminRulesStorage storage $)
+    {
         assembly {
             $.slot := AccessControlDefaultAdminRulesStorageLocation
         }
@@ -67,11 +77,17 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /**
      * @dev Sets the initial values for {defaultAdminDelay} and {defaultAdmin} address.
      */
-    function __AccessControlDefaultAdminRules_init(uint48 initialDelay, address initialDefaultAdmin) internal onlyInitializing {
+    function __AccessControlDefaultAdminRules_init(
+        uint48 initialDelay,
+        address initialDefaultAdmin
+    ) internal onlyInitializing {
         __AccessControlDefaultAdminRules_init_unchained(initialDelay, initialDefaultAdmin);
     }
 
-    function __AccessControlDefaultAdminRules_init_unchained(uint48 initialDelay, address initialDefaultAdmin) internal onlyInitializing {
+    function __AccessControlDefaultAdminRules_init_unchained(
+        uint48 initialDelay,
+        address initialDefaultAdmin
+    ) internal onlyInitializing {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (initialDefaultAdmin == address(0)) {
             revert AccessControlInvalidDefaultAdmin(address(0));
@@ -97,7 +113,10 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /**
      * @dev See {AccessControl-grantRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
-    function grantRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
+    function grantRole(
+        bytes32 role,
+        address account
+    ) public virtual override(AccessControlUpgradeable, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
             revert AccessControlEnforcedDefaultAdminRules();
         }
@@ -107,7 +126,10 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
     /**
      * @dev See {AccessControl-revokeRole}. Reverts for `DEFAULT_ADMIN_ROLE`.
      */
-    function revokeRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
+    function revokeRole(
+        bytes32 role,
+        address account
+    ) public virtual override(AccessControlUpgradeable, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
             revert AccessControlEnforcedDefaultAdminRules();
         }
@@ -127,7 +149,10 @@ abstract contract AccessControlDefaultAdminRulesUpgradeable is Initializable, IA
      * thereby disabling any functionality that is only available for it, and the possibility of reassigning a
      * non-administrated role.
      */
-    function renounceRole(bytes32 role, address account) public virtual override(AccessControlUpgradeable, IAccessControl) {
+    function renounceRole(
+        bytes32 role,
+        address account
+    ) public virtual override(AccessControlUpgradeable, IAccessControl) {
         AccessControlDefaultAdminRulesStorage storage $ = _getAccessControlDefaultAdminRulesStorage();
         if (role == DEFAULT_ADMIN_ROLE && account == defaultAdmin()) {
             (address newDefaultAdmin, uint48 schedule) = pendingDefaultAdmin();

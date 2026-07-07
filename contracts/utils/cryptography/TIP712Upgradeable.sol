@@ -95,7 +95,16 @@ abstract contract TIP712Upgradeable is Initializable, ITRC5267 {
         // TIP-712 defines the domain separator's `chainId` as `block.chainid & 0xffffffff` (the low four bytes),
         // matching the value off-chain TRON signers and `eth_chainId` use. This is a no-op on networks where the
         // CHAINID opcode already returns four bytes.
-        return keccak256(abi.encode(TYPE_HASH, _TIP712NameHash(), _TIP712VersionHash(), block.chainid & 0xffffffff, address(this)));
+        return
+            keccak256(
+                abi.encode(
+                    TYPE_HASH,
+                    _TIP712NameHash(),
+                    _TIP712VersionHash(),
+                    block.chainid & 0xffffffff,
+                    address(this)
+                )
+            );
     }
 
     /**

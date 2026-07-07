@@ -7,11 +7,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 
 // contract that replicate USDT approval behavior in approveAndCall
 abstract contract TRC1363ForceApproveMockUpgradeable is Initializable, TRC1363Upgradeable {
-    function __TRC1363ForceApproveMock_init() internal onlyInitializing {
-    }
+    function __TRC1363ForceApproveMock_init() internal onlyInitializing {}
 
-    function __TRC1363ForceApproveMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1363ForceApproveMock_init_unchained() internal onlyInitializing {}
     function approveAndCall(address spender, uint256 amount, bytes memory data) public virtual override returns (bool) {
         require(amount == 0 || allowance(msg.sender, spender) == 0, "USDT approval failure");
         return super.approveAndCall(spender, amount, data);

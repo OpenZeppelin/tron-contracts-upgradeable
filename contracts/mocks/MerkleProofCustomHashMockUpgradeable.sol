@@ -7,11 +7,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 
 // This could be a library, but then we would have to add it to the Stateless.sol mock for upgradeable tests
 abstract contract MerkleProofCustomHashMockUpgradeable is Initializable {
-    function __MerkleProofCustomHashMock_init() internal onlyInitializing {
-    }
+    function __MerkleProofCustomHashMock_init() internal onlyInitializing {}
 
-    function __MerkleProofCustomHashMock_init_unchained() internal onlyInitializing {
-    }
+    function __MerkleProofCustomHashMock_init_unchained() internal onlyInitializing {}
     function customHash(bytes32 a, bytes32 b) internal pure returns (bytes32) {
         return a < b ? sha256(abi.encode(a, b)) : sha256(abi.encode(b, a));
     }

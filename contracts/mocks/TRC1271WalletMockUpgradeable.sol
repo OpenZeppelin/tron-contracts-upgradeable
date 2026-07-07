@@ -20,11 +20,9 @@ contract TRC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, ITRC
 }
 
 contract TRC1271MaliciousMockUpgradeable is Initializable, ITRC1271 {
-    function __TRC1271MaliciousMock_init() internal onlyInitializing {
-    }
+    function __TRC1271MaliciousMock_init() internal onlyInitializing {}
 
-    function __TRC1271MaliciousMock_init_unchained() internal onlyInitializing {
-    }
+    function __TRC1271MaliciousMock_init_unchained() internal onlyInitializing {}
     function isValidSignature(bytes32, bytes memory) public pure returns (bytes4) {
         assembly {
             mstore(0, 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)

@@ -34,7 +34,8 @@ abstract contract SignerRSAUpgradeable is Initializable, AbstractSigner {
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.SignerRSA")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant SignerRSAStorageLocation = 0x8bf15870295cd9a811d81afc339672ef68c88b80db19b9fcfad708cc10d31600;
+    bytes32 private constant SignerRSAStorageLocation =
+        0x8bf15870295cd9a811d81afc339672ef68c88b80db19b9fcfad708cc10d31600;
 
     function _getSignerRSAStorage() private pure returns (SignerRSAStorage storage $) {
         assembly {

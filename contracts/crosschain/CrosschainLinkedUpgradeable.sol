@@ -34,7 +34,8 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, TRC7786Recipient
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.CrosschainLinked")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant CrosschainLinkedStorageLocation = 0xb1919b8acb826911820798909343454eff798c0ea16342cfea7647f1c8b2df00;
+    bytes32 private constant CrosschainLinkedStorageLocation =
+        0xb1919b8acb826911820798909343454eff798c0ea16342cfea7647f1c8b2df00;
 
     function _getCrosschainLinkedStorage() private pure returns (CrosschainLinkedStorage storage $) {
         assembly {

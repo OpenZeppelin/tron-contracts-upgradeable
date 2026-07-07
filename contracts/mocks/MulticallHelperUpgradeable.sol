@@ -6,11 +6,9 @@ import {TRC20MulticallMockUpgradeable} from "./token/TRC20MulticallMockUpgradeab
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 contract MulticallHelperUpgradeable is Initializable {
-    function __MulticallHelper_init() internal onlyInitializing {
-    }
+    function __MulticallHelper_init() internal onlyInitializing {}
 
-    function __MulticallHelper_init_unchained() internal onlyInitializing {
-    }
+    function __MulticallHelper_init_unchained() internal onlyInitializing {}
     function checkReturnValues(
         TRC20MulticallMockUpgradeable multicallToken,
         address[] calldata recipients,

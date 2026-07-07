@@ -17,14 +17,13 @@ contract TRC6909Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradea
     /// @custom:storage-location erc7201:openzeppelin.storage.TRC6909
     struct TRC6909Storage {
         mapping(address owner => mapping(uint256 id => uint256)) _balances;
-
         mapping(address owner => mapping(address operator => bool)) _operatorApprovals;
-
         mapping(address owner => mapping(address spender => mapping(uint256 id => uint256))) _allowances;
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC6909")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC6909StorageLocation = 0x93cde49003e545345558860c138c88f79bdc58417976f453134e8463dfae3100;
+    bytes32 private constant TRC6909StorageLocation =
+        0x93cde49003e545345558860c138c88f79bdc58417976f453134e8463dfae3100;
 
     function _getTRC6909Storage() private pure returns (TRC6909Storage storage $) {
         assembly {
@@ -39,13 +38,13 @@ contract TRC6909Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradea
     error TRC6909InvalidSender(address sender);
     error TRC6909InvalidSpender(address spender);
 
-    function __TRC6909_init() internal onlyInitializing {
-    }
+    function __TRC6909_init() internal onlyInitializing {}
 
-    function __TRC6909_init_unchained() internal onlyInitializing {
-    }
+    function __TRC6909_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
-    function supportsInterface(bytes4 interfaceId) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view virtual override(TRC165Upgradeable, ITRC165) returns (bool) {
         return interfaceId == type(ITRC6909).interfaceId || super.supportsInterface(interfaceId);
     }
 

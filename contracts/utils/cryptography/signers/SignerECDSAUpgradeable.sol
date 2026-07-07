@@ -33,7 +33,8 @@ abstract contract SignerECDSAUpgradeable is Initializable, AbstractSigner {
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.SignerECDSA")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant SignerECDSAStorageLocation = 0x21a2a8bb424898f7a6033d112ec6057811f27c903c45eccf7ad7cefcbbc0d200;
+    bytes32 private constant SignerECDSAStorageLocation =
+        0x21a2a8bb424898f7a6033d112ec6057811f27c903c45eccf7ad7cefcbbc0d200;
 
     function _getSignerECDSAStorage() private pure returns (SignerECDSAStorage storage $) {
         assembly {

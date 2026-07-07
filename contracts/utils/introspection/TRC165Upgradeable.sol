@@ -19,11 +19,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * ```
  */
 abstract contract TRC165Upgradeable is Initializable, ITRC165 {
-    function __TRC165_init() internal onlyInitializing {
-    }
+    function __TRC165_init() internal onlyInitializing {}
 
-    function __TRC165_init_unchained() internal onlyInitializing {
-    }
+    function __TRC165_init_unchained() internal onlyInitializing {}
     /// @inheritdoc ITRC165
     function supportsInterface(bytes4 interfaceId) public view virtual returns (bool) {
         return interfaceId == type(ITRC165).interfaceId;

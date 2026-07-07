@@ -28,7 +28,8 @@ abstract contract TRC20WrapperUpgradeable is Initializable, TRC20Upgradeable {
     }
 
     // keccak256(abi.encode(uint256(keccak256("openzeppelin.storage.TRC20Wrapper")) - 1)) & ~bytes32(uint256(0xff))
-    bytes32 private constant TRC20WrapperStorageLocation = 0x4111b7d0eb34d7b71abfa6c156997b20c76f52c1ef91fec4d55e278544ded100;
+    bytes32 private constant TRC20WrapperStorageLocation =
+        0x4111b7d0eb34d7b71abfa6c156997b20c76f52c1ef91fec4d55e278544ded100;
 
     function _getTRC20WrapperStorage() private pure returns (TRC20WrapperStorage storage $) {
         assembly {

@@ -13,11 +13,9 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * recognized off-chain (via event analysis).
  */
 abstract contract TRC20BurnableUpgradeable is Initializable, ContextUpgradeable, TRC20Upgradeable {
-    function __TRC20Burnable_init() internal onlyInitializing {
-    }
+    function __TRC20Burnable_init() internal onlyInitializing {}
 
-    function __TRC20Burnable_init_unchained() internal onlyInitializing {
-    }
+    function __TRC20Burnable_init_unchained() internal onlyInitializing {}
     /**
      * @dev Destroys a `value` amount of tokens from the caller.
      *
