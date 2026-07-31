@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.6.0) (crosschain/CrosschainLinked.sol)
+// Tron Contracts (last updated v5.6.0) (crosschain/CrosschainLinked.sol)
 
 pragma solidity ^0.8.26;
 
@@ -12,7 +12,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
 /**
  * @dev Core bridging mechanism.
  *
- * This contract contains the logic to register and send messages to counterparts on remote chains using ERC-7786
+ * This contract contains the logic to register and send messages to counterparts on remote chains using TRC-7786
  * gateways. It ensure received messages originate from a counterpart. This is the base of token bridges such as
  * {BridgeFungible}.
  *
@@ -68,7 +68,7 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, TRC7786Recipient
     }
 
     /**
-     * @dev Returns the ERC-7786 gateway used for sending and receiving cross-chain messages to a given chain.
+     * @dev Returns the TRC-7786 gateway used for sending and receiving cross-chain messages to a given chain.
      *
      * Note: The `chainAddr` parameter is a "chain-only" InteroperableAddress (empty address) and the `counterpart`
      * returns the full InteroperableAddress (chain ref + address) that is on `chainAddr`.
@@ -80,13 +80,13 @@ abstract contract CrosschainLinkedUpgradeable is Initializable, TRC7786Recipient
     }
 
     /**
-     * @dev Internal setter to change the ERC-7786 gateway and counterpart for a given chain. Called at construction.
+     * @dev Internal setter to change the TRC-7786 gateway and counterpart for a given chain. Called at construction.
      *
      * Note: The `counterpart` parameter is the full InteroperableAddress (chain ref + address).
      */
     function _setLink(address gateway, bytes memory counterpart, bool allowOverride) internal virtual {
         CrosschainLinkedStorage storage $ = _getCrosschainLinkedStorage();
-        // Sanity check, this should revert if gateway is not an ERC-7786 implementation. Note that since
+        // Sanity check, this should revert if gateway is not a TRC-7786 implementation. Note that since
         // supportsAttribute returns data, an EOA would fail that test (nothing returned).
         ITRC7786GatewaySource(gateway).supportsAttribute(bytes4(0));
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.5.0) (token/TRC6909/TRC6909.sol)
+// Tron Contracts (last updated v5.5.0) (token/TRC6909/TRC6909.sol)
 
 pragma solidity ^0.8.20;
 
@@ -10,7 +10,7 @@ import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev Implementation of ERC-6909.
+ * @dev Implementation of TRC-6909.
  * See https://eips.ethereum.org/EIPS/eip-6909
  */
 contract TRC6909Upgradeable is Initializable, ContextUpgradeable, TRC165Upgradeable, ITRC6909 {

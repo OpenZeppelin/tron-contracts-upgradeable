@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.3.0) (token/TRC20/extensions/draft-TRC20TemporaryApproval.sol)
+// Tron Contracts (last updated v5.3.0) (token/TRC20/extensions/draft-TRC20TemporaryApproval.sol)
 
 pragma solidity ^0.8.24;
 
@@ -12,7 +12,7 @@ import {TransientSlot} from "@openzeppelin/tron-contracts/contracts/utils/Transi
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev Extension of {TRC20} that adds support for temporary allowances following ERC-7674.
+ * @dev Extension of {TRC20} that adds support for temporary allowances following TRC-7674.
  *
  * WARNING: This is a draft contract. The corresponding ERC is still subject to changes.
  *

@@ -15,7 +15,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * live networks.
  */
 contract TRC3156FlashBorrowerMockUpgradeable is Initializable, ITRC3156FlashBorrower {
-    bytes32 internal constant _RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 internal constant _RETURN_VALUE = keccak256("TRC3156FlashBorrower.onFlashLoan");
 
     bool _enableApprove;
     bool _enableReturn;

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.6.0) (token/TRC20/extensions/TRC20FlashMint.sol)
+// Tron Contracts (last updated v5.6.0) (token/TRC20/extensions/TRC20FlashMint.sol)
 
 pragma solidity ^0.8.20;
 
@@ -9,8 +9,9 @@ import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev Implementation of the ERC-3156 Flash loans extension, as defined in
- * https://eips.ethereum.org/EIPS/eip-3156[ERC-3156].
+ * @dev Implementation of the TRC-3156 Flash loans extension, as defined in
+ * https://github.com/tronprotocol/tips/blob/master/tip-3156.md[TIP-3156] (the TRON-side analogue
+ * of https://eips.ethereum.org/EIPS/eip-3156[EIP-3156]).
  *
  * Adds the {flashLoan} method, which provides flash loan support at the token
  * level. By default there is no fee, but this can be changed by overriding {flashFee}.
@@ -20,7 +21,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * overriding {maxFlashLoan} so that it correctly reflects the supply cap.
  */
 abstract contract TRC20FlashMintUpgradeable is Initializable, TRC20Upgradeable, ITRC3156FlashLender {
-    bytes32 private constant RETURN_VALUE = keccak256("ERC3156FlashBorrower.onFlashLoan");
+    bytes32 private constant RETURN_VALUE = keccak256("TRC3156FlashBorrower.onFlashLoan");
 
     /**
      * @dev The loan token is not valid.

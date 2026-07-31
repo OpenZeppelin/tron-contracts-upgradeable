@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.6.0) (token/TRC20/extensions/TRC4626.sol)
+// Tron Contracts (last updated v5.6.0) (token/TRC20/extensions/TRC4626.sol)
 
 pragma solidity ^0.8.24;
 
@@ -111,7 +111,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
     error TRC4626ExceededMaxRedeem(address owner, uint256 shares, uint256 max);
 
     /**
-     * @dev Set the underlying asset contract. This must be a TRC20-compatible contract (TRC-20 or ERC-777).
+     * @dev Set the underlying asset contract. This must be a TRC20-compatible contract (TRC-20 or TRC-777).
      */
     function __TRC4626_init(ITRC20 asset_) internal onlyInitializing {
         __TRC4626_init_unchained(asset_);
@@ -284,7 +284,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
      * @dev Deposit/mint common workflow.
      */
     function _deposit(address caller, address receiver, uint256 assets, uint256 shares) internal virtual {
-        // If asset() is ERC-777, `transferFrom` can trigger a reentrancy BEFORE the transfer happens through the
+        // If asset() is TRC-777, `transferFrom` can trigger a reentrancy BEFORE the transfer happens through the
         // `tokensToSend` hook. On the other hand, the `tokenReceived` hook, that is triggered after the transfer,
         // calls the vault, which is assumed not malicious.
         //
@@ -311,7 +311,7 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
             _spendAllowance(owner, caller, shares);
         }
 
-        // If asset() is ERC-777, `transfer` can trigger a reentrancy AFTER the transfer happens through the
+        // If asset() is TRC-777, `transfer` can trigger a reentrancy AFTER the transfer happens through the
         // `tokensReceived` hook. On the other hand, the `tokensToSend` hook, that is triggered before the transfer,
         // calls the vault, which is assumed not malicious.
         //

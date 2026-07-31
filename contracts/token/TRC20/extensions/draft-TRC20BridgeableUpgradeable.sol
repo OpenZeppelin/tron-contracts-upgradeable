@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.4.0) (token/TRC20/extensions/draft-TRC20Bridgeable.sol)
+// Tron Contracts (last updated v5.4.0) (token/TRC20/extensions/draft-TRC20Bridgeable.sol)
 
 pragma solidity ^0.8.20;
 
@@ -10,8 +10,8 @@ import {ITRC7802} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-
 import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
 
 /**
- * @dev TRC20 extension that implements the standard token interface according to
- * https://eips.ethereum.org/EIPS/eip-7802[ERC-7802].
+ * @dev TRC20 extension that implements the standard token interface according to TRC-7802 (see
+ * https://eips.ethereum.org/EIPS/eip-7802[ERC-7802]).
  */
 abstract contract TRC20BridgeableUpgradeable is Initializable, TRC20Upgradeable, TRC165Upgradeable, ITRC7802 {
     /// @dev Modifier to restrict access to the token bridge.

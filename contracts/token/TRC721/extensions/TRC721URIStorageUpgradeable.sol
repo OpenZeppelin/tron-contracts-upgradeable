@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v5.6.0) (token/TRC721/extensions/TRC721URIStorage.sol)
+// Tron Contracts (last updated v5.6.0) (token/TRC721/extensions/TRC721URIStorage.sol)
 
 pragma solidity ^0.8.24;
 
@@ -13,7 +13,7 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * @dev TRC-721 token with storage based token URI management.
  */
 abstract contract TRC721URIStorageUpgradeable is Initializable, ITRC4906, TRC721Upgradeable {
-    // Interface ID as defined in ERC-4906. This does not correspond to a traditional interface ID as ERC-4906 only
+    // Interface ID as defined in TRC-4906. This does not correspond to a traditional interface ID as TRC-4906 only
     // defines events and does not include any external function.
     bytes4 private constant TRC4906_INTERFACE_ID = bytes4(0x49064906);
 
