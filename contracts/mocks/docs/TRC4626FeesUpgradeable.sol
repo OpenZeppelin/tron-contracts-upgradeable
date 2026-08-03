@@ -57,7 +57,7 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
         super._deposit(caller, receiver, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeTRC20.safeTransfer(ITRC20(asset()), recipient, fee);
+            SafeTRC20.safeTransferChecked(ITRC20(asset()), recipient, fee);
         }
     }
 
@@ -75,7 +75,7 @@ abstract contract TRC4626FeesUpgradeable is Initializable, TRC4626Upgradeable {
         super._withdraw(caller, receiver, owner, assets, shares);
 
         if (fee > 0 && recipient != address(this)) {
-            SafeTRC20.safeTransfer(ITRC20(asset()), recipient, fee);
+            SafeTRC20.safeTransferChecked(ITRC20(asset()), recipient, fee);
         }
     }
 
