@@ -15,18 +15,12 @@ abstract contract TRC1155BurnableUpgradeable is Initializable, TRC1155Upgradeabl
 
     function __TRC1155Burnable_init_unchained() internal onlyInitializing {}
     function burn(address account, uint256 id, uint256 value) public virtual {
-        if (account != _msgSender() && !isApprovedForAll(account, _msgSender())) {
-            revert TRC1155MissingApprovalForAll(_msgSender(), account);
-        }
-
+        _checkAuthorized(_msgSender(), account);
         _burn(account, id, value);
     }
 
     function burnBatch(address account, uint256[] memory ids, uint256[] memory values) public virtual {
-        if (account != _msgSender() && !isApprovedForAll(account, _msgSender())) {
-            revert TRC1155MissingApprovalForAll(_msgSender(), account);
-        }
-
+        _checkAuthorized(_msgSender(), account);
         _burnBatch(account, ids, values);
     }
 }
