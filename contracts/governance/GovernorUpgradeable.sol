@@ -388,8 +388,13 @@ abstract contract GovernorUpgradeable is
     ) public virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         uint256 proposalId = getProposalId(targets, values, calldatas, descriptionHash);
+        bool needsQueueing = proposalNeedsQueuing(proposalId);
 
         _validateStateBitmap(proposalId, _encodeStateBitmap(ProposalState.Succeeded));
+
+        if (!needsQueueing) {
+            revert GovernorProposalQueueingNotRequired(proposalId);
+        }
 
         uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
 
@@ -397,7 +402,7 @@ abstract contract GovernorUpgradeable is
             $._proposals[proposalId].etaSeconds = etaSeconds;
             emit ProposalQueued(proposalId, etaSeconds);
         } else {
-            revert GovernorQueueNotImplemented();
+            revert GovernorProposalQueueingFailed(proposalId);
         }
 
         return proposalId;
@@ -435,10 +440,11 @@ abstract contract GovernorUpgradeable is
     ) public payable virtual returns (uint256) {
         GovernorStorage storage $ = _getGovernorStorage();
         uint256 proposalId = getProposalId(targets, values, calldatas, descriptionHash);
+        bool needsQueueing = proposalNeedsQueuing(proposalId);
 
         _validateStateBitmap(
             proposalId,
-            _encodeStateBitmap(ProposalState.Succeeded) | _encodeStateBitmap(ProposalState.Queued)
+            _encodeStateBitmap(needsQueueing ? ProposalState.Queued : ProposalState.Succeeded)
         );
 
         // mark as executed before calls to avoid reentrancy

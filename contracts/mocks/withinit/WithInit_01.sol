@@ -11,6 +11,7 @@ import "../governance/GovernorNoncesKeyedMockUpgradeable.sol";
 import "../governance/GovernorVotesSuperQuorumFractionMockUpgradeable.sol";
 import "../governance/GovernorFractionalMockUpgradeable.sol";
 import "../governance/GovernorProposalGuardianMockUpgradeable.sol";
+import "../governance/GovernorQueueingFailedMockUpgradeable.sol";
 import "../governance/GovernorSequentialProposalIdMockUpgradeable.sol";
 import "../governance/GovernorTimelockAccessMockUpgradeable.sol";
 import "../governance/GovernorTimelockCompoundMockUpgradeable.sol";
@@ -35,7 +36,6 @@ import "../docs/access-control/AccessControlTRC20MintBaseUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintMissingUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
 import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
-import "../VotesMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import "../../governance/TimelockControllerUpgradeable.sol";
@@ -109,6 +109,12 @@ contract GovernorFractionalMockUpgradeableWithInit is GovernorFractionalMockUpgr
 contract GovernorProposalGuardianMockUpgradeableWithInit is GovernorProposalGuardianMockUpgradeable {
     constructor() payable initializer {
         __GovernorProposalGuardianMock_init();
+    }
+}
+
+contract GovernorQueueingFailedMockUpgradeableWithInit is GovernorQueueingFailedMockUpgradeable {
+    constructor() payable initializer {
+        __GovernorQueueingFailedMock_init();
     }
 }
 
@@ -303,18 +309,6 @@ contract AccessControlTRC20MintUpgradeableWithInit is AccessControlTRC20MintUpgr
 contract TRC6909GameItemsUpgradeableWithInit is TRC6909GameItemsUpgradeable {
     constructor() payable initializer {
         __TRC6909GameItems_init();
-    }
-}
-
-contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
-    constructor() payable initializer {
-        __VotesMock_init();
-    }
-}
-
-contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
-    constructor() payable initializer {
-        __VotesTimestampMock_init();
     }
 }
 

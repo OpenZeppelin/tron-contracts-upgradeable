@@ -2,6 +2,8 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../ReentrancyMockUpgradeable.sol";
+import "../ReentrancyTransientMockUpgradeable.sol";
 import "../token/TRC20ApprovalMockUpgradeable.sol";
 import "../token/TRC20DecimalsMockUpgradeable.sol";
 import "../token/TRC20ForceApproveMockUpgradeable.sol";
@@ -16,6 +18,7 @@ import "../TRC1271WalletMockUpgradeable.sol";
 import "../../token/TRC20/extensions/draft-TRC20TemporaryApprovalUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20BurnableUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CappedUpgradeable.sol";
+import "../ReentrancyAttackUpgradeable.sol";
 import "../TIP712VerifierUpgradeable.sol";
 import "../token/TRC1155ReceiverMockUpgradeable.sol";
 import "../../utils/cryptography/signers/MultiSignerTRC7913WeightedUpgradeable.sol";
@@ -48,6 +51,18 @@ import "../TRC3156FlashBorrowerMockUpgradeable.sol";
 import "../UpgradeableBeaconMockUpgradeable.sol";
 import "../../utils/cryptography/signers/MultiSignerTRC7913Upgradeable.sol";
 import "../../utils/cryptography/signers/SignerTRC7913Upgradeable.sol";
+
+contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyMock_init();
+    }
+}
+
+contract ReentrancyTransientMockUpgradeableWithInit is ReentrancyTransientMockUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyTransientMock_init();
+    }
+}
 
 contract TRC20ApprovalMockUpgradeableWithInit is TRC20ApprovalMockUpgradeable {
     constructor() payable initializer {
@@ -136,6 +151,12 @@ contract TRC20BurnableUpgradeableWithInit is TRC20BurnableUpgradeable {
 contract TRC20CappedUpgradeableWithInit is TRC20CappedUpgradeable {
     constructor(uint256 cap_) payable initializer {
         __TRC20Capped_init(cap_);
+    }
+}
+
+contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyAttack_init();
     }
 }
 

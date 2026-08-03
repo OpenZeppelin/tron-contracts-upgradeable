@@ -11,6 +11,7 @@ import "../token/TRC20BridgeableMockUpgradeable.sol";
 import "../token/TRC4626FeesMockUpgradeable.sol";
 import "../token/TRC721URIStorageMockUpgradeable.sol";
 import "../TRC2771ContextMockUpgradeable.sol";
+import "../VotesMockUpgradeable.sol";
 import "../../token/TRC1155/extensions/TRC1155PausableUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CrosschainUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721RoyaltyUpgradeable.sol";
@@ -52,8 +53,6 @@ import "../docs/token/TRC20/GLDTokenUpgradeable.sol";
 import "../docs/TRC20WithAutoMinerRewardUpgradeable.sol";
 import "../docs/utilities/MulticallUpgradeable.sol";
 import "../PausableMockUpgradeable.sol";
-import "../ReentrancyMockUpgradeable.sol";
-import "../ReentrancyTransientMockUpgradeable.sol";
 import "../StorageSlotMockUpgradeable.sol";
 import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20FlashMintUpgradeable.sol";
@@ -61,7 +60,6 @@ import "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
 import "../../access/manager/AccessManagedUpgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
 import "../ContextMockUpgradeable.sol";
-import "../ReentrancyAttackUpgradeable.sol";
 import "../../token/common/TRC2981Upgradeable.sol";
 import "../../utils/MulticallUpgradeable.sol";
 
@@ -126,6 +124,18 @@ contract TRC721URIStorageMockUpgradeableWithInit is TRC721URIStorageMockUpgradea
 
 contract TRC2771ContextMockUpgradeableWithInit is TRC2771ContextMockUpgradeable {
     constructor(address trustedForwarder) payable TRC2771ContextMockUpgradeable(trustedForwarder) initializer {}
+}
+
+contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
+    constructor() payable initializer {
+        __VotesMock_init();
+    }
+}
+
+contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __VotesTimestampMock_init();
+    }
 }
 
 contract TRC1155PausableUpgradeableWithInit is TRC1155PausableUpgradeable {
@@ -374,18 +384,6 @@ contract PausableMockUpgradeableWithInit is PausableMockUpgradeable {
     }
 }
 
-contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyMock_init();
-    }
-}
-
-contract ReentrancyTransientMockUpgradeableWithInit is ReentrancyTransientMockUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyTransientMock_init();
-    }
-}
-
 contract StorageSlotMockUpgradeableWithInit is StorageSlotMockUpgradeable {
     constructor() payable initializer {
         __StorageSlotMock_init();
@@ -431,12 +429,6 @@ contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
 contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
     constructor() payable initializer {
         __ContextMockCaller_init();
-    }
-}
-
-contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyAttack_init();
     }
 }
 
