@@ -106,7 +106,7 @@ abstract contract TRC721ConsecutiveUpgradeable is Initializable, ITRC2309, TRC72
 
     /**
      * @dev Mint a batch of tokens of length `batchSize` for `to`. Returns the token id of the first token minted in the
-     * batch; if `batchSize` is 0, returns the number of consecutive ids minted so far.
+     * batch; if `batchSize` is 0, returns the next token id to be minted consecutively.
      *
      * Requirements:
      *
