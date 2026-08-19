@@ -21,6 +21,10 @@ import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/
  * is in charge of proposing (resp executing) operations. A common use case is
  * to position this {TimelockController} as the owner of a smart contract, with
  * a multisig or a DAO as the sole proposer.
+ *
+ * NOTE: Native TRC-10 assets are outside this contract's reach. Moving them requires the TVM's token-aware call
+ * (`address.transferToken`), whereas the calls performed here carry TRX only and an operation binds no token
+ * identifier or amount, so a TRC-10 credited to the timelock remains there and cannot be attached to an executed call.
  */
 contract TimelockControllerUpgradeable is Initializable, AccessControlUpgradeable, TRC721Holder, TRC1155Holder {
     bytes32 public constant PROPOSER_ROLE = keccak256("PROPOSER_ROLE");
