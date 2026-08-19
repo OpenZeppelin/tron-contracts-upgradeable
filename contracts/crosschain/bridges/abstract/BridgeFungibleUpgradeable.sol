@@ -29,6 +29,9 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
     /// @dev The `recipient` of the crosschain transfer is not a valid address.
     error BridgeInvalidRecipient(bytes recipient);
 
+    /// @dev Revert reason when the address part of the interoperable address is empty.
+    error CrosschainFungibleEmptyAddress();
+
     function __BridgeFungible_init() internal onlyInitializing {}
 
     function __BridgeFungible_init_unchained() internal onlyInitializing {}
@@ -50,10 +53,10 @@ abstract contract BridgeFungibleUpgradeable is Initializable, ContextUpgradeable
         _onSend(from, amount);
 
         (bytes2 chainType, bytes memory chainReference, bytes memory addr) = to.parseV1();
-        bytes memory chainAddr = InteroperableAddress.formatV1(chainType, chainReference, hex"");
+        require(addr.length > 0, CrosschainFungibleEmptyAddress());
 
         bytes32 sendId = _sendMessageToCounterpart(
-            chainAddr,
+            InteroperableAddress.formatV1(chainType, chainReference, hex""),
             abi.encode(InteroperableAddress.formatEvmV1(block.chainid, from), addr, amount),
             new bytes[](0)
         );

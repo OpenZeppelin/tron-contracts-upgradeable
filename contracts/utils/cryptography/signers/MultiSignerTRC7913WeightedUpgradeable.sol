@@ -51,7 +51,8 @@ abstract contract MultiSignerTRC7913WeightedUpgradeable is Initializable, MultiS
 
     /// @custom:storage-location erc7201:openzeppelin.storage.MultiSignerTRC7913Weighted
     struct MultiSignerTRC7913WeightedStorage {
-        // Sum of all the extra weights of all signers. Storage packed with `MultiSignerTRC7913._threshold`
+        // Sum of all the extra weights of all signers. Packed with `MultiSignerTRC7913._threshold` in the
+        // constructor-based variant; the upgradeable variant holds the two in separate namespaces.
         uint64 _totalExtraWeight;
         // Mapping from signer to extraWeight (in addition to all authorized signers having weight 1)
         mapping(bytes signer => uint64) _extraWeights;
