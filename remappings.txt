@@ -1,0 +1,2 @@
+@openzeppelin/tron-contracts-upgradeable/=contracts/
+@openzeppelin/tron-contracts/=lib/tron-contracts/

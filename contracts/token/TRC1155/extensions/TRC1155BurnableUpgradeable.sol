@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Tron Contracts (last updated v5.5.0) (token/TRC1155/extensions/TRC1155Burnable.sol)
+
+pragma solidity ^0.8.24;
+
+import {TRC1155Upgradeable} from "../TRC1155Upgradeable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+
+/**
+ * @dev Extension of {TRC1155} that allows token holders to destroy both their
+ * own tokens and those that they have been approved to use.
+ */
+abstract contract TRC1155BurnableUpgradeable is Initializable, TRC1155Upgradeable {
+    function __TRC1155Burnable_init() internal onlyInitializing {}
+
+    function __TRC1155Burnable_init_unchained() internal onlyInitializing {}
+    function burn(address account, uint256 id, uint256 value) public virtual {
+        _checkAuthorized(_msgSender(), account);
+        _burn(account, id, value);
+    }
+
+    function burnBatch(address account, uint256[] memory ids, uint256[] memory values) public virtual {
+        _checkAuthorized(_msgSender(), account);
+        _burnBatch(account, ids, values);
+    }
+}
