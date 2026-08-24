@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TimelockReentrantUpgradeable is Initializable {
     address private _reenterTarget;

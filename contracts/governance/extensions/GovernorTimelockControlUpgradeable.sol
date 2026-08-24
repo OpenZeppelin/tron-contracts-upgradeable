@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {TimelockControllerUpgradeable} from "../TimelockControllerUpgradeable.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to an instance of {TimelockController}. This adds a

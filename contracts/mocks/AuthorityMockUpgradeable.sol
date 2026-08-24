@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessManaged} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManaged.sol";
-import {IAuthority} from "@openzeppelin/tron-contracts/contracts/access/manager/IAuthority.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {IAccessManaged} from "@openzeppelin/tron-contracts/access/manager/IAccessManaged.sol";
+import {IAuthority} from "@openzeppelin/tron-contracts/access/manager/IAuthority.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract NotAuthorityMockUpgradeable is Initializable, IAuthority {
     function __NotAuthorityMock_init() internal onlyInitializing {}

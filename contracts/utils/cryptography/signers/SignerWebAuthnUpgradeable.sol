@@ -4,8 +4,8 @@
 pragma solidity ^0.8.24;
 
 import {SignerP256Upgradeable} from "./SignerP256Upgradeable.sol";
-import {WebAuthn} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/WebAuthn.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {WebAuthn} from "@openzeppelin/tron-contracts/utils/cryptography/WebAuthn.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {SignerP256} that supports WebAuthn authentication assertions.

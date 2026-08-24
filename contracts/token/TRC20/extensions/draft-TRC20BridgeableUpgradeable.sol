@@ -5,9 +5,9 @@ pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {TRC165Upgradeable} from "../../../utils/introspection/TRC165Upgradeable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {ITRC7802} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7802.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {ITRC7802} from "@openzeppelin/tron-contracts/interfaces/draft-ITRC7802.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC20 extension that implements the standard token interface according to TRC-7802 (see

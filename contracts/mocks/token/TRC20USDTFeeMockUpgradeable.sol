@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../../token/TRC20/TRC20Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Mock that mimics TRON USDT (`TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t`) with its transfer fee enabled.

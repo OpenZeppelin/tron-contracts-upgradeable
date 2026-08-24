@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {ICompoundTimelock} from "@openzeppelin/tron-contracts/contracts/vendor/compound/ICompoundTimelock.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ICompoundTimelock} from "@openzeppelin/tron-contracts/vendor/compound/ICompoundTimelock.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by

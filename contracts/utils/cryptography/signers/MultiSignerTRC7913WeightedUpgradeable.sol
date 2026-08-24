@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.26;
 
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
 import {MultiSignerTRC7913Upgradeable} from "./MultiSignerTRC7913Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {MultiSignerTRC7913} that supports weighted signatures.

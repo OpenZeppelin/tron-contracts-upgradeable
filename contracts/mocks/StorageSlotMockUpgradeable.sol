@@ -4,8 +4,8 @@
 pragma solidity ^0.8.20;
 
 import {MulticallUpgradeable} from "../utils/MulticallUpgradeable.sol";
-import {StorageSlot} from "@openzeppelin/tron-contracts/contracts/utils/StorageSlot.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {StorageSlot} from "@openzeppelin/tron-contracts/utils/StorageSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract StorageSlotMockUpgradeable is Initializable, MulticallUpgradeable {
     using StorageSlot for *;

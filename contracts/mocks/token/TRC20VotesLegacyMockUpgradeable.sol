@@ -3,11 +3,11 @@
 pragma solidity ^0.8.24;
 
 import {TRC20PermitUpgradeable} from "../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {IVotes} from "@openzeppelin/tron-contracts/contracts/governance/utils/IVotes.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {IVotes} from "@openzeppelin/tron-contracts/governance/utils/IVotes.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Copied from the master branch at commit 86de1e8b6c3fa6b4efa4a5435869d2521be0f5f5

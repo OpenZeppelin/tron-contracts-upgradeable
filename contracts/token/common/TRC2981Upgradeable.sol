@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC2981} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC2981.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {ITRC2981} from "@openzeppelin/tron-contracts/interfaces/ITRC2981.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the NFT Royalty Standard, a standardized way to retrieve royalty payment information.

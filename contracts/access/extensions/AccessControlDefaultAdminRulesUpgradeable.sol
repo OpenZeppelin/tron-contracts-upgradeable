@@ -5,14 +5,14 @@ pragma solidity ^0.8.20;
 
 import {
     IAccessControlDefaultAdminRules
-} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlDefaultAdminRules.sol";
+} from "@openzeppelin/tron-contracts/access/extensions/IAccessControlDefaultAdminRules.sol";
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
-import {IAccessControl} from "@openzeppelin/tron-contracts/contracts/access/IAccessControl.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {ITRC5313} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5313.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {IAccessControl} from "@openzeppelin/tron-contracts/access/IAccessControl.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {ITRC5313} from "@openzeppelin/tron-contracts/interfaces/ITRC5313.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows specifying special rules to manage

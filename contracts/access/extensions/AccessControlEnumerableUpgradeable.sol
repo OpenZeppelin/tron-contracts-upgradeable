@@ -3,13 +3,11 @@
 
 pragma solidity ^0.8.24;
 
-import {
-    IAccessControlEnumerable
-} from "@openzeppelin/tron-contracts/contracts/access/extensions/IAccessControlEnumerable.sol";
+import {IAccessControlEnumerable} from "@openzeppelin/tron-contracts/access/extensions/IAccessControlEnumerable.sol";
 import {AccessControlUpgradeable} from "../AccessControlUpgradeable.sol";
-import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/utils/structs/EnumerableSet.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessControl} that allows enumerating the members of each role.

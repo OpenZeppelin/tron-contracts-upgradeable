@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @title TRC-721 Burnable Token

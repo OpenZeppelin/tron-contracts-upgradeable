@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.26;
 
-import {ITRC7802} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7802.sol";
+import {ITRC7802} from "@openzeppelin/tron-contracts/interfaces/draft-ITRC7802.sol";
 import {BridgeFungibleUpgradeable} from "./abstract/BridgeFungibleUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This is a variant of {BridgeFungible} that implements the bridge logic for TRC-7802 compliant tokens.

@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import {MerkleProof} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/MerkleProof.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {MerkleProof} from "@openzeppelin/tron-contracts/utils/cryptography/MerkleProof.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 // This could be a library, but then we would have to add it to the Stateless.sol mock for upgradeable tests
 abstract contract MerkleProofCustomHashMockUpgradeable is Initializable {

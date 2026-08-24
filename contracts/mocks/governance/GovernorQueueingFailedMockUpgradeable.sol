@@ -3,7 +3,7 @@
 pragma solidity ^0.8.24;
 
 import {GovernorMockUpgradeable} from "./GovernorMockUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /// @dev Mock that signals queueing is required but inherits the base `_queueOperations` that returns 0,
 /// triggering `GovernorProposalQueueingFailed` from `Governor.queue`.

@@ -9,7 +9,7 @@ import {GovernorCountingSimpleUpgradeable} from "../../governance/extensions/Gov
 import {
     GovernorVotesQuorumFractionUpgradeable
 } from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorTimelockControlMockUpgradeable is
     Initializable,

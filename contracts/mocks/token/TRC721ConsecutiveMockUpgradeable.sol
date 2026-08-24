@@ -7,7 +7,7 @@ import {TRC721ConsecutiveUpgradeable} from "../../token/TRC721/extensions/TRC721
 import {TRC721PausableUpgradeable} from "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import {TRC721VotesUpgradeable} from "../../token/TRC721/extensions/TRC721VotesUpgradeable.sol";
 import {TIP712Upgradeable} from "../../utils/cryptography/TIP712Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @title TRC721ConsecutiveMock

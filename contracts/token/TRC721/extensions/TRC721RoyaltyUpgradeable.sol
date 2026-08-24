@@ -4,9 +4,9 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC2981Upgradeable} from "../../common/TRC2981Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of TRC-721 with the TRC-2981 NFT Royalty Standard, a standardized way to retrieve royalty payment

@@ -4,10 +4,10 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Metadata.sol";
-import {ITRC4906} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC4906.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC721Metadata} from "@openzeppelin/tron-contracts/token/TRC721/extensions/ITRC721Metadata.sol";
+import {ITRC4906} from "@openzeppelin/tron-contracts/interfaces/ITRC4906.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC-721 token with storage based token URI management.

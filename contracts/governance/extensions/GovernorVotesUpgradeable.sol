@@ -4,10 +4,10 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {IVotes} from "@openzeppelin/tron-contracts/contracts/governance/utils/IVotes.sol";
-import {ITRC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5805.sol";
-import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {IVotes} from "@openzeppelin/tron-contracts/governance/utils/IVotes.sol";
+import {ITRC5805} from "@openzeppelin/tron-contracts/interfaces/ITRC5805.sol";
+import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for voting weight extraction from an {TRC20Votes} token, or since v4.5 an {TRC721Votes}

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC6909MetadataUpgradeable} from "../../../../token/TRC6909/extensions/TRC6909MetadataUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TRC6909GameItemsUpgradeable is Initializable, TRC6909MetadataUpgradeable {
     uint256 public constant GOLD = 0;

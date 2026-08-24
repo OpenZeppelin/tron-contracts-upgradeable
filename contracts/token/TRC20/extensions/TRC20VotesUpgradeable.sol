@@ -5,8 +5,8 @@ pragma solidity ^0.8.24;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {VotesUpgradeable} from "../../../governance/utils/VotesUpgradeable.sol";
-import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of TRC-20 to support Compound-like voting and delegation. This version is more generic than Compound's,

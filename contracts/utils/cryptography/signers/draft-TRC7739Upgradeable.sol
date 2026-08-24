@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/utils/cryptography/signers/AbstractSigner.sol";
 import {TIP712Upgradeable} from "../TIP712Upgradeable.sol";
-import {TRC7739Utils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/draft-TRC7739Utils.sol";
-import {ITRC1271} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC1271.sol";
-import {MessageHashUtils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {TRC7739Utils} from "@openzeppelin/tron-contracts/utils/cryptography/draft-TRC7739Utils.sol";
+import {ITRC1271} from "@openzeppelin/tron-contracts/interfaces/ITRC1271.sol";
+import {MessageHashUtils} from "@openzeppelin/tron-contracts/utils/cryptography/MessageHashUtils.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Validates signatures wrapping the message hash in a nested TIP712 type. See {TRC7739Utils}.

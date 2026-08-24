@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 import {TRC721Upgradeable} from "../../token/TRC721/TRC721Upgradeable.sol";
 import {TRC721ConsecutiveUpgradeable} from "../../token/TRC721/extensions/TRC721ConsecutiveUpgradeable.sol";
 import {TRC721EnumerableUpgradeable} from "../../token/TRC721/extensions/TRC721EnumerableUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TRC721ConsecutiveEnumerableMockUpgradeable is
     Initializable,

@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC6909} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC6909.sol";
+import {ITRC6909} from "@openzeppelin/tron-contracts/interfaces/ITRC6909.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of TRC-6909.

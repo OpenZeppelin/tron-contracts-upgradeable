@@ -4,10 +4,10 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC2309} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC2309.sol";
-import {BitMaps} from "@openzeppelin/tron-contracts/contracts/utils/structs/BitMaps.sol";
-import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC2309} from "@openzeppelin/tron-contracts/interfaces/ITRC2309.sol";
+import {BitMaps} from "@openzeppelin/tron-contracts/utils/structs/BitMaps.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-2309 "Consecutive Transfer Extension" (see

@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.26;
 
-import {TRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/TRC7786Recipient.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {TRC7786Recipient} from "@openzeppelin/tron-contracts/crosschain/TRC7786Recipient.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TRC7786RecipientMockUpgradeable is Initializable, TRC7786Recipient {
     address private _gateway;

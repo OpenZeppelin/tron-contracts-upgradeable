@@ -4,8 +4,8 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A module that ensures there is a minimum voting period after quorum is reached. This prevents a large voter from

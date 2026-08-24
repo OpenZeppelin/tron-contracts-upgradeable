@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.24;
 
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
 import {TIP712Upgradeable} from "../utils/cryptography/TIP712Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TIP712VerifierUpgradeable is Initializable, TIP712Upgradeable {
     function __TIP712Verifier_init() internal onlyInitializing {}

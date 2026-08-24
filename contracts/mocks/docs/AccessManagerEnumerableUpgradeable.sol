@@ -3,8 +3,8 @@
 pragma solidity ^0.8.24;
 
 import {AccessManagerUpgradeable} from "../../access/manager/AccessManagerUpgradeable.sol";
-import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/utils/structs/EnumerableSet.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {AccessManager} that allows enumerating the members of each role

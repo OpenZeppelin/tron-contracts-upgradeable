@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
-import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/token/TRC20/utils/SafeTRC20.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A vesting wallet is an ownable contract that can receive native currency and TRC-20 tokens, and release these

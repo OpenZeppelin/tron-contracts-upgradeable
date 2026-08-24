@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
 import {VotesUpgradeable} from "../../../governance/utils/VotesUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of TRC-721 to support voting and delegation as implemented by {Votes}, where each individual NFT counts

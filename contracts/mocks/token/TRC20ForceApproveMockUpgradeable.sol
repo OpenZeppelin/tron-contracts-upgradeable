@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../../token/TRC20/TRC20Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 // contract that replicates USDT (0xdac17f958d2ee523a2206206994597c13d831ec7) approval behavior
 abstract contract TRC20ForceApproveMockUpgradeable is Initializable, TRC20Upgradeable {

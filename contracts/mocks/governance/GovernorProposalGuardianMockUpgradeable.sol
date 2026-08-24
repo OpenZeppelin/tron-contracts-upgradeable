@@ -9,7 +9,7 @@ import {
     GovernorVotesQuorumFractionUpgradeable
 } from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorProposalGuardianUpgradeable} from "../../governance/extensions/GovernorProposalGuardianUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorProposalGuardianMockUpgradeable is
     Initializable,

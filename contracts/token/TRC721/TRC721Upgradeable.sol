@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC721} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721.sol";
-import {ITRC721Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Metadata.sol";
-import {TRC721Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Utils.sol";
+import {ITRC721} from "@openzeppelin/tron-contracts/token/TRC721/ITRC721.sol";
+import {ITRC721Metadata} from "@openzeppelin/tron-contracts/token/TRC721/extensions/ITRC721Metadata.sol";
+import {TRC721Utils} from "@openzeppelin/tron-contracts/token/TRC721/utils/TRC721Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {Strings} from "@openzeppelin/tron-contracts/contracts/utils/Strings.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {Strings} from "@openzeppelin/tron-contracts/utils/Strings.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
-import {ITRC721Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC721Errors} from "@openzeppelin/tron-contracts/interfaces/draft-IERC6093.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-721 Non-Fungible Token Standard defined in

@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {AuthorityUtils} from "@openzeppelin/tron-contracts/contracts/access/manager/AuthorityUtils.sol";
-import {IAccessManager} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManager.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {AuthorityUtils} from "@openzeppelin/tron-contracts/access/manager/AuthorityUtils.sol";
+import {IAccessManager} from "@openzeppelin/tron-contracts/access/manager/IAccessManager.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This module connects a {Governor} instance to an {AccessManager} instance, allowing the governor to make calls

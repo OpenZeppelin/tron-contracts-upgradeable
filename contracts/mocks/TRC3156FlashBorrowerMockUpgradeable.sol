@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
-import {ITRC3156FlashBorrower} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC3156FlashBorrower.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
+import {ITRC3156FlashBorrower} from "@openzeppelin/tron-contracts/interfaces/ITRC3156FlashBorrower.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev WARNING: this ITRC3156FlashBorrower mock implementation is for testing purposes ONLY.

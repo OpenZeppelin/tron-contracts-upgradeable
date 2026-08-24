@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC721} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721.sol";
+import {ITRC721} from "@openzeppelin/tron-contracts/token/TRC721/ITRC721.sol";
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721Receiver} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721Receiver.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC721Receiver} from "@openzeppelin/tron-contracts/token/TRC721/ITRC721Receiver.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of the TRC-721 token contract to support token wrapping.
