@@ -3,9 +3,9 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../../../token/TRC721/TRC721Upgradeable.sol";
-import {Strings} from "@openzeppelin/tron-contracts/contracts/utils/Strings.sol";
-import {Base64} from "@openzeppelin/tron-contracts/contracts/utils/Base64.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Strings} from "@openzeppelin/tron-contracts/utils/Strings.sol";
+import {Base64} from "@openzeppelin/tron-contracts/utils/Base64.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract Base64NFTUpgradeable is Initializable, TRC721Upgradeable {
     using Strings for uint256;

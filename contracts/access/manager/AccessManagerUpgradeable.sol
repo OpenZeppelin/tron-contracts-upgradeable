@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessManager} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManager.sol";
-import {IAccessManaged} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManaged.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {IAccessManager} from "@openzeppelin/tron-contracts/access/manager/IAccessManager.sol";
+import {IAccessManaged} from "@openzeppelin/tron-contracts/access/manager/IAccessManaged.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {MulticallUpgradeable} from "../../utils/MulticallUpgradeable.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
-import {Hashes} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/Hashes.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {Hashes} from "@openzeppelin/tron-contracts/utils/cryptography/Hashes.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev AccessManager is a central contract to store the permissions of a system.

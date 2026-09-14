@@ -3,7 +3,7 @@
 pragma solidity ^0.8.24;
 
 import {TRC721URIStorageUpgradeable} from "../../token/TRC721/extensions/TRC721URIStorageUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC721URIStorageMockUpgradeable is Initializable, TRC721URIStorageUpgradeable {
     string private _baseTokenURI;

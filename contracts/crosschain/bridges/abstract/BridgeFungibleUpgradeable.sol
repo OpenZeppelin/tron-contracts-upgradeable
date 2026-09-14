@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.26;
 
-import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
+import {InteroperableAddress} from "@openzeppelin/tron-contracts/utils/draft-InteroperableAddress.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {TRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/TRC7786Recipient.sol";
+import {TRC7786Recipient} from "@openzeppelin/tron-contracts/crosschain/TRC7786Recipient.sol";
 import {CrosschainLinkedUpgradeable} from "../../CrosschainLinkedUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Base contract for bridging TRC-20 between chains using a TRC-7786 gateway.

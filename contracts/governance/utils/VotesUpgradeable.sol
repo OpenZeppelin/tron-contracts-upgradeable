@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC5805} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5805.sol";
+import {ITRC5805} from "@openzeppelin/tron-contracts/interfaces/ITRC5805.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
 import {NoncesUpgradeable} from "../../utils/NoncesUpgradeable.sol";
 import {TIP712Upgradeable} from "../../utils/cryptography/TIP712Upgradeable.sol";
-import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
-import {Time} from "@openzeppelin/tron-contracts/contracts/utils/types/Time.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/utils/structs/Checkpoints.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
+import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This is a base abstract contract that tracks voting units, which are a measure of voting power that can be

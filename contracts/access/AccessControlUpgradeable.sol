@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {IAccessControl} from "@openzeppelin/tron-contracts/contracts/access/IAccessControl.sol";
+import {IAccessControl} from "@openzeppelin/tron-contracts/access/IAccessControl.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {TRC165Upgradeable} from "../utils/introspection/TRC165Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access

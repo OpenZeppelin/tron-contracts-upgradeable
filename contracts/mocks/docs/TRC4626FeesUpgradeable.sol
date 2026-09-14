@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
 import {TRC4626Upgradeable} from "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
-import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/token/TRC20/utils/SafeTRC20.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /// @dev TRC-4626 vault with entry/exit fees expressed in https://en.wikipedia.org/wiki/Basis_point[basis point (bp)].
 ///

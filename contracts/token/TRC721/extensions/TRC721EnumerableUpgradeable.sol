@@ -4,9 +4,9 @@
 pragma solidity ^0.8.24;
 
 import {TRC721Upgradeable} from "../TRC721Upgradeable.sol";
-import {ITRC721Enumerable} from "@openzeppelin/tron-contracts/contracts/token/TRC721/extensions/ITRC721Enumerable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC721Enumerable} from "@openzeppelin/tron-contracts/token/TRC721/extensions/ITRC721Enumerable.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This implements an optional extension of {TRC721} defined in the ERC that adds enumerability

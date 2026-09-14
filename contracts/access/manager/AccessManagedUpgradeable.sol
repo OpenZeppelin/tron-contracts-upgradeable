@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.20;
 
-import {AuthorityUtils} from "@openzeppelin/tron-contracts/contracts/access/manager/AuthorityUtils.sol";
-import {IAccessManager} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManager.sol";
-import {IAccessManaged} from "@openzeppelin/tron-contracts/contracts/access/manager/IAccessManaged.sol";
+import {AuthorityUtils} from "@openzeppelin/tron-contracts/access/manager/AuthorityUtils.sol";
+import {IAccessManager} from "@openzeppelin/tron-contracts/access/manager/IAccessManager.sol";
+import {IAccessManaged} from "@openzeppelin/tron-contracts/access/manager/IAccessManaged.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev This contract module makes available a {restricted} modifier. Functions decorated with this modifier will be

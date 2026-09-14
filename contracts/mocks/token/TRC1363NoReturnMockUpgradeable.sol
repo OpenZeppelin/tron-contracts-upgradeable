@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC1363Upgradeable} from "../../token/TRC20/extensions/TRC1363Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC1363NoReturnMockUpgradeable is Initializable, TRC1363Upgradeable {
     function __TRC1363NoReturnMock_init() internal onlyInitializing {}

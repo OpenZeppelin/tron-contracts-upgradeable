@@ -6,10 +6,10 @@ pragma solidity ^0.8.24;
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {GovernorSuperQuorumUpgradeable} from "./GovernorSuperQuorumUpgradeable.sol";
 import {GovernorVotesQuorumFractionUpgradeable} from "./GovernorVotesQuorumFractionUpgradeable.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Checkpoints} from "@openzeppelin/tron-contracts/contracts/utils/structs/Checkpoints.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Checkpoints} from "@openzeppelin/tron-contracts/utils/structs/Checkpoints.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {GovernorVotesQuorumFraction} with a super quorum expressed as a

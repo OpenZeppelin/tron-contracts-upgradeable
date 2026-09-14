@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {MessageHashUtils} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
-import {ITRC5267} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC5267.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {MessageHashUtils} from "@openzeppelin/tron-contracts/utils/cryptography/MessageHashUtils.sol";
+import {ITRC5267} from "@openzeppelin/tron-contracts/interfaces/ITRC5267.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev https://github.com/tronprotocol/tips/blob/master/tip-712.md[TIP-712] is a standard for hashing and signing of

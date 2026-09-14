@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
-import {ITRC20Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Metadata.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
+import {ITRC20Metadata} from "@openzeppelin/tron-contracts/token/TRC20/extensions/ITRC20Metadata.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TRC20GetterHelperUpgradeable is Initializable {
     event TRC20TotalSupply(ITRC20 token, uint256 totalSupply);

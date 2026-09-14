@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC3156FlashBorrower} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC3156FlashBorrower.sol";
-import {ITRC3156FlashLender} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC3156FlashLender.sol";
+import {ITRC3156FlashBorrower} from "@openzeppelin/tron-contracts/interfaces/ITRC3156FlashBorrower.sol";
+import {ITRC3156FlashLender} from "@openzeppelin/tron-contracts/interfaces/ITRC3156FlashLender.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-3156 Flash loans extension, as defined in

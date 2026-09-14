@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {ContextUpgradeable} from "../../../utils/ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {TRC20} that allows token holders to destroy both their own

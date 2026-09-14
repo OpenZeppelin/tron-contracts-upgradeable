@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
 import {ContextUpgradeable} from "./ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Provides a function to batch together multiple calls in a single external call.

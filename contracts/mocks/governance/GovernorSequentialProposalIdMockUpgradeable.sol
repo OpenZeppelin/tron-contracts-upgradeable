@@ -11,7 +11,7 @@ import {
 import {
     GovernorSequentialProposalIdUpgradeable
 } from "../../governance/extensions/GovernorSequentialProposalIdUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorSequentialProposalIdMockUpgradeable is
     Initializable,

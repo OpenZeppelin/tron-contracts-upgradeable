@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.24;
 
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {GovernorCountingSimpleUpgradeable} from "./GovernorCountingSimpleUpgradeable.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} for fractional voting.

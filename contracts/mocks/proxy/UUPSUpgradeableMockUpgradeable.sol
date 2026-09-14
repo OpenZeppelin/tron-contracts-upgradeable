@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.22;
 
-import {UUPSUpgradeable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/UUPSUpgradeable.sol";
-import {TRC1967Utils} from "@openzeppelin/tron-contracts/contracts/proxy/TRC1967/TRC1967Utils.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/tron-contracts/proxy/utils/UUPSUpgradeable.sol";
+import {TRC1967Utils} from "@openzeppelin/tron-contracts/proxy/TRC1967/TRC1967Utils.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract NonUpgradeableMockUpgradeable is Initializable {
     uint256 internal _counter;

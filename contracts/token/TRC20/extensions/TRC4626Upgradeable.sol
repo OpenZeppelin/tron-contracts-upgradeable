@@ -3,15 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
-import {ITRC20Metadata} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Metadata.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
+import {ITRC20Metadata} from "@openzeppelin/tron-contracts/token/TRC20/extensions/ITRC20Metadata.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {SafeTRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/SafeTRC20.sol";
-import {ITRC4626} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC4626.sol";
-import {LowLevelCall} from "@openzeppelin/tron-contracts/contracts/utils/LowLevelCall.sol";
-import {Memory} from "@openzeppelin/tron-contracts/contracts/utils/Memory.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {SafeTRC20} from "@openzeppelin/tron-contracts/token/TRC20/utils/SafeTRC20.sol";
+import {ITRC4626} from "@openzeppelin/tron-contracts/interfaces/ITRC4626.sol";
+import {LowLevelCall} from "@openzeppelin/tron-contracts/utils/LowLevelCall.sol";
+import {Memory} from "@openzeppelin/tron-contracts/utils/Memory.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-4626 "Tokenized Vault Standard" as defined in

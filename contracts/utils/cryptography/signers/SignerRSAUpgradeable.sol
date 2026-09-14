@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.20;
 
-import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
-import {RSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/RSA.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {RSA} from "@openzeppelin/tron-contracts/utils/cryptography/RSA.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using xref:api:utils/cryptography#RSA[RSA] signatures.

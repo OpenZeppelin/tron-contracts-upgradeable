@@ -3,8 +3,8 @@ pragma solidity ^0.8.24;
 
 import {TRC20VotesUpgradeable} from "../../token/TRC20/extensions/TRC20VotesUpgradeable.sol";
 import {VotesExtendedUpgradeable, VotesUpgradeable} from "../../governance/utils/VotesExtendedUpgradeable.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC20VotesExtendedMockUpgradeable is Initializable, TRC20VotesUpgradeable, VotesExtendedUpgradeable {
     function __TRC20VotesExtendedMock_init() internal onlyInitializing {}

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {IBeacon} from "@openzeppelin/tron-contracts/contracts/proxy/beacon/IBeacon.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {IBeacon} from "@openzeppelin/tron-contracts/proxy/beacon/IBeacon.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract UpgradeableBeaconMockUpgradeable is Initializable, IBeacon {
     address public implementation;
@@ -16,7 +16,7 @@ contract UpgradeableBeaconMockUpgradeable is Initializable, IBeacon {
     }
 }
 
-import {IProxyExposed} from "@openzeppelin/tron-contracts/contracts/mocks/UpgradeableBeaconMock.sol";
+import {IProxyExposed} from "@openzeppelin/tron-contracts/mocks/UpgradeableBeaconMock.sol";
 
 contract UpgradeableBeaconReentrantMockUpgradeable is Initializable, IBeacon {
     error BeaconProxyBeaconSlotAddress(address beacon);

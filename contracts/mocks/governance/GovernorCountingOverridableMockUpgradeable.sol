@@ -10,7 +10,7 @@ import {
 import {
     GovernorCountingOverridableUpgradeable
 } from "../../governance/extensions/GovernorCountingOverridableUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorCountingOverridableMockUpgradeable is
     Initializable,

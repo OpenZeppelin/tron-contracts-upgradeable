@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {ITRC7674} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7674.sol";
-import {Math} from "@openzeppelin/tron-contracts/contracts/utils/math/Math.sol";
-import {SlotDerivation} from "@openzeppelin/tron-contracts/contracts/utils/SlotDerivation.sol";
-import {TransientSlot} from "@openzeppelin/tron-contracts/contracts/utils/TransientSlot.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC7674} from "@openzeppelin/tron-contracts/interfaces/draft-ITRC7674.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
+import {SlotDerivation} from "@openzeppelin/tron-contracts/utils/SlotDerivation.sol";
+import {TransientSlot} from "@openzeppelin/tron-contracts/utils/TransientSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {TRC20} that adds support for temporary allowances following TRC-7674.

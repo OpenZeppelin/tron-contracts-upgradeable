@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Context variant with TRC-2771 support, as defined in https://github.com/tronprotocol/tips/blob/master/tip-2771.md[TIP-2771] (the TRON-side analogue of https://eips.ethereum.org/EIPS/eip-2771[EIP-2771]). See {_msgSender} for the calldata format.

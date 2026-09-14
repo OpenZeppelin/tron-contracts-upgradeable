@@ -6,7 +6,7 @@ import {ContextMockUpgradeable} from "./ContextMockUpgradeable.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {MulticallUpgradeable} from "../utils/MulticallUpgradeable.sol";
 import {TRC2771ContextUpgradeable} from "../metatx/TRC2771ContextUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 // By inheriting from TRC2771Context, Context's internal functions are overridden automatically
 contract TRC2771ContextMockUpgradeable is

@@ -3,11 +3,11 @@
 
 pragma solidity ^0.8.26;
 
-import {ITRC7786GatewaySource} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-ITRC7786.sol";
-import {InteroperableAddress} from "@openzeppelin/tron-contracts/contracts/utils/draft-InteroperableAddress.sol";
-import {Bytes} from "@openzeppelin/tron-contracts/contracts/utils/Bytes.sol";
-import {TRC7786Recipient} from "@openzeppelin/tron-contracts/contracts/crosschain/TRC7786Recipient.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC7786GatewaySource} from "@openzeppelin/tron-contracts/interfaces/draft-ITRC7786.sol";
+import {InteroperableAddress} from "@openzeppelin/tron-contracts/utils/draft-InteroperableAddress.sol";
+import {Bytes} from "@openzeppelin/tron-contracts/utils/Bytes.sol";
+import {TRC7786Recipient} from "@openzeppelin/tron-contracts/crosschain/TRC7786Recipient.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Core bridging mechanism.

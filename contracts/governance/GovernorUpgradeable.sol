@@ -3,21 +3,21 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC1155Receiver} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITRC1155Receiver.sol";
-import {ITRC721Receiver} from "@openzeppelin/tron-contracts/contracts/token/TRC721/ITRC721Receiver.sol";
+import {ITRC1155Receiver} from "@openzeppelin/tron-contracts/token/TRC1155/ITRC1155Receiver.sol";
+import {ITRC721Receiver} from "@openzeppelin/tron-contracts/token/TRC721/ITRC721Receiver.sol";
 import {TIP712Upgradeable} from "../utils/cryptography/TIP712Upgradeable.sol";
-import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/utils/cryptography/SignatureChecker.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../utils/introspection/TRC165Upgradeable.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
-import {DoubleEndedQueue} from "@openzeppelin/tron-contracts/contracts/utils/structs/DoubleEndedQueue.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
+import {DoubleEndedQueue} from "@openzeppelin/tron-contracts/utils/structs/DoubleEndedQueue.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
 import {ContextUpgradeable} from "../utils/ContextUpgradeable.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
-import {Strings} from "@openzeppelin/tron-contracts/contracts/utils/Strings.sol";
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
-import {ITRC6372} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC6372.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Strings} from "@openzeppelin/tron-contracts/utils/Strings.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
+import {ITRC6372} from "@openzeppelin/tron-contracts/interfaces/ITRC6372.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Core of the governance system, designed to be extended through various modules.

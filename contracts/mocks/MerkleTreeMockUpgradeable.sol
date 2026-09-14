@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import {MerkleTree} from "@openzeppelin/tron-contracts/contracts/utils/structs/MerkleTree.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {MerkleTree} from "@openzeppelin/tron-contracts/utils/structs/MerkleTree.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract MerkleTreeMockUpgradeable is Initializable {
     using MerkleTree for MerkleTree.Bytes32PushTree;

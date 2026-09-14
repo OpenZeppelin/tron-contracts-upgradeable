@@ -3,10 +3,10 @@
 
 pragma solidity ^0.8.26;
 
-import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
-import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
-import {EnumerableSet} from "@openzeppelin/tron-contracts/contracts/utils/structs/EnumerableSet.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/utils/cryptography/SignatureChecker.sol";
+import {EnumerableSet} from "@openzeppelin/tron-contracts/utils/structs/EnumerableSet.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using multiple TRC-7913 signers with a threshold-based

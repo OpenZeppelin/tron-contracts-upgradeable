@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-import {ReentrancyGuard} from "@openzeppelin/tron-contracts/contracts/utils/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/tron-contracts/utils/ReentrancyGuard.sol";
 import {ReentrancyAttackUpgradeable} from "./ReentrancyAttackUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuard {
     uint256 public counter;

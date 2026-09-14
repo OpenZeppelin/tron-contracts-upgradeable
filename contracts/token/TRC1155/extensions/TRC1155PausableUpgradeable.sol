@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 
 import {TRC1155Upgradeable} from "../TRC1155Upgradeable.sol";
 import {PausableUpgradeable} from "../../../utils/PausableUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev TRC-1155 token with pausable token transfers, minting and burning.

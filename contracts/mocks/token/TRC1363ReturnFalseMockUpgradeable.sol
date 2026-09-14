@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.20;
 
-import {ITRC20} from "@openzeppelin/tron-contracts/contracts/token/TRC20/ITRC20.sol";
+import {ITRC20} from "@openzeppelin/tron-contracts/token/TRC20/ITRC20.sol";
 import {TRC20Upgradeable} from "../../token/TRC20/TRC20Upgradeable.sol";
 import {TRC1363Upgradeable} from "../../token/TRC20/extensions/TRC1363Upgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC1363ReturnFalseOnTRC20MockUpgradeable is Initializable, TRC1363Upgradeable {
     function __TRC1363ReturnFalseOnTRC20Mock_init() internal onlyInitializing {}

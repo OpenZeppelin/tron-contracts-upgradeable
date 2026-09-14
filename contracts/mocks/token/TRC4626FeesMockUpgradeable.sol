@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {TRC4626FeesUpgradeable} from "../docs/TRC4626FeesUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract TRC4626FeesMockUpgradeable is Initializable, TRC4626FeesUpgradeable {
     uint256 private _entryFeeBasisPointValue;

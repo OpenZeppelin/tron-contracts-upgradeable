@@ -3,17 +3,15 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC1155} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/ITRC1155.sol";
-import {
-    ITRC1155MetadataURI
-} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
-import {TRC1155Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Utils.sol";
+import {ITRC1155} from "@openzeppelin/tron-contracts/token/TRC1155/ITRC1155.sol";
+import {ITRC1155MetadataURI} from "@openzeppelin/tron-contracts/token/TRC1155/extensions/ITRC1155MetadataURI.sol";
+import {TRC1155Utils} from "@openzeppelin/tron-contracts/token/TRC1155/utils/TRC1155Utils.sol";
 import {ContextUpgradeable} from "../../utils/ContextUpgradeable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
-import {Arrays} from "@openzeppelin/tron-contracts/contracts/utils/Arrays.sol";
-import {ITRC1155Errors} from "@openzeppelin/tron-contracts/contracts/interfaces/draft-IERC6093.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Arrays} from "@openzeppelin/tron-contracts/utils/Arrays.sol";
+import {ITRC1155Errors} from "@openzeppelin/tron-contracts/interfaces/draft-IERC6093.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the basic standard multi-token defined in

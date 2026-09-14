@@ -4,10 +4,10 @@
 pragma solidity ^0.8.20;
 
 import {AccessControlUpgradeable} from "../access/AccessControlUpgradeable.sol";
-import {TRC1155Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC1155/utils/TRC1155Holder.sol";
-import {TRC721Holder} from "@openzeppelin/tron-contracts/contracts/token/TRC721/utils/TRC721Holder.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {TRC1155Holder} from "@openzeppelin/tron-contracts/token/TRC1155/utils/TRC1155Holder.sol";
+import {TRC721Holder} from "@openzeppelin/tron-contracts/token/TRC721/utils/TRC721Holder.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Contract module which acts as a timelocked controller. When set as the

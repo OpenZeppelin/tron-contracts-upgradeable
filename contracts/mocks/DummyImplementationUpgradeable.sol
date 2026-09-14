@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.21;
 
-import {TRC1967Utils} from "@openzeppelin/tron-contracts/contracts/proxy/TRC1967/TRC1967Utils.sol";
-import {StorageSlot} from "@openzeppelin/tron-contracts/contracts/utils/StorageSlot.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {TRC1967Utils} from "@openzeppelin/tron-contracts/proxy/TRC1967/TRC1967Utils.sol";
+import {StorageSlot} from "@openzeppelin/tron-contracts/utils/StorageSlot.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract DummyImplementationUpgradeable is Initializable {
     uint256 public value;

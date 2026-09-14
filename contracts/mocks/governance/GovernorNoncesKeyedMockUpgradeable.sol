@@ -9,7 +9,7 @@ import {
     GovernorVotesQuorumFractionUpgradeable
 } from "../../governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {GovernorNoncesKeyedUpgradeable} from "../../governance/extensions/GovernorNoncesKeyedUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 abstract contract GovernorNoncesKeyedMockUpgradeable is
     Initializable,

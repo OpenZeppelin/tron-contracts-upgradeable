@@ -3,9 +3,9 @@
 pragma solidity ^0.8.20;
 
 import {OwnableUpgradeable} from "../access/OwnableUpgradeable.sol";
-import {ITRC1271} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC1271.sol";
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC1271} from "@openzeppelin/tron-contracts/interfaces/ITRC1271.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 contract TRC1271WalletMockUpgradeable is Initializable, OwnableUpgradeable, ITRC1271 {
     function __TRC1271WalletMock_init(address originalOwner) internal onlyInitializing {

@@ -3,13 +3,13 @@
 
 pragma solidity ^0.8.24;
 
-import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
-import {SafeCast} from "@openzeppelin/tron-contracts/contracts/utils/math/SafeCast.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/utils/cryptography/SignatureChecker.sol";
+import {SafeCast} from "@openzeppelin/tron-contracts/utils/math/SafeCast.sol";
 import {VotesExtendedUpgradeable} from "../utils/VotesExtendedUpgradeable.sol";
 import {GovernorVotesUpgradeable} from "./GovernorVotesUpgradeable.sol";
-import {IGovernor} from "@openzeppelin/tron-contracts/contracts/governance/IGovernor.sol";
+import {IGovernor} from "@openzeppelin/tron-contracts/governance/IGovernor.sol";
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} which enables delegators to override the vote of their delegates. This module requires a

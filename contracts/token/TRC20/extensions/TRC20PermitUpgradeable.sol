@@ -3,12 +3,12 @@
 
 pragma solidity ^0.8.24;
 
-import {ITRC20Permit} from "@openzeppelin/tron-contracts/contracts/token/TRC20/extensions/ITRC20Permit.sol";
+import {ITRC20Permit} from "@openzeppelin/tron-contracts/token/TRC20/extensions/ITRC20Permit.sol";
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
 import {TIP712Upgradeable} from "../../../utils/cryptography/TIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../../../utils/NoncesUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the TRC-20 Permit extension allowing approvals to be made via signatures, as defined in

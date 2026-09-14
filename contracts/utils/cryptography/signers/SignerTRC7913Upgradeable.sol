@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.24;
 
-import {AbstractSigner} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/signers/AbstractSigner.sol";
-import {SignatureChecker} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/SignatureChecker.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {AbstractSigner} from "@openzeppelin/tron-contracts/utils/cryptography/signers/AbstractSigner.sol";
+import {SignatureChecker} from "@openzeppelin/tron-contracts/utils/cryptography/SignatureChecker.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of {AbstractSigner} using

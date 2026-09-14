@@ -4,11 +4,11 @@
 pragma solidity ^0.8.20;
 
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../../utils/introspection/TRC165Upgradeable.sol";
-import {ITRC1363} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC1363.sol";
-import {TRC1363Utils} from "@openzeppelin/tron-contracts/contracts/token/TRC20/utils/TRC1363Utils.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC1363} from "@openzeppelin/tron-contracts/interfaces/ITRC1363.sol";
+import {TRC1363Utils} from "@openzeppelin/tron-contracts/token/TRC20/utils/TRC1363Utils.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @title TRC1363

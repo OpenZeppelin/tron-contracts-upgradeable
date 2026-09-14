@@ -4,7 +4,7 @@
 pragma solidity ^0.8.24;
 
 import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Extension of {Governor} that implements storage of proposal details. This module also provides primitives for

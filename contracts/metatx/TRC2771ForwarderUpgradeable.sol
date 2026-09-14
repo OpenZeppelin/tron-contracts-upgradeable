@@ -4,12 +4,12 @@
 pragma solidity ^0.8.24;
 
 import {TRC2771ContextUpgradeable} from "./TRC2771ContextUpgradeable.sol";
-import {ECDSA} from "@openzeppelin/tron-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
 import {TIP712Upgradeable} from "../utils/cryptography/TIP712Upgradeable.sol";
 import {NoncesUpgradeable} from "../utils/NoncesUpgradeable.sol";
-import {Address} from "@openzeppelin/tron-contracts/contracts/utils/Address.sol";
-import {Errors} from "@openzeppelin/tron-contracts/contracts/utils/Errors.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {Address} from "@openzeppelin/tron-contracts/utils/Address.sol";
+import {Errors} from "@openzeppelin/tron-contracts/utils/Errors.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev A forwarder compatible with TRC-2771 contracts. See {TRC2771Context}.

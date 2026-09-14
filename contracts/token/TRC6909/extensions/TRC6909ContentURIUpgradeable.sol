@@ -4,9 +4,9 @@
 pragma solidity ^0.8.20;
 
 import {TRC6909Upgradeable} from "../TRC6909Upgradeable.sol";
-import {ITRC6909ContentURI} from "@openzeppelin/tron-contracts/contracts/interfaces/ITRC6909.sol";
-import {ITRC165} from "@openzeppelin/tron-contracts/contracts/utils/introspection/ITRC165.sol";
-import {Initializable} from "@openzeppelin/tron-contracts/contracts/proxy/utils/Initializable.sol";
+import {ITRC6909ContentURI} from "@openzeppelin/tron-contracts/interfaces/ITRC6909.sol";
+import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
+import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
  * @dev Implementation of the Content URI extension defined in TRC6909.
