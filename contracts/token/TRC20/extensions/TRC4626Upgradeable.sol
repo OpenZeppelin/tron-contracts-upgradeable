@@ -8,8 +8,6 @@ import {ITRC20Metadata} from "@openzeppelin/tron-contracts/token/TRC20/extension
 import {TRC20Upgradeable} from "../TRC20Upgradeable.sol";
 import {SafeTRC20} from "@openzeppelin/tron-contracts/token/TRC20/utils/SafeTRC20.sol";
 import {ITRC4626} from "@openzeppelin/tron-contracts/interfaces/ITRC4626.sol";
-import {LowLevelCall} from "@openzeppelin/tron-contracts/utils/LowLevelCall.sol";
-import {Memory} from "@openzeppelin/tron-contracts/utils/Memory.sol";
 import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
@@ -119,26 +117,9 @@ abstract contract TRC4626Upgradeable is Initializable, TRC20Upgradeable, ITRC462
 
     function __TRC4626_init_unchained(ITRC20 asset_) internal onlyInitializing {
         TRC4626Storage storage $ = _getTRC4626Storage();
-        (bool success, uint8 assetDecimals) = _tryGetAssetDecimals(asset_);
+        (bool success, uint8 assetDecimals) = SafeTRC20.tryGetDecimals(asset_);
         $._underlyingDecimals = success ? assetDecimals : 18;
         $._asset = asset_;
-    }
-
-    /**
-     * @dev Attempts to fetch the asset decimals. A return value of false indicates that the attempt failed in some way.
-     */
-    function _tryGetAssetDecimals(ITRC20 asset_) private view returns (bool ok, uint8 assetDecimals) {
-        Memory.Pointer ptr = Memory.getFreeMemoryPointer();
-        (bool success, bytes32 returnedDecimals, ) = LowLevelCall.staticcallReturn64Bytes(
-            address(asset_),
-            abi.encodeCall(ITRC20Metadata.decimals, ())
-        );
-        Memory.unsafeSetFreeMemoryPointer(ptr);
-
-        return
-            (success && LowLevelCall.returnDataSize() >= 32 && uint256(returnedDecimals) <= type(uint8).max)
-                ? (true, uint8(uint256(returnedDecimals)))
-                : (false, 0);
     }
 
     /**
