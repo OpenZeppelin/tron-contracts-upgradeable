@@ -6,6 +6,7 @@ pragma solidity ^0.8.20;
 import {ITRC2981} from "@openzeppelin/tron-contracts/interfaces/ITRC2981.sol";
 import {ITRC165} from "@openzeppelin/tron-contracts/utils/introspection/ITRC165.sol";
 import {TRC165Upgradeable} from "../../utils/introspection/TRC165Upgradeable.sol";
+import {Math} from "@openzeppelin/tron-contracts/utils/math/Math.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -88,7 +89,7 @@ abstract contract TRC2981Upgradeable is Initializable, ITRC2981, TRC165Upgradeab
             royaltyFraction = $._defaultRoyaltyInfo.royaltyFraction;
         }
 
-        uint256 royaltyAmount = (salePrice * royaltyFraction) / _feeDenominator();
+        uint256 royaltyAmount = Math.mulDiv(salePrice, royaltyFraction, _feeDenominator());
 
         return (royaltyReceiver, royaltyAmount);
     }
