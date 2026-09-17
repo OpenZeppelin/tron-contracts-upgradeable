@@ -167,8 +167,8 @@ contract TIP712VerifierUpgradeableWithInit is TIP712VerifierUpgradeable {
 }
 
 contract TRC1155ReceiverMockUpgradeableWithInit is TRC1155ReceiverMockUpgradeable {
-    constructor(bytes4 recRetval, bytes4 batRetval, RevertType error) payable initializer {
-        __TRC1155ReceiverMock_init(recRetval, batRetval, error);
+    constructor(bytes4 recRetval, bytes4 batRetval, RevertType err) payable initializer {
+        __TRC1155ReceiverMock_init(recRetval, batRetval, err);
     }
 }
 
@@ -275,8 +275,8 @@ contract CompTimelockUpgradeableWithInit is CompTimelockUpgradeable {
 }
 
 contract ConstructorMockUpgradeableWithInit is ConstructorMockUpgradeable {
-    constructor(RevertType error) payable initializer {
-        __ConstructorMock_init(error);
+    constructor(RevertType err) payable initializer {
+        __ConstructorMock_init(err);
     }
 }
 
@@ -401,8 +401,8 @@ contract TRC20GetterHelperUpgradeableWithInit is TRC20GetterHelperUpgradeable {
 }
 
 contract TRC721ReceiverMockUpgradeableWithInit is TRC721ReceiverMockUpgradeable {
-    constructor(bytes4 retval, RevertType error) payable initializer {
-        __TRC721ReceiverMock_init(retval, error);
+    constructor(bytes4 retval, RevertType err) payable initializer {
+        __TRC721ReceiverMock_init(retval, err);
     }
 }
 

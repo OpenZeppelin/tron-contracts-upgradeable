@@ -29,9 +29,9 @@ contract TRC1363ReceiverMockUpgradeable is Initializable, ITRC1363Receiver {
         _error = RevertType.None;
     }
 
-    function setUp(bytes4 retval, RevertType error) public {
+    function setUp(bytes4 retval, RevertType err) public {
         _retval = retval;
-        _error = error;
+        _error = err;
     }
 
     function onTransferReceived(
