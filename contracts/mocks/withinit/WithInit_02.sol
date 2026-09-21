@@ -2,6 +2,7 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
 import "../docs/token/TRC721/GameItemUpgradeable.sol";
 import "../MulticallHelperUpgradeable.sol";
 import "../token/TRC1363ForceApproveMockUpgradeable.sol";
@@ -11,7 +12,6 @@ import "../token/TRC20BridgeableMockUpgradeable.sol";
 import "../token/TRC4626FeesMockUpgradeable.sol";
 import "../token/TRC721URIStorageMockUpgradeable.sol";
 import "../TRC2771ContextMockUpgradeable.sol";
-import "../VotesMockUpgradeable.sol";
 import "../../token/TRC1155/extensions/TRC1155PausableUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CrosschainUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721RoyaltyUpgradeable.sol";
@@ -40,6 +40,7 @@ import "../../token/TRC1155/extensions/TRC1155URIStorageUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC1363Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20PausableUpgradeable.sol";
 import "../../token/TRC6909/extensions/TRC6909ContentURIUpgradeable.sol";
+import "../../token/TRC6909/extensions/TRC6909MetadataUpgradeable.sol";
 import "../../token/TRC6909/extensions/TRC6909TokenSupplyUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721BurnableUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721URIStorageUpgradeable.sol";
@@ -53,15 +54,23 @@ import "../docs/token/TRC20/GLDTokenUpgradeable.sol";
 import "../docs/TRC20WithAutoMinerRewardUpgradeable.sol";
 import "../docs/utilities/MulticallUpgradeable.sol";
 import "../PausableMockUpgradeable.sol";
-import "../StorageSlotMockUpgradeable.sol";
+import "../ReentrancyMockUpgradeable.sol";
 import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20FlashMintUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
+import "../../token/TRC6909/TRC6909Upgradeable.sol";
 import "../../access/manager/AccessManagedUpgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
 import "../ContextMockUpgradeable.sol";
+import "../ReentrancyAttackUpgradeable.sol";
 import "../../token/common/TRC2981Upgradeable.sol";
 import "../../utils/MulticallUpgradeable.sol";
+
+contract TRC6909GameItemsUpgradeableWithInit is TRC6909GameItemsUpgradeable {
+    constructor() payable initializer {
+        __TRC6909GameItems_init();
+    }
+}
 
 contract GameItemUpgradeableWithInit is GameItemUpgradeable {
     constructor() payable initializer {
@@ -124,18 +133,6 @@ contract TRC721URIStorageMockUpgradeableWithInit is TRC721URIStorageMockUpgradea
 
 contract TRC2771ContextMockUpgradeableWithInit is TRC2771ContextMockUpgradeable {
     constructor(address trustedForwarder) payable TRC2771ContextMockUpgradeable(trustedForwarder) initializer {}
-}
-
-contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
-    constructor() payable initializer {
-        __VotesMock_init();
-    }
-}
-
-contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
-    constructor() payable initializer {
-        __VotesTimestampMock_init();
-    }
 }
 
 contract TRC1155PausableUpgradeableWithInit is TRC1155PausableUpgradeable {
@@ -306,6 +303,12 @@ contract TRC6909ContentURIUpgradeableWithInit is TRC6909ContentURIUpgradeable {
     }
 }
 
+contract TRC6909MetadataUpgradeableWithInit is TRC6909MetadataUpgradeable {
+    constructor() payable initializer {
+        __TRC6909Metadata_init();
+    }
+}
+
 contract TRC6909TokenSupplyUpgradeableWithInit is TRC6909TokenSupplyUpgradeable {
     constructor() payable initializer {
         __TRC6909TokenSupply_init();
@@ -384,9 +387,9 @@ contract PausableMockUpgradeableWithInit is PausableMockUpgradeable {
     }
 }
 
-contract StorageSlotMockUpgradeableWithInit is StorageSlotMockUpgradeable {
+contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
     constructor() payable initializer {
-        __StorageSlotMock_init();
+        __ReentrancyMock_init();
     }
 }
 
@@ -405,6 +408,12 @@ contract TRC20FlashMintUpgradeableWithInit is TRC20FlashMintUpgradeable {
 contract TRC4626UpgradeableWithInit is TRC4626Upgradeable {
     constructor(ITRC20 asset_) payable initializer {
         __TRC4626_init(asset_);
+    }
+}
+
+contract TRC6909UpgradeableWithInit is TRC6909Upgradeable {
+    constructor() payable initializer {
+        __TRC6909_init();
     }
 }
 
@@ -429,6 +438,12 @@ contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
 contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
     constructor() payable initializer {
         __ContextMockCaller_init();
+    }
+}
+
+contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
+    constructor() payable initializer {
+        __ReentrancyAttack_init();
     }
 }
 

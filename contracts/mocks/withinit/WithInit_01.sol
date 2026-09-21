@@ -25,6 +25,7 @@ import "../docs/governance/MyTokenTimestampBasedUpgradeable.sol";
 import "../governance/GovernorVoteMockUpgradeable.sol";
 import "../governance/GovernorWithParamsMockUpgradeable.sol";
 import "../token/TRC20VotesAdditionalCheckpointsMockUpgradeable.sol";
+import "../../token/TRC20/extensions/TRC20TransferAuthorizationUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721VotesUpgradeable.sol";
 import "../token/TRC20VotesLegacyMockUpgradeable.sol";
 import "../token/TRC721ConsecutiveEnumerableMockUpgradeable.sol";
@@ -35,16 +36,15 @@ import "../../metatx/TRC2771ForwarderUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintBaseUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintMissingUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
-import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
+import "../VotesMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import "../../governance/TimelockControllerUpgradeable.sol";
-import "../../token/TRC6909/extensions/TRC6909MetadataUpgradeable.sol";
+import "../../token/TRC20/extensions/draft-TRC3009Upgradeable.sol";
 import "../../token/TRC721/extensions/TRC721ConsecutiveUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721EnumerableUpgradeable.sol";
 import "../../access/AccessControlUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20WrapperUpgradeable.sol";
-import "../../token/TRC6909/TRC6909Upgradeable.sol";
 import "../../token/TRC721/TRC721Upgradeable.sol";
 import "../../metatx/TRC2771ContextUpgradeable.sol";
 import "../../token/TRC20/TRC20Upgradeable.sol";
@@ -223,6 +223,12 @@ contract TRC20VotesExtendedTimestampMockUpgradeableWithInit is TRC20VotesExtende
     }
 }
 
+contract TRC20TransferAuthorizationUpgradeableWithInit is TRC20TransferAuthorizationUpgradeable {
+    constructor() payable initializer {
+        __TRC20TransferAuthorization_init();
+    }
+}
+
 contract TRC721VotesUpgradeableWithInit is TRC721VotesUpgradeable {
     constructor() payable initializer {
         __TRC721Votes_init();
@@ -306,9 +312,15 @@ contract AccessControlTRC20MintUpgradeableWithInit is AccessControlTRC20MintUpgr
     }
 }
 
-contract TRC6909GameItemsUpgradeableWithInit is TRC6909GameItemsUpgradeable {
+contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
     constructor() payable initializer {
-        __TRC6909GameItems_init();
+        __VotesMock_init();
+    }
+}
+
+contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __VotesTimestampMock_init();
     }
 }
 
@@ -335,9 +347,9 @@ contract TimelockControllerUpgradeableWithInit is TimelockControllerUpgradeable 
     }
 }
 
-contract TRC6909MetadataUpgradeableWithInit is TRC6909MetadataUpgradeable {
+contract TRC3009UpgradeableWithInit is TRC3009Upgradeable {
     constructor() payable initializer {
-        __TRC6909Metadata_init();
+        __TRC3009_init();
     }
 }
 
@@ -362,12 +374,6 @@ contract AccessControlUpgradeableWithInit is AccessControlUpgradeable {
 contract TRC20WrapperUpgradeableWithInit is TRC20WrapperUpgradeable {
     constructor(ITRC20 underlyingToken) payable initializer {
         __TRC20Wrapper_init(underlyingToken);
-    }
-}
-
-contract TRC6909UpgradeableWithInit is TRC6909Upgradeable {
-    constructor() payable initializer {
-        __TRC6909_init();
     }
 }
 
