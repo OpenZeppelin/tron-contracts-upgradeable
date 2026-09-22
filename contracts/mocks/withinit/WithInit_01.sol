@@ -32,11 +32,9 @@ import "../token/TRC721ConsecutiveEnumerableMockUpgradeable.sol";
 import "../utils/cryptography/TRC7739MockUpgradeable.sol";
 import "../VotesExtendedMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20VotesUpgradeable.sol";
+import "../../token/TRC721/extensions/TRC721CrosschainUpgradeable.sol";
 import "../../metatx/TRC2771ForwarderUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintBaseUpgradeable.sol";
-import "../docs/access-control/AccessControlTRC20MintMissingUpgradeable.sol";
-import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
-import "../VotesMockUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import "../../governance/TimelockControllerUpgradeable.sol";
@@ -288,6 +286,12 @@ contract TRC20VotesUpgradeableWithInit is TRC20VotesUpgradeable {
     }
 }
 
+contract TRC721CrosschainUpgradeableWithInit is TRC721CrosschainUpgradeable {
+    constructor() payable initializer {
+        __TRC721Crosschain_init();
+    }
+}
+
 contract TRC2771ForwarderUpgradeableWithInit is TRC2771ForwarderUpgradeable {
     constructor(string memory name) payable initializer {
         __TRC2771Forwarder_init(name);
@@ -297,30 +301,6 @@ contract TRC2771ForwarderUpgradeableWithInit is TRC2771ForwarderUpgradeable {
 contract AccessControlTRC20MintBaseUpgradeableWithInit is AccessControlTRC20MintBaseUpgradeable {
     constructor(address minter) payable initializer {
         __AccessControlTRC20MintBase_init(minter);
-    }
-}
-
-contract AccessControlTRC20MintMissingUpgradeableWithInit is AccessControlTRC20MintMissingUpgradeable {
-    constructor() payable initializer {
-        __AccessControlTRC20MintMissing_init();
-    }
-}
-
-contract AccessControlTRC20MintUpgradeableWithInit is AccessControlTRC20MintUpgradeable {
-    constructor(address minter, address burner) payable initializer {
-        __AccessControlTRC20Mint_init(minter, burner);
-    }
-}
-
-contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
-    constructor() payable initializer {
-        __VotesMock_init();
-    }
-}
-
-contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
-    constructor() payable initializer {
-        __VotesTimestampMock_init();
     }
 }
 

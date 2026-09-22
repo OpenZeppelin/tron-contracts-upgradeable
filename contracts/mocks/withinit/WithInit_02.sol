@@ -2,6 +2,8 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../docs/access-control/AccessControlTRC20MintMissingUpgradeable.sol";
+import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
 import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
 import "../docs/token/TRC721/GameItemUpgradeable.sol";
 import "../MulticallHelperUpgradeable.sol";
@@ -12,12 +14,14 @@ import "../token/TRC20BridgeableMockUpgradeable.sol";
 import "../token/TRC4626FeesMockUpgradeable.sol";
 import "../token/TRC721URIStorageMockUpgradeable.sol";
 import "../TRC2771ContextMockUpgradeable.sol";
+import "../VotesMockUpgradeable.sol";
 import "../../token/TRC1155/extensions/TRC1155PausableUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20CrosschainUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721RoyaltyUpgradeable.sol";
 import "../../access/extensions/AccessControlDefaultAdminRulesUpgradeable.sol";
 import "../../access/extensions/AccessControlEnumerableUpgradeable.sol";
 import "../../crosschain/bridges/BridgeTRC20Upgradeable.sol";
+import "../../crosschain/bridges/BridgeTRC721Upgradeable.sol";
 import "../../crosschain/bridges/BridgeTRC7802Upgradeable.sol";
 import "../../finance/VestingWalletCliffUpgradeable.sol";
 import "../AccessManagerMockUpgradeable.sol";
@@ -49,12 +53,6 @@ import "../../access/manager/AccessManagerUpgradeable.sol";
 import "../../access/Ownable2StepUpgradeable.sol";
 import "../../finance/VestingWalletUpgradeable.sol";
 import "../AccessManagedTargetUpgradeable.sol";
-import "../docs/access-control/MyContractOwnableUpgradeable.sol";
-import "../docs/token/TRC20/GLDTokenUpgradeable.sol";
-import "../docs/TRC20WithAutoMinerRewardUpgradeable.sol";
-import "../docs/utilities/MulticallUpgradeable.sol";
-import "../PausableMockUpgradeable.sol";
-import "../ReentrancyMockUpgradeable.sol";
 import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20FlashMintUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
@@ -62,9 +60,20 @@ import "../../token/TRC6909/TRC6909Upgradeable.sol";
 import "../../access/manager/AccessManagedUpgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
 import "../ContextMockUpgradeable.sol";
-import "../ReentrancyAttackUpgradeable.sol";
 import "../../token/common/TRC2981Upgradeable.sol";
 import "../../utils/MulticallUpgradeable.sol";
+
+contract AccessControlTRC20MintMissingUpgradeableWithInit is AccessControlTRC20MintMissingUpgradeable {
+    constructor() payable initializer {
+        __AccessControlTRC20MintMissing_init();
+    }
+}
+
+contract AccessControlTRC20MintUpgradeableWithInit is AccessControlTRC20MintUpgradeable {
+    constructor(address minter, address burner) payable initializer {
+        __AccessControlTRC20Mint_init(minter, burner);
+    }
+}
 
 contract TRC6909GameItemsUpgradeableWithInit is TRC6909GameItemsUpgradeable {
     constructor() payable initializer {
@@ -135,6 +144,18 @@ contract TRC2771ContextMockUpgradeableWithInit is TRC2771ContextMockUpgradeable 
     constructor(address trustedForwarder) payable TRC2771ContextMockUpgradeable(trustedForwarder) initializer {}
 }
 
+contract VotesMockUpgradeableWithInit is VotesMockUpgradeable {
+    constructor() payable initializer {
+        __VotesMock_init();
+    }
+}
+
+contract VotesTimestampMockUpgradeableWithInit is VotesTimestampMockUpgradeable {
+    constructor() payable initializer {
+        __VotesTimestampMock_init();
+    }
+}
+
 contract TRC1155PausableUpgradeableWithInit is TRC1155PausableUpgradeable {
     constructor() payable initializer {
         __TRC1155Pausable_init();
@@ -168,6 +189,12 @@ contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUp
 contract BridgeTRC20UpgradeableWithInit is BridgeTRC20Upgradeable {
     constructor(ITRC20 token_) payable initializer {
         __BridgeTRC20_init(token_);
+    }
+}
+
+contract BridgeTRC721UpgradeableWithInit is BridgeTRC721Upgradeable {
+    constructor(ITRC721 token_) payable initializer {
+        __BridgeTRC721_init(token_);
     }
 }
 
@@ -357,42 +384,6 @@ contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeabl
     }
 }
 
-contract MyContractUpgradeableWithInit is MyContractUpgradeable {
-    constructor(address initialOwner) payable initializer {
-        __MyContract_init(initialOwner);
-    }
-}
-
-contract GLDTokenUpgradeableWithInit is GLDTokenUpgradeable {
-    constructor(uint256 initialSupply) payable initializer {
-        __GLDToken_init(initialSupply);
-    }
-}
-
-contract TRC20WithAutoMinerRewardUpgradeableWithInit is TRC20WithAutoMinerRewardUpgradeable {
-    constructor() payable initializer {
-        __TRC20WithAutoMinerReward_init();
-    }
-}
-
-contract BoxUpgradeableWithInit is BoxUpgradeable {
-    constructor() payable initializer {
-        __Box_init();
-    }
-}
-
-contract PausableMockUpgradeableWithInit is PausableMockUpgradeable {
-    constructor() payable initializer {
-        __PausableMock_init();
-    }
-}
-
-contract ReentrancyMockUpgradeableWithInit is ReentrancyMockUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyMock_init();
-    }
-}
-
 contract TRC1155UpgradeableWithInit is TRC1155Upgradeable {
     constructor(string memory uri_) payable initializer {
         __TRC1155_init(uri_);
@@ -438,12 +429,6 @@ contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
 contract ContextMockCallerUpgradeableWithInit is ContextMockCallerUpgradeable {
     constructor() payable initializer {
         __ContextMockCaller_init();
-    }
-}
-
-contract ReentrancyAttackUpgradeableWithInit is ReentrancyAttackUpgradeable {
-    constructor() payable initializer {
-        __ReentrancyAttack_init();
     }
 }
 
