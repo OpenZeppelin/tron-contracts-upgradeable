@@ -57,6 +57,7 @@ import {SignedMath} from "@openzeppelin/tron-contracts/utils/math/SignedMath.sol
 import {StorageSlot} from "@openzeppelin/tron-contracts/utils/StorageSlot.sol";
 import {Strings} from "@openzeppelin/tron-contracts/utils/Strings.sol";
 import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {TRC6372Utils} from "@openzeppelin/tron-contracts/utils/TRC6372Utils.sol";
 import {TrieProof} from "@openzeppelin/tron-contracts/utils/cryptography/TrieProof.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 

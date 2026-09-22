@@ -7,6 +7,7 @@ import {GovernorUpgradeable} from "../GovernorUpgradeable.sol";
 import {IVotes} from "@openzeppelin/tron-contracts/governance/utils/IVotes.sol";
 import {ITRC5805} from "@openzeppelin/tron-contracts/interfaces/ITRC5805.sol";
 import {Time} from "@openzeppelin/tron-contracts/utils/types/Time.sol";
+import {TRC6372Utils} from "@openzeppelin/tron-contracts/utils/TRC6372Utils.sol";
 import {Initializable} from "@openzeppelin/tron-contracts/proxy/utils/Initializable.sol";
 
 /**
@@ -66,7 +67,7 @@ abstract contract GovernorVotesUpgradeable is Initializable, GovernorUpgradeable
         try token().CLOCK_MODE() returns (string memory clockmode) {
             return clockmode;
         } catch {
-            return "mode=blocknumber&from=default";
+            return TRC6372Utils.blockNumberClockMode(clock);
         }
     }
 
