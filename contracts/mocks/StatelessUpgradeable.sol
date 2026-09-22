@@ -18,6 +18,7 @@ import {CAIP10} from "@openzeppelin/tron-contracts/utils/CAIP10.sol";
 import {Checkpoints} from "@openzeppelin/tron-contracts/utils/structs/Checkpoints.sol";
 import {CircularBuffer} from "@openzeppelin/tron-contracts/utils/structs/CircularBuffer.sol";
 import {Clones} from "@openzeppelin/tron-contracts/proxy/Clones.sol";
+import {TRC1967Clones} from "@openzeppelin/tron-contracts/proxy/TRC1967/TRC1967Clones.sol";
 import {Create2} from "@openzeppelin/tron-contracts/utils/Create2.sol";
 import {DoubleEndedQueue} from "@openzeppelin/tron-contracts/utils/structs/DoubleEndedQueue.sol";
 import {ECDSA} from "@openzeppelin/tron-contracts/utils/cryptography/ECDSA.sol";
