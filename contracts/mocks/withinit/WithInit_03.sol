@@ -2,6 +2,10 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../../token/TRC721/extensions/TRC721BurnableUpgradeable.sol";
+import "../../token/TRC721/extensions/TRC721WrapperUpgradeable.sol";
+import "../../access/Ownable2StepUpgradeable.sol";
+import "../AccessManagedTargetUpgradeable.sol";
 import "../docs/access-control/MyContractOwnableUpgradeable.sol";
 import "../docs/token/TRC20/GLDTokenUpgradeable.sol";
 import "../docs/TRC20WithAutoMinerRewardUpgradeable.sol";
@@ -57,6 +61,30 @@ import "../TRC3156FlashBorrowerMockUpgradeable.sol";
 import "../UpgradeableBeaconMockUpgradeable.sol";
 import "../../utils/cryptography/signers/MultiSignerTRC7913Upgradeable.sol";
 import "../../utils/cryptography/signers/SignerTRC7913Upgradeable.sol";
+
+contract TRC721BurnableUpgradeableWithInit is TRC721BurnableUpgradeable {
+    constructor() payable initializer {
+        __TRC721Burnable_init();
+    }
+}
+
+contract TRC721WrapperUpgradeableWithInit is TRC721WrapperUpgradeable {
+    constructor(ITRC721 underlyingToken) payable initializer {
+        __TRC721Wrapper_init(underlyingToken);
+    }
+}
+
+contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
+    constructor() payable initializer {
+        __Ownable2Step_init();
+    }
+}
+
+contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeable {
+    constructor() payable initializer {
+        __AccessManagedTarget_init();
+    }
+}
 
 contract MyContractUpgradeableWithInit is MyContractUpgradeable {
     constructor(address initialOwner) payable initializer {

@@ -31,10 +31,9 @@ import "../token/TRC20VotesLegacyMockUpgradeable.sol";
 import "../token/TRC721ConsecutiveEnumerableMockUpgradeable.sol";
 import "../utils/cryptography/TRC7739MockUpgradeable.sol";
 import "../VotesExtendedMockUpgradeable.sol";
+import "../../token/TRC1155/extensions/TRC1155CrosschainUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20VotesUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721CrosschainUpgradeable.sol";
-import "../../metatx/TRC2771ForwarderUpgradeable.sol";
-import "../docs/access-control/AccessControlTRC20MintBaseUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC20PermitUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721PausableUpgradeable.sol";
 import "../../governance/TimelockControllerUpgradeable.sol";
@@ -42,9 +41,9 @@ import "../../token/TRC20/extensions/draft-TRC3009Upgradeable.sol";
 import "../../token/TRC721/extensions/TRC721ConsecutiveUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721EnumerableUpgradeable.sol";
 import "../../access/AccessControlUpgradeable.sol";
+import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20WrapperUpgradeable.sol";
 import "../../token/TRC721/TRC721Upgradeable.sol";
-import "../../metatx/TRC2771ContextUpgradeable.sol";
 import "../../token/TRC20/TRC20Upgradeable.sol";
 import "../../utils/NoncesKeyedUpgradeable.sol";
 import "../../utils/PausableUpgradeable.sol";
@@ -280,6 +279,12 @@ contract VotesExtendedTimestampMockUpgradeableWithInit is VotesExtendedTimestamp
     }
 }
 
+contract TRC1155CrosschainUpgradeableWithInit is TRC1155CrosschainUpgradeable {
+    constructor() payable initializer {
+        __TRC1155Crosschain_init();
+    }
+}
+
 contract TRC20VotesUpgradeableWithInit is TRC20VotesUpgradeable {
     constructor() payable initializer {
         __TRC20Votes_init();
@@ -289,18 +294,6 @@ contract TRC20VotesUpgradeableWithInit is TRC20VotesUpgradeable {
 contract TRC721CrosschainUpgradeableWithInit is TRC721CrosschainUpgradeable {
     constructor() payable initializer {
         __TRC721Crosschain_init();
-    }
-}
-
-contract TRC2771ForwarderUpgradeableWithInit is TRC2771ForwarderUpgradeable {
-    constructor(string memory name) payable initializer {
-        __TRC2771Forwarder_init(name);
-    }
-}
-
-contract AccessControlTRC20MintBaseUpgradeableWithInit is AccessControlTRC20MintBaseUpgradeable {
-    constructor(address minter) payable initializer {
-        __AccessControlTRC20MintBase_init(minter);
     }
 }
 
@@ -351,6 +344,12 @@ contract AccessControlUpgradeableWithInit is AccessControlUpgradeable {
     }
 }
 
+contract TRC1155UpgradeableWithInit is TRC1155Upgradeable {
+    constructor(string memory uri_) payable initializer {
+        __TRC1155_init(uri_);
+    }
+}
+
 contract TRC20WrapperUpgradeableWithInit is TRC20WrapperUpgradeable {
     constructor(ITRC20 underlyingToken) payable initializer {
         __TRC20Wrapper_init(underlyingToken);
@@ -361,10 +360,6 @@ contract TRC721UpgradeableWithInit is TRC721Upgradeable {
     constructor(string memory name_, string memory symbol_) payable initializer {
         __TRC721_init(name_, symbol_);
     }
-}
-
-contract TRC2771ContextUpgradeableWithInit is TRC2771ContextUpgradeable {
-    constructor(address trustedForwarder_) payable TRC2771ContextUpgradeable(trustedForwarder_) initializer {}
 }
 
 contract TRC20UpgradeableWithInit is TRC20Upgradeable {

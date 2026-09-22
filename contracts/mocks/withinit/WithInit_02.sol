@@ -2,6 +2,8 @@
 pragma solidity >=0.7 <0.9;
 pragma experimental ABIEncoderV2;
 
+import "../../metatx/TRC2771ForwarderUpgradeable.sol";
+import "../docs/access-control/AccessControlTRC20MintBaseUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintMissingUpgradeable.sol";
 import "../docs/access-control/AccessControlTRC20MintOnlyRoleUpgradeable.sol";
 import "../docs/token/TRC6909/TRC6909GameItemsUpgradeable.sol";
@@ -20,6 +22,7 @@ import "../../token/TRC20/extensions/TRC20CrosschainUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721RoyaltyUpgradeable.sol";
 import "../../access/extensions/AccessControlDefaultAdminRulesUpgradeable.sol";
 import "../../access/extensions/AccessControlEnumerableUpgradeable.sol";
+import "../../crosschain/bridges/BridgeTRC1155Upgradeable.sol";
 import "../../crosschain/bridges/BridgeTRC20Upgradeable.sol";
 import "../../crosschain/bridges/BridgeTRC721Upgradeable.sol";
 import "../../crosschain/bridges/BridgeTRC7802Upgradeable.sol";
@@ -46,22 +49,30 @@ import "../../token/TRC20/extensions/TRC20PausableUpgradeable.sol";
 import "../../token/TRC6909/extensions/TRC6909ContentURIUpgradeable.sol";
 import "../../token/TRC6909/extensions/TRC6909MetadataUpgradeable.sol";
 import "../../token/TRC6909/extensions/TRC6909TokenSupplyUpgradeable.sol";
-import "../../token/TRC721/extensions/TRC721BurnableUpgradeable.sol";
 import "../../token/TRC721/extensions/TRC721URIStorageUpgradeable.sol";
-import "../../token/TRC721/extensions/TRC721WrapperUpgradeable.sol";
 import "../../access/manager/AccessManagerUpgradeable.sol";
-import "../../access/Ownable2StepUpgradeable.sol";
 import "../../finance/VestingWalletUpgradeable.sol";
-import "../AccessManagedTargetUpgradeable.sol";
-import "../../token/TRC1155/TRC1155Upgradeable.sol";
 import "../../token/TRC20/extensions/TRC20FlashMintUpgradeable.sol";
 import "../../token/TRC20/extensions/TRC4626Upgradeable.sol";
 import "../../token/TRC6909/TRC6909Upgradeable.sol";
 import "../../access/manager/AccessManagedUpgradeable.sol";
 import "../../access/OwnableUpgradeable.sol";
+import "../../metatx/TRC2771ContextUpgradeable.sol";
 import "../ContextMockUpgradeable.sol";
 import "../../token/common/TRC2981Upgradeable.sol";
 import "../../utils/MulticallUpgradeable.sol";
+
+contract TRC2771ForwarderUpgradeableWithInit is TRC2771ForwarderUpgradeable {
+    constructor(string memory name) payable initializer {
+        __TRC2771Forwarder_init(name);
+    }
+}
+
+contract AccessControlTRC20MintBaseUpgradeableWithInit is AccessControlTRC20MintBaseUpgradeable {
+    constructor(address minter) payable initializer {
+        __AccessControlTRC20MintBase_init(minter);
+    }
+}
 
 contract AccessControlTRC20MintMissingUpgradeableWithInit is AccessControlTRC20MintMissingUpgradeable {
     constructor() payable initializer {
@@ -183,6 +194,12 @@ contract AccessControlDefaultAdminRulesUpgradeableWithInit is AccessControlDefau
 contract AccessControlEnumerableUpgradeableWithInit is AccessControlEnumerableUpgradeable {
     constructor() payable initializer {
         __AccessControlEnumerable_init();
+    }
+}
+
+contract BridgeTRC1155UpgradeableWithInit is BridgeTRC1155Upgradeable {
+    constructor(ITRC1155 token_) payable initializer {
+        __BridgeTRC1155_init(token_);
     }
 }
 
@@ -342,21 +359,9 @@ contract TRC6909TokenSupplyUpgradeableWithInit is TRC6909TokenSupplyUpgradeable 
     }
 }
 
-contract TRC721BurnableUpgradeableWithInit is TRC721BurnableUpgradeable {
-    constructor() payable initializer {
-        __TRC721Burnable_init();
-    }
-}
-
 contract TRC721URIStorageUpgradeableWithInit is TRC721URIStorageUpgradeable {
     constructor() payable initializer {
         __TRC721URIStorage_init();
-    }
-}
-
-contract TRC721WrapperUpgradeableWithInit is TRC721WrapperUpgradeable {
-    constructor(ITRC721 underlyingToken) payable initializer {
-        __TRC721Wrapper_init(underlyingToken);
     }
 }
 
@@ -366,27 +371,9 @@ contract AccessManagerUpgradeableWithInit is AccessManagerUpgradeable {
     }
 }
 
-contract Ownable2StepUpgradeableWithInit is Ownable2StepUpgradeable {
-    constructor() payable initializer {
-        __Ownable2Step_init();
-    }
-}
-
 contract VestingWalletUpgradeableWithInit is VestingWalletUpgradeable {
     constructor(address beneficiary, uint64 startTimestamp, uint64 durationSeconds) payable initializer {
         __VestingWallet_init(beneficiary, startTimestamp, durationSeconds);
-    }
-}
-
-contract AccessManagedTargetUpgradeableWithInit is AccessManagedTargetUpgradeable {
-    constructor() payable initializer {
-        __AccessManagedTarget_init();
-    }
-}
-
-contract TRC1155UpgradeableWithInit is TRC1155Upgradeable {
-    constructor(string memory uri_) payable initializer {
-        __TRC1155_init(uri_);
     }
 }
 
@@ -418,6 +405,10 @@ contract OwnableUpgradeableWithInit is OwnableUpgradeable {
     constructor(address initialOwner) payable initializer {
         __Ownable_init(initialOwner);
     }
+}
+
+contract TRC2771ContextUpgradeableWithInit is TRC2771ContextUpgradeable {
+    constructor(address trustedForwarder_) payable TRC2771ContextUpgradeable(trustedForwarder_) initializer {}
 }
 
 contract ContextMockUpgradeableWithInit is ContextMockUpgradeable {
